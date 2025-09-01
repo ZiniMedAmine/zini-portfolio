@@ -724,6 +724,103 @@ a{color:inherit;text-decoration:none}
   }
 }
 
+/* Mobile styles for development project modals */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95vw;
+    max-height: 95vh;
+    margin: 16px;
+  }
+  
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .modal-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .modal-image {
+    height: 200px;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.4rem;
+  }
+  
+  .modal-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .modal-actions {
+    gap: 8px;
+  }
+  
+  .modal-actions .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 98vw;
+    max-height: 98vh;
+    margin: 8px;
+    border-radius: 16px;
+  }
+  
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-image {
+    height: 180px;
+  }
+  
+  .modal-body {
+    padding: 16px;
+  }
+  
+  .modal-title {
+    font-size: 1.2rem;
+  }
+  
+  .modal-description {
+    font-size: 13px;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .modal-actions .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
 .contact{display:grid; gap:40px}
 .contact-title{font-size:clamp(36px,5vw,56px); margin:0 0 48px 0; text-align:center; font-weight:700}
 .contact-content{display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:stretch}
