@@ -518,23 +518,27 @@ function App() {
               <div className="skills-category">
                 <div className="skills-category-label">General Skills</div>
                 <div className="skills-category-card">
-                  <h3>Video Editing</h3>
+                  <h3>General Skills</h3>
                   <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '60%'}}>
-                      <div className="skill-name">Adobe Premiere Pro</div>
+                    <div className="skill-item" style={{'--skill-width': '95%'}}>
+                      <div className="skill-name">Analytical Thinking</div>
+                      <div className="skill-level">Advanced</div>
+                    </div>
+                    <div className="skill-item" style={{'--skill-width': '90%'}}>
+                      <div className="skill-name">Emotional Intelligence</div>
+                      <div className="skill-level">Advanced</div>
+                    </div>
+                    <div className="skill-item" style={{'--skill-width': '85%'}}>
+                      <div className="skill-name">Business Communication</div>
                       <div className="skill-level">Proficient</div>
                     </div>
-                    <div className="skill-item" style={{'--skill-width': '30%'}}>
-                      <div className="skill-name">Adobe After Effects</div>
+                    <div className="skill-item" style={{'--skill-width': '70%'}}>
+                      <div className="skill-name">E-commerce</div>
                       <div className="skill-level">Intermediate</div>
                     </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Wondershare Filmora</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Capcut</div>
-                      <div className="skill-level">Advanced</div>
+                    <div className="skill-item" style={{'--skill-width': '75%'}}>
+                      <div className="skill-name">Sales</div>
+                      <div className="skill-level">Proficient</div>
                     </div>
                   </div>
                 </div>
