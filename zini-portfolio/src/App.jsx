@@ -331,7 +331,7 @@ function App() {
                 </div>
 
                 <div className="tools-grid">
-                  <h3>Tools I Master</h3>
+                  <h3>Design Tools I Master</h3>
                   <div className="tool-icons">
                     <div className="tool-icon" title="Adobe Photoshop">
                       <div className="tool-bg" style={{background: 'linear-gradient(135deg, #31A8FF, #0078D4)'}}>Ps</div>
@@ -345,17 +345,17 @@ function App() {
                       <div className="tool-bg" style={{background: 'linear-gradient(135deg, #F24E1E, #A259FF)'}}>Fi</div>
                       <span>Figma</span>
                     </div>
-                    <div className="tool-icon" title="React">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #61DAFB, #21759B)'}}>Re</div>
-                      <span>React</span>
+                    <div className="tool-icon" title="Canva">
+                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #00C4CC, #7B68EE)'}}>Ca</div>
+                      <span>Canva</span>
                     </div>
-                    <div className="tool-icon" title="Node.js">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #68A063, #3C873A)'}}>Nd</div>
-                      <span>Node.js</span>
+                    <div className="tool-icon" title="Adobe Premiere Pro">
+                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #9999FF, #EA77FF)'}}>Pr</div>
+                      <span>Premiere</span>
                     </div>
-                    <div className="tool-icon" title="MongoDB">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #4DB33D, #3F9A2F)'}}>Db</div>
-                      <span>MongoDB</span>
+                    <div className="tool-icon" title="Filmora">
+                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #00D4AA, #00A3FF)'}}>Fi</div>
+                      <span>Filmora</span>
                     </div>
                   </div>
                 </div>
