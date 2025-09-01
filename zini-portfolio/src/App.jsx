@@ -1,6 +1,41 @@
 import './index.css'
 import { useEffect, useRef } from 'react'
 
+// Import all images
+import skepticLogo from './assets/Skeptic.webp'
+import behanceIcon from './assets/behance-circle.svg'
+import spacePlanetArt from './assets/Space_Planet_Art.webp'
+import spaceDoodleArt from './assets/Space_doodle_artwork.webp'
+import bipolarArt from './assets/bipolar_disorder_digital_art.webp'
+import mementoMori from './assets/Memento_mori.webp'
+import fightClub from './assets/FightClub.webp'
+import curiositySkeptic from './assets/curiositykillstheskeptic.webp'
+import tunisiaFront from './assets/Tunisia_Front.webp'
+import tunisiaBack from './assets/Tunisia_Back.webp'
+import hegelsHotel from './assets/Hegels_hotel_california.webp'
+import skepticLogo1 from './assets/skeptic_logo_1.webp'
+import skepticLogo2 from './assets/skeptic_logo_2.webp'
+import skepticLogo3 from './assets/skeptic_logo_3.webp'
+import deadWelder from './assets/The_dead_welder.webp'
+import bioaura from './assets/bioaura.webp'
+import todo1 from './assets/todo1.webp'
+import todo2 from './assets/todo2.webp'
+import flyer1 from './assets/F1.webp'
+import flyer2 from './assets/F2.webp'
+import flyer3 from './assets/F3.webp'
+import flyer4 from './assets/F4.webp'
+import skepticTshirt from './assets/skepticTshirt.webp'
+import kant1 from './assets/Kant1.webp'
+import kant2 from './assets/Kant2.webp'
+import cogito from './assets/Cogito.webp'
+import problemImage from './assets/problem.webp'
+import dermaIn from './assets/derma-in.webp'
+import jradBeauty from './assets/jradbeauty.webp'
+import ttWebsite from './assets/ttwebsite.webp'
+import invoiceScan from './assets/InvoiceScan.webp'
+import reactCalculator from './assets/reactcalculator.webp'
+import portfolioWebsite from './assets/portfoliowebsite.webp'
+
 function App() {
   const yearRef = useRef(null)
   const progressRef = useRef(null)
@@ -134,7 +169,7 @@ function App() {
 
       <header className="site-header">
         <a href="#home" className="brand" aria-label="Home">
-          <img src="/src/assets/Skeptic.webp" alt="Skeptic Logo" style={{height: '28px', width: 'auto'}} />
+          <img src={skepticLogo} alt="Skeptic Logo" style={{height: '28px', width: 'auto'}} />
           <span>Mohamed Amine Zini</span>
         </a>
         <div className="spacer" />
@@ -183,7 +218,7 @@ function App() {
                   </svg>
                 </a>
                 <a href="https://www.behance.net/ZiniMedAmine" target="_blank" rel="noopener noreferrer" aria-label="Behance" className="icon-link">
-                  <img src="/src/assets/behance-circle.svg" alt="Behance" width="24" height="24" style={{filter: 'brightness(0) invert(1)'}} />
+                  <img src={behanceIcon} alt="Behance" width="24" height="24" style={{filter: 'brightness(0) invert(1)'}} />
                 </a>
                 <a href="https://github.com/ZiniMedAmine" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="icon-link">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -701,7 +736,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/233604109/Space-digital-illustration",
                       images: [
-                        "/src/assets/Space_Planet_Art.webp",
+                        spacePlanetArt,
                       ]
                     },
                     {
@@ -712,7 +747,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/181236815/Space-doodle-art",
                       images: [
-                        "/src/assets/Space_doodle_artwork.webp",
+                        spaceDoodleArt,
                       ]
                     },
                     {
@@ -723,7 +758,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/205355239/Bipolar-disorder-digital-art",
                       images: [
-                        "/src/assets/bipolar_disorder_digital_art.webp",
+                        bipolarArt,
                       ]
                     },
                     {
@@ -734,7 +769,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/209749997/Memento-mori-design",
                       images: [
-                        "/src/assets/Memento_mori.webp",
+                        mementoMori,
                       ]
                     },
                     {
@@ -745,7 +780,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/206744351/Fight-Club-Poster-Artwork",
                       images: [
-                        "/src/assets/FightClub.webp",
+                        fightClub,
                       ]
                     },
                     {
@@ -756,7 +791,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/205354867/Curiosity-kills-the-skeptic-digital-artwork",
                       images: [
-                        "/src/assets/curiositykillstheskeptic.webp",
+                        curiositySkeptic,
                       ]
                     },
                     {
@@ -767,8 +802,8 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/207066209/Tunisia-The-quantum-society-Digital-Art",
                       images: [
-                        "/src/assets/Tunisia_Front.webp",
-                        "/src/assets/Tunisia_Back.webp"
+                        tunisiaFront,
+                        tunisiaBack
                       ]
                     },
                     {
@@ -779,7 +814,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/206487429/Eagles-Hotel-California-Album-Cover-Rework",
                       images: [
-                        "/src/assets/Hegels_hotel_california.webp",
+                        hegelsHotel,
                       ]
                     },
                     {
@@ -790,9 +825,9 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/178779857/Skeptic-Logo-design",
                       images: [
-                        "/src/assets/skeptic_logo_3.webp",
-                        "/src/assets/skeptic_logo_1.webp",
-                        "/src/assets/skeptic_logo_2.webp"
+                        skepticLogo3,
+                        skepticLogo1,
+                        skepticLogo2
                       ]
                     },
                     {
@@ -803,7 +838,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/179077249/The-Dead-Welder-Logo-Design",
                       images: [
-                        "/src/assets/The_dead_welder.webp",
+                        deadWelder,
                       ]
                     },
                     {
@@ -814,7 +849,7 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/180198681/BioAura-Cosmetics",
                       images: [
-                        "/src/assets/bioaura.webp",
+                        bioaura,
                       ]
                     },
                     {
@@ -825,8 +860,8 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/208940377/TO-DO-Notebook-Cover-Designs",
                       images: [
-                        "/src/assets/todo1.webp",
-                        "/src/assets/todo2.webp"
+                        todo1,
+                        todo2
                       ]
                     },
                     {
@@ -837,10 +872,10 @@ function App() {
                       type: "design",
                       behanceUrl: "https://www.behance.net/gallery/233602985/Derma-In-Laboratory-Flyer-Design",
                       images: [
-                        "/src/assets/F1.webp",
-                        "/src/assets/F2.webp",
-                        "/src/assets/F3.webp",
-                        "/src/assets/F4.webp"
+                        flyer1,
+                        flyer2,
+                        flyer3,
+                        flyer4
                       ]
                     },
                     {
@@ -852,11 +887,11 @@ function App() {
                       linkUrl: "https://www.teepublic.com/user/skeptic-styles",
                       linkType: "teepublic",
                       images: [
-                        "/src/assets/skepticTshirt.webp",
-                        "/src/assets/Kant1.webp",
-                        "/src/assets/Kant2.webp",
-                        "/src/assets/Cogito.webp",
-                        "/src/assets/problem.webp"
+                        skepticTshirt,
+                        kant1,
+                        kant2,
+                        cogito,
+                        problemImage
                       ]
                     }
                   ].map((project) => (
@@ -925,7 +960,7 @@ function App() {
                       description: "A functional & responsive E-commerce website for derma-in laboratory, created using wordpress. Designed to help the company manage its orders and products through a user-friendly UI",
                       tag: "Wordpress",
                       type: "dev",
-                      image: "/src/assets/derma-in.webp",
+                      image: dermaIn,
                       liveUrl: "https://www.derma-in.com",
                       codeUrl: "https://www.derma-in.com",
                       tech: ["Wordpress", "Elementor", "Woocommerce", "PHP", "SEO", "YoastSEO"]
@@ -936,7 +971,7 @@ function App() {
                       description: "A responsive wordpress blog website for Jrad Beauty Center that helps the clients get to know the project and better reach it through a user-friendly and minimalist UI.",
                       tag: "Wordpress",
                       type: "dev",
-                      image: "/src/assets/jradbeauty.webp",
+                      image: jradBeauty,
                       liveUrl: "https://jradbeautycenter.tn/",
                       codeUrl: "https://jradbeautycenter.tn/",
                       tech: ["Wordpress", "Elementor", "PHP", "SEO", "RankMath"]
@@ -947,7 +982,7 @@ function App() {
                       description: "A website for Tunisie Telecom, which is a website that manages social activities, accounts and offers of Tunisie Telecom Employees developed using MERN Stack.",
                       tag: "MERN STACK",
                       type: "dev",
-                      image: "/src/assets/ttwebsite.webp",
+                      image: ttWebsite,
                       liveUrl: "https://github.com/ZiniMedAmine/TTApp",
                       codeUrl: "https://github.com/ZiniMedAmine/TTApp",
                       tech: ["HTML/CSS","React", "Express JS", "MongoDB", "NodeJS"]
@@ -958,7 +993,7 @@ function App() {
                       description: "A website through which the user can scan any document image and get the relevant data and the document type in a useable JSON, Word or PDF file within seconds.",
                       tag: "Django/AI Web",
                       type: "dev",
-                      image: "/src/assets/InvoiceScan.webp",
+                      image: invoiceScan,
                       liveUrl: "https://github.com/ZiniMedAmine/InvoiceScan",
                       codeUrl: "https://github.com/ZiniMedAmine/InvoiceScan",
                       tech: ["Python", "Django", "REST API", "OCR", "OpenCV", "Tesserract", "Prompt Engineering", "Gemini"]
@@ -969,7 +1004,7 @@ function App() {
                       description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time",
                       tag: "React",
                       type: "dev",
-                      image: "/src/assets/reactcalculator.webp",
+                      image: reactCalculator,
                       liveUrl: "https://github.com/ZiniMedAmine/React-Calculator",
                       codeUrl: "https://github.com/ZiniMedAmine/React-Calculator",
                       tech: ["React", "NodeJS", "TailwindCSS"]
@@ -980,7 +1015,7 @@ function App() {
                       description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time",
                       tag: "React",
                       type: "dev",
-                      image: "/src/assets/portfoliowebsite.webp",
+                      image: portfolioWebsite,
                       liveUrl: "#",
                       codeUrl: "#",
                       tech: ["React", "NodeJS"]
@@ -1133,7 +1168,7 @@ function App() {
                     </svg>
                   </a>
                   <a href="https://www.behance.net/ZiniMedAmine" target="_blank" rel="noopener noreferrer" aria-label="Behance" className="icon-link magnetic">
-                    <img src="/src/assets/behance-circle.svg" alt="Behance" width="28" height="28" style={{filter: 'brightness(0) invert(1)'}} />
+                    <img src={behanceIcon} alt="Behance" width="28" height="28" style={{filter: 'brightness(0) invert(1)'}} />
                   </a>
                   <a href="https://github.com/ZiniMedAmine" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="icon-link magnetic">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
