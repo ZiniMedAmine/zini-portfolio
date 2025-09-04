@@ -333,7 +333,7 @@ function App() {
                     <span className="stat-label">Followers</span>
                   </div>
                 </div>
-
+                
                 <div className="tools-grid">
                   <h3>Design Tools I Master</h3>
                   <div className="tool-icons">
