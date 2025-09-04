@@ -1,5 +1,6 @@
 import './index.css'
 import { useEffect, useRef } from 'react'
+import { MobileNav } from './components/MobileNav'
 
 // Import all images
 import skepticLogo from './assets/Skeptic.webp'
@@ -159,6 +160,9 @@ function App() {
   return (
     <>
       <div id="scroll-progress" aria-hidden="true" ref={progressRef} />
+
+      {/* Mobile Navigation */}
+      <MobileNav />
 
       <div className="bg-accents" aria-hidden="true">
         <div className="blob blob-a" />
