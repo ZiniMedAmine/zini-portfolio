@@ -535,8 +535,8 @@ a{color:inherit;text-decoration:none}
 .gallery-content {
   width: 90vw;
   max-width: 1200px;
-  height: 70vh;
-  max-height: 70vh;
+  height: 75vh;
+  max-height: 75vh;
   background: linear-gradient(180deg, rgba(16, 16, 24, 0.95), rgba(12, 12, 18, 0.95));
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -991,8 +991,8 @@ a{color:inherit;text-decoration:none}
 @media (max-width: 768px) {
   .gallery-content {
     width: 95vw;
-    height: 65vh;
-    max-height: 65vh;
+    height: 75vh;
+    max-height: 75vh;
     padding: 20px;
     overflow-y: auto;
     box-sizing: border-box;
@@ -1012,13 +1012,13 @@ a{color:inherit;text-decoration:none}
   
   .gallery-slide {
     height: 100%;
-    max-height: calc(65vh - 120px);
+    max-height: calc(75vh - 80px);
   }
   
   .gallery-slide img {
     width: 100%;
     height: 100%;
-    max-height: calc(65vh - 120px);
+    max-height: calc(75vh - 80px);
     object-fit: contain;
   }
 }
@@ -1026,8 +1026,8 @@ a{color:inherit;text-decoration:none}
 @media (max-width: 480px) {
   .gallery-content {
     width: 98vw;
-    height: 60vh;
-    max-height: 60vh;
+    height: 75vh;
+    max-height: 75vh;
     padding: 16px;
     overflow-y: auto;
     box-sizing: border-box;
@@ -1075,13 +1075,13 @@ a{color:inherit;text-decoration:none}
   
   .gallery-slide {
     height: 100%;
-    max-height: calc(60vh - 100px);
+    max-height: calc(75vh - 70px);
   }
   
   .gallery-slide img {
     width: 100%;
     height: 100%;
-    max-height: calc(60vh - 100px);
+    max-height: calc(75vh - 70px);
     object-fit: contain;
   }
   
