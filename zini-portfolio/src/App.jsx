@@ -73,12 +73,12 @@ function App() {
     })
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting && e.intersectionRatio > 0.5) {
+        if (e.isIntersecting && e.intersectionRatio > 0.3) {
           const idx = sections.indexOf(e.target)
           buttons.forEach((b, i) => b.classList.toggle('active', i === idx))
         }
       })
-    }, { threshold: [0.5] })
+    }, { threshold: [0.3, 0.5, 0.7] })
     sections.forEach((s) => io.observe(s))
     return () => io.disconnect()
   }, [])
