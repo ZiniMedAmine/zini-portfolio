@@ -41,6 +41,7 @@ import portfolioWebsite from './assets/portfoliowebsite.webp'
 function App() {
   const yearRef = useRef(null)
   const progressRef = useRef(null)
+  const titleRef = useRef(null)
 
   useEffect(() => {
     const onScroll = () => {
@@ -158,6 +159,40 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscKey)
   }, [])
 
+  // Alternating title effect
+  useEffect(() => {
+    const titles = ['Graphic Designer', 'Web Developer']
+    let currentIndex = 0 // Start at 0 (Graphic Designer)
+    let intervalId = null
+    
+    const titleElement = titleRef.current
+    if (!titleElement) return
+    
+    const changeTitle = () => {
+      // Fade out
+      titleElement.style.opacity = '0'
+      
+      // After fade out completes, change text and fade in
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % titles.length
+        titleElement.textContent = titles[currentIndex]
+        titleElement.style.opacity = '1'
+      }, 500) // Match CSS transition duration
+    }
+    
+    // Start alternating after 3 seconds, then every 3.5 seconds consistently
+    const initialTimeout = setTimeout(() => {
+      changeTitle()
+      // Set up interval for consistent 3.5s cycles after first change
+      intervalId = setInterval(changeTitle, 3500)
+    }, 3000)
+    
+    return () => {
+      clearTimeout(initialTimeout)
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [])
+
   return (
     <>
       <div id="scroll-progress" aria-hidden="true" ref={progressRef} />
@@ -194,7 +229,7 @@ function App() {
               <p className="eyebrow">Available for freelance</p>
               <h1>
                 Mohamed Amine Zini
-                <span className="gradient">Graphic Designer</span>
+                <span className="gradient" ref={titleRef}>Graphic Designer</span>
               </h1>
               <p className="lede">I blend graphic design artistry with robust, scalable web development to craft distinctive brand identities and interactive digital experiences.</p>
               <div className="cta-row">
@@ -589,7 +624,7 @@ function App() {
                     <div className="achievements">
                       <div className="achievement">
                         <span className="achievement-icon">🚀</span>
-                        <span>10+ projects delivered</span>
+                        <span>6+ projects delivered</span>
                       </div>
                       <div className="achievement">
                         <span className="achievement-icon">⭐</span>
@@ -670,12 +705,20 @@ function App() {
                     </div>
                     <div className="achievements">
                       <div className="achievement">
-                        <span className="achievement-icon">📈</span>
-                        <span>60% accuracy improvement</span>
+                        <span className="achievement-icon">👨‍💻</span>
+                        <span>Python</span>
+                      </div>
+                      <div className="achievement">
+                        <span className="achievement-icon">🤖</span>
+                        <span>Prompt Engineering</span>
+                      </div>
+                      <div className="achievement">
+                        <span className="achievement-icon">📄</span>
+                        <span>OCR Technology</span>
                       </div>
                       <div className="achievement">
                         <span className="achievement-icon">🎓</span>
-                        <span>Graduation project</span>
+                        <span>Graduation</span>
                       </div>
                     </div>
                   </div>
@@ -710,6 +753,10 @@ function App() {
                       <span className="tech-tag">Team Work</span>
                     </div>
                     <div className="achievements">
+                      <div className="achievement">
+                        <span className="achievement-icon">👨‍💻</span>
+                        <span>MERN Stack</span>
+                      </div>
                       <div className="achievement">
                         <span className="achievement-icon">👥</span>
                         <span>Team collaboration</span>
