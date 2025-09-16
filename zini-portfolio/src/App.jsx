@@ -1068,7 +1068,7 @@ function App() {
                     {
                       id: 10,
                       title: "My Portfolio Website",
-                      description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time",
+                      description: "Explore my personal React portfolio, where I bring creativity and code together—showcasing my graphic design projects, web development work, professional experience, and ways to connect.",
                       tag: "React",
                       type: "dev",
                       image: portfolioWebsite,
