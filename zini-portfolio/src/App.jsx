@@ -37,6 +37,7 @@ import ttWebsite from './assets/TTWebsite.webp'
 import invoiceScan from './assets/InvoiceScan.webp'
 import reactCalculator from './assets/reactcalculator.webp'
 import portfolioWebsite from './assets/portfoliowebsite.webp'
+import umfiasi from './assets/umfiasi.webp'
 
 function App() {
   const yearRef = useRef(null)
@@ -1075,6 +1076,17 @@ function App() {
                       liveUrl: "#",
                       codeUrl: "#",
                       tech: ["React", "NodeJS"]
+                    },
+                   {
+                      id: 11,
+                      title: "Medical Exam Simulation Platform",
+                      description: "A responsive MERN Stack platform for French-speaking UMF Iași medical students that simulates exams with randomized questions and exact grading algorithms, helping them practice and prepare effectively.",
+                      tag: "MERN Stack",
+                      type: "dev",
+                      image: umfiasi,
+                      liveUrl: "https://80umfiasi.me",
+                      codeUrl: "https://80umfiasi.me",
+                      tech: ["React", "NodeJS","ExpressJS","MongoDB"]
                     }
                   ].map((project) => (
                     <div 
