@@ -67,7 +67,7 @@ export function Contact() {
                     id="user_email"
                     name="user_email"
                     required
-                    placeholder="your@email.com"
+                    placeholder="your email"
                     disabled={isSubmitting}
                   />
                 </div>
