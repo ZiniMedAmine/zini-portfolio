@@ -1,4 +1,4 @@
-import { FiMail, FiGithub, FiLinkedin, FiDribbble } from 'react-icons/fi'
+import { FiMail, FiGithub, FiDribbble } from 'react-icons/fi'
 
 export function Contact() {
   return (
@@ -12,7 +12,6 @@ export function Contact() {
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 12 }}>
                 <a className="btn" href="mailto:hello@example.com"><FiMail /> Email</a>
                 <a className="btn secondary" href="https://github.com/" target="_blank" rel="noreferrer"><FiGithub /> GitHub</a>
-                <a className="btn secondary" href="https://linkedin.com/" target="_blank" rel="noreferrer"><FiLinkedin /> LinkedIn</a>
                 <a className="btn secondary" href="https://www.behance.net/" target="_blank" rel="noreferrer">Behance</a>
                 <a className="btn secondary" href="https://dribbble.com/" target="_blank" rel="noreferrer"><FiDribbble /> Dribbble</a>
               </div>

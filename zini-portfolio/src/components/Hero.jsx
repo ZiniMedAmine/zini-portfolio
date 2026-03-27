@@ -1,4 +1,4 @@
-import { FiDownload, FiMail } from 'react-icons/fi'
+import { FiDownload } from 'react-icons/fi'
 import { Reveal } from './Reveal'
 import { useEffect, useRef } from 'react'
 
@@ -28,7 +28,6 @@ export function Hero() {
               </p>
               <div className="hero-cta">
                 <a className="btn" href="#work">Explore my work</a>
-                <a className="btn secondary" href="#contact"><FiMail /> Contact me</a>
                 <a className="btn secondary" href="#" onClick={(e)=>e.preventDefault()}><FiDownload /> Download CV</a>
               </div>
               <div className="stats">

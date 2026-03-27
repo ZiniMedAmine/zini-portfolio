@@ -6,7 +6,6 @@ const mobileLinks = [
   { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'work', label: 'Work' },
-  { id: 'contact', label: 'Contact' },
 ]
 
 export function MobileNav() {
