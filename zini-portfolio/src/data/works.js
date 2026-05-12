@@ -1,5 +1,3 @@
-import zanzibarExplore from '../assets/ZanzibarExplore.webp'
-
 export const works = [
   {
     id: 'brand-aurora',
@@ -23,17 +21,6 @@ export const works = [
     description:
       'Single-page architecture using Vite, React, and Framer Motion. Implemented sticky sections, parallax media, and buttery scrolling via Lenis. Achieved 95+ Lighthouse scores.',
     link: 'https://example.com',
-  },
-  {
-    id: 'zanzibar-explore',
-    title: 'ZanzibarExplore',
-    short: 'WordPress business site for booking Zanzibar activities and excursions.',
-    type: 'web',
-    tags: ['WordPress', 'Client Work', 'Bookings'],
-    thumbnail: zanzibarExplore,
-    banner: zanzibarExplore,
-    description:
-      'Built a WordPress business website for a Zanzibar client that enables visitors to book activities and excursions. Focused on clear service discovery, inquiry flows, and mobile-friendly layouts.',
   },
   {
     id: 'poster-wave',

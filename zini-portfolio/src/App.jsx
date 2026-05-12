@@ -38,6 +38,7 @@ import invoiceScan from './assets/InvoiceScan.webp'
 import reactCalculator from './assets/reactcalculator.webp'
 import portfolioWebsite from './assets/portfoliowebsite.webp'
 import umfiasi from './assets/umfiasi.webp'
+import zanzibarExplore from './assets/ZanzibarExplore.webp'
 
 function App() {
   const yearRef = useRef(null)
@@ -1075,6 +1076,17 @@ function App() {
                       liveUrl: "https://80umfiasi.me",
                       codeUrl: "https://80umfiasi.me",
                       tech: ["React", "NodeJS","ExpressJS","MongoDB"]
+                    },
+                    {
+                      id: 12,
+                      title: "ZanzibarExplore",
+                      description: "A WordPress business website for a Zanzibar client where visitors can book activities and excursions. Built to highlight experiences and make inquiries fast on mobile and desktop.",
+                      tag: "Wordpress",
+                      type: "dev",
+                      image: zanzibarExplore,
+                      liveUrl: "#",
+                      codeUrl: "#",
+                      tech: ["Wordpress", "Elementor", "Bookings", "SEO"]
                     }
                   ].map((project) => (
                     <div 
