@@ -39,6 +39,8 @@ import reactCalculator from './assets/reactcalculator.webp'
 import portfolioWebsite from './assets/portfoliowebsite.webp'
 import umfiasi from './assets/umfiasi.webp'
 import zanzibarExplore from './assets/ZanzibarExplore.webp'
+import dataAnalysisProj from './assets/dataanalysisproj.webp'
+import colorQuantization from './assets/colorquantization.webp'
 
 function App() {
   const yearRef = useRef(null)
@@ -1084,9 +1086,31 @@ function App() {
                       tag: "Wordpress",
                       type: "dev",
                       image: zanzibarExplore,
-                      liveUrl: "#",
-                      codeUrl: "#",
+                      liveUrl: "zanzibarexplore.com",
+                      codeUrl: "zanzibarexplore.com",
                       tech: ["Wordpress", "Elementor", "Bookings", "SEO"]
+                    },
+                    {
+                      id: 13,
+                      title: "Sales Data Analysis Mini Project",
+                      description: "A compact data analysis project that explores sales performance and patterns using Python, with clear visual summaries and insights.",
+                      tag: "Data Analysis",
+                      type: "dev",
+                      image: dataAnalysisProj,
+                      liveUrl: "https://github.com/ZiniMedAmine/Sales-Data-Analysis-Mini-Project",
+                      codeUrl: "https://github.com/ZiniMedAmine/Sales-Data-Analysis-Mini-Project",
+                      tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"]
+                    },
+                    {
+                      id: 14,
+                      title: "K-Means Color Quantization Mini Project",
+                      description: "An image processing mini project that reduces color palettes using K-Means clustering for cleaner, stylized visuals.",
+                      tag: "Computer Vision",
+                      type: "dev",
+                      image: colorQuantization,
+                      liveUrl: "https://github.com/ZiniMedAmine/KMEANS_Color_Quantization",
+                      codeUrl: "https://github.com/ZiniMedAmine/KMEANS_Color_Quantization",
+                      tech: ["Python", "K-Means", "OpenCV", "Image Processing"]
                     }
                   ].map((project) => (
                     <div 
