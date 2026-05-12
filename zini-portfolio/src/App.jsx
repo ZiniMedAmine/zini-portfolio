@@ -999,7 +999,7 @@ function App() {
 
               <div className="work-category">
                 <h3>Development Projects</h3>
-                <p className="muted">Web applications, websites, and interactive experiences</p>
+                <p className="muted">Web applications, websites, and interactive experiences <br/> Note: if an url did not work, it is probably the client not paying for his hosting</p>
                 <div className="work-grid dev-grid">
                   {[
                     {
