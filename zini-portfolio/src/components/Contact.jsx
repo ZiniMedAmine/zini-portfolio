@@ -12,7 +12,6 @@ export function Contact() {
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 12 }}>
                 <a className="btn" href="#contact">Contact form</a>
                 <a className="btn secondary" href="https://github.com/" target="_blank" rel="noreferrer"><FiGithub /> GitHub</a>
-                <a className="btn mailto" href="https://www.behance.net/" target="_blank" rel="noreferrer">Behance</a>
                 <a className="btn secondary" href="https://dribbble.com/" target="_blank" rel="noreferrer"><FiDribbble /> Dribbble</a>
               </div>
             </div>
