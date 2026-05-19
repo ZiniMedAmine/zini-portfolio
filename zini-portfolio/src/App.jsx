@@ -527,7 +527,7 @@ function HeroPlayground() {
       <div className="stage">
         <svg className="arc-label spin-1" viewBox="0 0 100 100" aria-hidden="true">
           <defs><path id="arc-a" d="M 50,50 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" /></defs>
-          <text><textPath href="#arc-a">software engineer x web developer - react - backend - product interfaces -</textPath></text>
+          <text><textPath href="#arc-a">software engineer x web developer - frontend - backend </textPath></text>
         </svg>
         <svg className="arc-label spin-2" viewBox="0 0 100 100" aria-hidden="true">
           <defs><path id="arc-b" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" /></defs>
@@ -612,11 +612,21 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
           </div>
 
           {projects.map((project, index) => (
-            <article className={`project ${index % 2 ? 'alt' : ''}`} key={project.title}>
-              <button className="project-media" onClick={() => open(project)} data-hover>
+            <article
+              className={`project ${index % 2 ? 'alt' : ''}`}
+              key={project.title}
+              onClick={() => open(project)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') open(project)
+              }}
+              role="button"
+              tabIndex={0}
+              data-hover
+            >
+              <div className="project-media">
                 <span className="number">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
                 <img src={project.images?.[0] || project.image} alt={project.title} loading="lazy" />
-              </button>
+              </div>
               <div className="project-info">
                 <span className="kind">{project.tag} - {project.year}</span>
                 <h3>{project.title.split(' ').slice(0, -1).join(' ') || project.title} <em>{project.title.split(' ').slice(-1)}</em></h3>
@@ -631,7 +641,7 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
                     {project.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}
                   </div>
                 )}
-                <div className="project-actions">
+                <div className="project-actions" onClick={(event) => event.stopPropagation()}>
                   <button className="link" onClick={() => open(project)}>Open case <span className="arrow" /></button>
                   {project.url && <a className="link" href={project.url} target={project.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{project.cta || (type === 'design' ? 'View on Behance' : 'View project')} <span className="arrow" /></a>}
                 </div>

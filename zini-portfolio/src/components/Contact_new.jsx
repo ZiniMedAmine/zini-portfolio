@@ -56,7 +56,7 @@ export function Contact({ socials = [] }) {
             <p>Fill out the form and I'll get back to you soon. Web applications, websites, automations, and polished interfaces are the work I want this site to lead with.</p>
             <div className="form-meta">
               <div className="row">Freelance - software - web</div>
-              <div className="row">Based in Tunis, available remote</div>
+              <div className="row">Based in Sousse, available remote</div>
             </div>
           </div>
 
