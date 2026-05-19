@@ -5,7 +5,6 @@ import { works } from '../data/works'
 export function Work() {
   const [selected, setSelected] = useState(null)
   const [filter, setFilter] = useState('all')
-  const [active, setActive] = useState(null)
   const pinRef = useRef(null)
   const trackRef = useRef(null)
   const sectionRef = useRef(null)
@@ -15,35 +14,6 @@ export function Work() {
     if (filter === 'all') return works
     return works.filter((w) => w.type === filter)
   }, [filter])
-
-  useEffect(() => {
-    setActive((prev) => {
-      if (!prev) return filtered[0] || null
-      const still = filtered.find((w) => w.id === prev.id)
-      return still || filtered[0] || null
-    })
-  }, [filtered])
-
-  const handleCardMouseMove = (e) => {
-    const t = e.currentTarget
-    const rect = t.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const mx = `${(x / rect.width) * 100}%`
-    const my = `${(y / rect.height) * 100}%`
-    t.style.setProperty('--mx', mx)
-    t.style.setProperty('--my', my)
-    const rx = ((rect.height / 2 - y) / rect.height) * 10
-    const ry = ((x - rect.width / 2) / rect.width) * 12
-    t.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`
-  }
-
-  const handleCardLeave = (e) => {
-    const t = e.currentTarget
-    t.style.transform = 'none'
-    t.style.removeProperty('--mx')
-    t.style.removeProperty('--my')
-  }
 
   // Horizontal scroll effect: translate the track based on scroll within section
   useEffect(() => {
@@ -103,7 +73,7 @@ export function Work() {
                 </div>
               )}
               {filtered.map((w) => (
-                <article key={w.id} className="card" onMouseEnter={() => setActive(w)} role="listitem">
+                <article key={w.id} className="card" role="listitem">
                   <div className="media">
                     <img src={w.banner || w.thumbnail} alt={w.title} loading="lazy" />
                     <div className="tag">{w.type === 'web' ? 'Web' : 'Branding'}</div>

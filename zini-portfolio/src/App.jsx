@@ -1,9 +1,7 @@
 import './index.css'
-import { useEffect, useRef } from 'react'
-import { MobileNav } from './components/MobileNav'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Contact from './components/Contact_new'
 
-// Import all images
 import skepticLogo from './assets/Skeptic.webp'
 import spacePlanetArt from './assets/Space_Planet_Art.webp'
 import spaceDoodleArt from './assets/Space_doodle_artwork.webp'
@@ -41,1201 +39,818 @@ import zanzibarExplore from './assets/ZanzibarExplore.webp'
 import dataAnalysisProj from './assets/dataanalysisproj.webp'
 import colorQuantization from './assets/colorquantization.webp'
 
-function App() {
-  const yearRef = useRef(null)
-  const progressRef = useRef(null)
-  const titleRef = useRef(null)
+const socials = [
+  ['GitHub', '@ZiniMedAmine', 'https://github.com/ZiniMedAmine'],
+  ['Email', 'zini.m.amine@gmail.com', 'mailto:zini.m.amine@gmail.com'],
+]
 
+const skills = [
+  {
+    idx: '01 / 04',
+    title: 'Web development',
+    desc: 'Responsive interfaces, production websites, and full-stack web apps across React, Angular, Django, WordPress, and the MERN stack.',
+    tools: ['HTML/CSS', 'JavaScript', 'ReactJS', 'AngularJS', 'Django', 'Bootstrap', 'TailwindCSS', 'NodeJS', 'Express JS', 'MongoDB'],
+  },
+  {
+    idx: '02 / 04',
+    title: 'Programming languages',
+    desc: 'A practical engineering base for solving product, automation, data, and backend problems with clean logic.',
+    tools: ['C', 'Java', 'JavaScript', 'Python', 'SQL'],
+  },
+  {
+    idx: '03 / 04',
+    title: 'Software engineering',
+    desc: 'API thinking, database modeling, maintainable components, debugging, and shipping useful systems end to end.',
+    tools: ['REST API', 'MongoDB', 'SQL', 'OCR', 'OpenCV', 'Prompt Engineering', 'Git'],
+  },
+  {
+    idx: '04 / 04',
+    title: 'Graphic design',
+    desc: 'A strong visual layer for developer work: brand identities, posters, UI direction, social content, and typography systems.',
+    tools: ['Adobe Photoshop', 'Adobe Illustrator', 'Figma', 'Canva', 'Brand design'],
+  },
+]
+
+const experiences = [
+  {
+    year: '2024 - Present',
+    role: 'Freelance Web Developer',
+    company: 'Self-Employed',
+    type: 'Freelance',
+    desc: 'Developing responsive websites and web applications using modern technologies including React, WordPress, and MERN stack. Delivering custom solutions for clients across different industries.',
+    stack: ['React', 'WordPress', 'MERN Stack', 'SEO', 'Responsive UI'],
+    wins: ['Custom websites', 'Client delivery', 'Performance-minded builds'],
+  },
+  {
+    year: '2023 - Present',
+    role: 'Freelance Graphic Designer',
+    company: 'Self-Employed',
+    type: 'Freelance',
+    desc: 'Created brand identities, managed social media content, and launched TeePublic store with 50+ designs for international clients. Focused on building cohesive brand experiences across digital platforms.',
+    stack: ['Photoshop', 'Illustrator', 'Figma', 'Brand Identity', 'Social Media'],
+    wins: ['50+ designs', 'Brand systems', 'International clients'],
+  },
+  {
+    year: '2024',
+    role: 'Bachelor Graduation Intern',
+    company: 'GOMYCODE',
+    type: 'Intern',
+    desc: 'Built InvoiceScan+, a document scanning and extraction platform using Django, OCR, OpenCV, Tesseract, and Gemini prompt engineering.',
+    stack: ['Django', 'Python', 'OCR', 'OpenCV', 'Gemini'],
+    wins: ['AI document extraction', 'REST API', 'Graduation project'],
+  },
+  {
+    year: '2023',
+    role: 'Web Development Intern',
+    company: 'Tunisie Telecom',
+    type: 'Intern',
+    desc: 'Built a social activity management website using the MERN Stack in a collaborative team environment. Gained experience in enterprise-level development and teamwork.',
+    stack: ['React', 'Node.js', 'MongoDB', 'Express', 'Teamwork'],
+    wins: ['MERN application', 'Enterprise experience', 'Collaborative delivery'],
+  },
+]
+
+const designProjects = [
+  {
+    title: 'Space Planet Art',
+    description: 'Digital artwork featuring some planets along with doodle simple details and space elements with vibrant colors and artistic flair.',
+    tag: 'Illustration',
+    year: '2026',
+    role: 'Illustration',
+    output: 'Digital artwork',
+    url: 'https://www.behance.net/gallery/233604109/Space-digital-illustration',
+    images: [spacePlanetArt],
+  },
+  {
+    title: 'Space Doodle Artwork',
+    description: 'Creative space-themed doodle illustration.',
+    tag: 'Illustration',
+    year: '2024',
+    role: 'Illustration',
+    output: 'Digital artwork',
+    url: 'https://www.behance.net/gallery/181236815/Space-doodle-art',
+    images: [spaceDoodleArt],
+  },
+  {
+    title: 'Bipolar Disorder Digital Art',
+    description: 'Expressive digital artwork Illustrating the inner-experience of people with bipolar disorder.',
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Concept, design',
+    output: 'Poster artwork',
+    url: 'https://www.behance.net/gallery/205355239/Bipolar-disorder-digital-art',
+    images: [bipolarArt],
+  },
+  {
+    title: 'Memento Mori - تذكر أنك ميت',
+    description: 'Digital art piece inspired by the Meditations of Marcus Aurelius, beautifully mixing arabic & latin letters, about the philosophical concept of mortality and the reminder to live meaningfully.',
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Typography, art',
+    output: 'Poster artwork',
+    url: 'https://www.behance.net/gallery/209749997/Memento-mori-design',
+    images: [mementoMori],
+  },
+  {
+    title: 'Fight Club Poster',
+    description: "Movie poster design exploring the film's philosophy of anti-consumerism, freedom from material chains, and breaking societal norms through bold visual metaphors.",
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Poster design',
+    output: 'Movie poster',
+    url: 'https://www.behance.net/gallery/206744351/Fight-Club-Poster-Artwork',
+    images: [fightClub],
+  },
+  {
+    title: 'Curiosity Kills the Skeptic',
+    description: 'Deep philosophical poster exploring the paradox between intellectual curiosity and skeptical doubt, questioning whether the pursuit of knowledge ultimately challenges our protective skepticism.',
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Concept, design',
+    output: 'Poster artwork',
+    url: 'https://www.behance.net/gallery/205354867/Curiosity-kills-the-skeptic-digital-artwork',
+    images: [curiositySkeptic],
+  },
+  {
+    title: 'The Quantum Society',
+    description: 'Conceptual design project exploring quantum theory as a metaphor for modern society, featuring front and back compositions that represent different perspectives of social complexity.',
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Concept, design',
+    output: 'Two-sided poster',
+    url: 'https://www.behance.net/gallery/207066209/Tunisia-The-quantum-society-Digital-Art',
+    images: [tunisiaFront, tunisiaBack],
+  },
+  {
+    title: "Hegel's Hotel California",
+    description: "Philosophical cover art reimagining the Eagles' classic album with Hegel's dialectical thinking, featuring the text 'such a lovely place for a contradiction' - merging rock culture with German idealism.",
+    tag: 'Digital Art',
+    year: '2025',
+    role: 'Cover, type',
+    output: 'Album rework',
+    url: 'https://www.behance.net/gallery/206487429/Eagles-Hotel-California-Album-Cover-Rework',
+    images: [hegelsHotel],
+  },
+  {
+    title: 'Skeptic Brand Identity',
+    description: "Logo design variations for my philosophical brand 'Skeptic', exploring different visual approaches to represent critical thinking, questioning, and intellectual curiosity through typography and symbolic elements.",
+    tag: 'Brand Identity',
+    year: '2024',
+    role: 'Identity design',
+    output: 'Logo system',
+    url: 'https://www.behance.net/gallery/178779857/Skeptic-Logo-design',
+    images: [skepticLogo3, skepticLogo2, skepticLogo1, skepticLogo],
+  },
+  {
+    title: 'The Dead Welder',
+    description: 'Brand identity and logo design for a welder content creator, combining industrial aesthetics with edgy typography to create a memorable brand that reflects the raw, skilled nature of welding craftsmanship.',
+    tag: 'Brand Identity',
+    year: '2024',
+    role: 'Identity design',
+    output: 'Logo design',
+    url: 'https://www.behance.net/gallery/179077249/The-Dead-Welder-Logo-Design',
+    images: [deadWelder],
+  },
+  {
+    title: 'BioAura Cosmetics',
+    description: 'Brand identity and logo design for BioAura Cosmetics, creating an elegant and organic visual identity that emphasizes natural beauty, wellness, and the harmonious connection between biology and personal care.',
+    tag: 'Brand Identity',
+    year: '2024',
+    role: 'Identity design',
+    output: 'Cosmetics brand',
+    url: 'https://www.behance.net/gallery/180198681/BioAura-Cosmetics',
+    images: [bioaura],
+  },
+  {
+    title: 'Todo Notebook Covers',
+    description: 'Two cover designs for todo notebooks created for a small business, featuring clean layouts and motivational aesthetics to inspire productivity and organization for everyday task management.',
+    tag: 'Print Design',
+    year: '2025',
+    role: 'Print design',
+    output: 'Notebook covers',
+    url: 'https://www.behance.net/gallery/208940377/TO-DO-Notebook-Cover-Designs',
+    images: [todo1, todo2],
+  },
+  {
+    title: 'Derma-In Laboratory Flyers',
+    description: 'Marketing flyer designs for Derma-In laboratory, showcasing their sun protection products and natural oils collection. Clean, professional layouts emphasizing the scientific quality and natural benefits of their skincare solutions.',
+    tag: 'Print Design',
+    year: '2026',
+    role: 'Marketing design',
+    output: 'Flyer series',
+    url: 'https://www.behance.net/gallery/233602985/Derma-In-Laboratory-Flyer-Design',
+    images: [flyer1, flyer2, flyer3, flyer4],
+  },
+  {
+    title: 'Skeptic T-Shirt Designs',
+    description: 'Philosophical t-shirt designs available on TeePublic, featuring thought-provoking concepts from great philosophers like Kant, Descartes, and original Skeptic brand artwork that challenges conventional thinking.',
+    tag: 'T-Shirt Design',
+    year: '2024 - 2026',
+    role: 'Apparel design',
+    output: 'TeePublic store',
+    url: 'https://www.teepublic.com/user/skeptic-styles',
+    cta: 'Shop on TeePublic',
+    images: [skepticTshirt, kant1, kant2, cogito, problemImage],
+  },
+]
+
+const devProjects = [
+  {
+    title: 'Derma-In E-commerce Website',
+    description: 'A functional & responsive E-commerce website for derma-in laboratory, created using wordpress. Designed to help the company manage its orders and products through a user-friendly UI.',
+    tag: 'WordPress',
+    year: '2026',
+    role: 'Design, build',
+    output: 'E-commerce site',
+    image: dermaIn,
+    url: 'https://www.derma-in.com',
+    tech: ['Wordpress', 'Elementor', 'Woocommerce', 'PHP', 'SEO', 'YoastSEO'],
+  },
+  {
+    title: 'Jrad Beauty Center Blog Website',
+    description: 'A responsive wordpress blog website for Jrad Beauty Center that helps the clients get to know the project and better reach it through a user-friendly and minimalist UI.',
+    tag: 'WordPress',
+    year: '2026',
+    role: 'Design, build',
+    output: 'Blog website',
+    image: jradBeauty,
+    url: 'https://jradbeautycenter.tn/',
+    tech: ['Wordpress', 'Elementor', 'PHP', 'SEO', 'RankMath'],
+  },
+  {
+    title: 'Tunisie Telecom Social Activity Management Website',
+    description: 'A website for Tunisie Telecom, which is a website that manages social activities, accounts and offers of Tunisie Telecom Employees developed using MERN Stack.',
+    tag: 'MERN Stack',
+    year: '2024',
+    role: 'Full-stack dev',
+    output: 'Internal web app',
+    image: ttWebsite,
+    url: 'https://github.com/ZiniMedAmine/TTApp',
+    tech: ['HTML/CSS', 'React', 'Express JS', 'MongoDB', 'NodeJS'],
+  },
+  {
+    title: 'InvoiceScan+',
+    description: 'A website through which the user can scan any document image and get the relevant data and the document type in a useable JSON, Word or PDF file within seconds.',
+    tag: 'Django/AI Web',
+    year: '2024',
+    role: 'Full-stack dev',
+    output: 'AI document app',
+    image: invoiceScan,
+    url: 'https://github.com/ZiniMedAmine/InvoiceScan',
+    tech: ['Python', 'Django', 'REST API', 'OCR', 'OpenCV', 'Tesserract', 'Prompt Engineering', 'Gemini'],
+  },
+  {
+    title: 'React Calculator',
+    description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time.",
+    tag: 'React',
+    year: '2024',
+    role: 'Frontend dev',
+    output: 'Learning project',
+    image: reactCalculator,
+    url: 'https://github.com/ZiniMedAmine/React-Calculator',
+    tech: ['React', 'NodeJS', 'TailwindCSS'],
+  },
+  {
+    title: 'My Portfolio Website',
+    description: 'Explore my personal React portfolio, where I bring creativity and code together-showcasing my graphic design projects, web development work, professional experience, and ways to connect.',
+    tag: 'React',
+    year: '2026',
+    role: 'Design, build',
+    output: 'Portfolio site',
+    image: portfolioWebsite,
+    url: '#home',
+    tech: ['React', 'NodeJS'],
+  },
+  {
+    title: 'Medical Exam Simulation Platform',
+    description: 'A responsive MERN Stack platform for French-speaking UMF Iasi medical students that simulates exams with randomized questions and exact grading algorithms, helping them practice and prepare effectively.',
+    tag: 'MERN Stack',
+    year: '2026',
+    role: 'Full-stack dev',
+    output: 'Exam platform',
+    image: umfiasi,
+    url: 'https://80umfiasi.me',
+    tech: ['React', 'NodeJS', 'ExpressJS', 'MongoDB'],
+  },
+  {
+    title: 'ZanzibarExplore',
+    description: 'A WordPress business website for a Zanzibar client where visitors can book activities and excursions. Built to highlight experiences and make inquiries fast on mobile and desktop.',
+    tag: 'WordPress',
+    year: '2026',
+    role: 'WordPress dev',
+    output: 'Booking website',
+    image: zanzibarExplore,
+    url: 'https://zanzibarexplore.com',
+    tech: ['Wordpress', 'Elementor', 'Bookings', 'SEO'],
+  },
+  {
+    title: 'Sales Data Analysis Mini Project',
+    description: 'A compact data analysis project that explores sales performance and patterns using Python, with clear visual summaries and insights.',
+    tag: 'Data Analysis',
+    year: '2025',
+    role: 'Data analysis',
+    output: 'Python project',
+    image: dataAnalysisProj,
+    url: 'https://github.com/ZiniMedAmine/Sales-Data-Analysis-Mini-Project',
+    tech: ['Python', 'Pandas', 'Matplotlib', 'Data Analysis'],
+  },
+  {
+    title: 'K-Means Color Quantization Mini Project',
+    description: 'An image processing mini project that reduces color palettes using K-Means clustering for cleaner, stylized visuals.',
+    tag: 'Computer Vision',
+    year: '2025',
+    role: 'Computer vision',
+    output: 'Python project',
+    image: colorQuantization,
+    url: 'https://github.com/ZiniMedAmine/KMEANS_Color_Quantization',
+    tech: ['Python', 'K-Means', 'OpenCV', 'Image Processing'],
+  },
+]
+
+function usePortfolioInteractions() {
   useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const p = docHeight > 0 ? scrollTop / docHeight : 0
-      if (progressRef.current) progressRef.current.style.transform = `scaleX(${p})`
+    const progress = document.querySelector('.scroll-progress')
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      progress?.style.setProperty('transform', `scaleX(${max > 0 ? window.scrollY / max : 0})`)
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
-  useEffect(() => {
-    if (yearRef.current) yearRef.current.textContent = String(new Date().getFullYear())
-  }, [])
-
-  useEffect(() => {
-    const sections = Array.from(document.querySelectorAll('main .section'))
-    const nav = document.getElementById('dot-nav')
-    if (!nav) return
-    nav.innerHTML = ''
-    const buttons = sections.map((s) => {
-      const b = document.createElement('button')
-      b.setAttribute('data-title', s.dataset.title || s.id)
-      b.setAttribute('aria-label', s.dataset.title || s.id)
-      b.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth', block: 'start' }))
-      nav.appendChild(b)
-      return b
-    })
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && e.intersectionRatio > 0.3) {
-          const idx = sections.indexOf(e.target)
-          buttons.forEach((b, i) => b.classList.toggle('active', i === idx))
-        }
-      })
-    }, { threshold: [0.3, 0.5, 0.7] })
-    sections.forEach((s) => io.observe(s))
-    return () => io.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const magnets = Array.from(document.querySelectorAll('.magnetic'))
-    const strength = 0.35
-    function onMove(e){
-      const t = e.currentTarget
-      const rect = t.getBoundingClientRect()
-      const mx = e.clientX - (rect.left + rect.width/2)
-      const my = e.clientY - (rect.top + rect.height/2)
-      t.style.transform = `translate(${mx * strength}px, ${my * strength}px)`
-    }
-    function reset(e){ e.currentTarget.style.transform = 'translate(0,0)' }
-    magnets.forEach(el => {
-      el.addEventListener('mousemove', onMove)
-      el.addEventListener('mouseleave', reset)
-    })
-    return () => magnets.forEach(el => {
-      el.removeEventListener('mousemove', onMove)
-      el.removeEventListener('mouseleave', reset)
-    })
-  }, [])
-
-  useEffect(() => {
-    // Skills progress bars
-    const skillItems = document.querySelectorAll('.skill-item')
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const reveals = document.querySelectorAll('.reveal, .reveal-stagger')
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.style.setProperty('--skill-width', entry.target.style.getPropertyValue('--skill-width'))
-          }, 200)
+          entry.target.classList.add('is-in')
+          revealObserver.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.3 })
-    
-    skillItems.forEach(item => observer.observe(item))
-    return () => observer.disconnect()
-  }, [])
+    }, { threshold: 0.12 })
+    reveals.forEach((el) => revealObserver.observe(el))
 
-  useEffect(() => {
+    const links = [...document.querySelectorAll('.nav a[href^="#"]')]
+    const sections = links.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean)
+    const updateNav = () => {
+      const probe = window.scrollY + window.innerHeight * 0.35
+      const active = sections.reduce((current, section) => section.offsetTop <= probe ? section : current, sections[0])
+      links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === `#${active?.id}`))
+      updateProgress()
+    }
+
     const dot = document.querySelector('.cursor-dot')
     const ring = document.querySelector('.cursor-ring')
-    if (!dot || !ring) return
-    let x = 0, y = 0; let rx = 0, ry = 0; let scale = 1
-    function move(e){ x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px,${y}px)` }
-    addEventListener('mousemove', move, { passive: true })
-    function loop(){ rx += (x - rx) * 0.18; ry += (y - ry) * 0.18; ring.style.transform = `translate(${rx}px,${ry}px) scale(${scale})`; requestAnimationFrame(loop) }
-    loop()
-    const hoverables = 'a, button, .magnetic, input, textarea, [role="button"]'
-    const onOver = (e) => { if (e.target.closest(hoverables)) scale = 1.2 }
-    const onOut = (e) => { if (e.target.closest(hoverables)) scale = 1 }
-    document.addEventListener('mouseover', onOver)
-    document.addEventListener('mouseout', onOut)
-    return () => { removeEventListener('mousemove', move); document.removeEventListener('mouseover', onOver); document.removeEventListener('mouseout', onOut) }
+    let mx = window.innerWidth / 2
+    let my = window.innerHeight / 2
+    let rx = mx
+    let ry = my
+    let frame = 0
+    const onMouseMove = (event) => {
+      mx = event.clientX
+      my = event.clientY
+      dot?.style.setProperty('transform', `translate(${mx}px, ${my}px) translate(-50%, -50%)`)
+    }
+    const cursorLoop = () => {
+      rx += (mx - rx) * 0.18
+      ry += (my - ry) * 0.18
+      ring?.style.setProperty('transform', `translate(${rx}px, ${ry}px) translate(-50%, -50%)`)
+      frame = requestAnimationFrame(cursorLoop)
+    }
+    const cursorHover = (event) => {
+      if (event.target.closest('a, button, input, textarea, .playground, [data-hover]')) ring?.classList.add('is-hover')
+    }
+    const cursorOut = (event) => {
+      if (!event.relatedTarget?.closest?.('a, button, input, textarea, .playground, [data-hover]')) ring?.classList.remove('is-hover')
+    }
+
+    const cards = document.querySelectorAll('[data-hover]')
+    const onSpotlight = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect()
+      event.currentTarget.style.setProperty('--mx', `${event.clientX - rect.left}px`)
+      event.currentTarget.style.setProperty('--my', `${event.clientY - rect.top}px`)
+    }
+    cards.forEach((card) => card.addEventListener('mousemove', onSpotlight))
+
+    const stage = document.querySelector('.playground .stage')
+    const playground = document.querySelector('.playground')
+    let rotX = -15
+    let rotY = 0
+    let targetX = -15
+    let targetY = 0
+    let velocityX = 0
+    let velocityY = 0.04
+    let dragging = false
+    let lastX = 0
+    let lastY = 0
+    let playFrame = 0
+    const playLoop = () => {
+      if (!dragging) {
+        targetX += velocityX
+        targetY += velocityY
+        velocityX *= 0.98
+        velocityY *= 0.98
+      }
+      rotX += (targetX - rotX) * 0.12
+      rotY += (targetY - rotY) * 0.12
+      stage?.style.setProperty('transform', `rotateX(${rotX}deg) rotateY(${rotY}deg)`)
+      playFrame = requestAnimationFrame(playLoop)
+    }
+    const pointerDown = (event) => {
+      dragging = true
+      const point = event.touches?.[0] || event
+      lastX = point.clientX
+      lastY = point.clientY
+      velocityX = 0
+      velocityY = 0
+      ring?.classList.add('is-drag')
+    }
+    const pointerMove = (event) => {
+      if (!dragging) return
+      const point = event.touches?.[0] || event
+      const dx = point.clientX - lastX
+      const dy = point.clientY - lastY
+      targetY += dx * 0.45
+      targetX = Math.max(-85, Math.min(85, targetX - dy * 0.45))
+      velocityY = dx * 0.18
+      velocityX = -dy * 0.18
+      lastX = point.clientX
+      lastY = point.clientY
+      event.preventDefault()
+    }
+    const pointerUp = () => {
+      dragging = false
+      ring?.classList.remove('is-drag')
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true })
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
+    window.addEventListener('mouseover', cursorHover)
+    window.addEventListener('mouseout', cursorOut)
+    playground?.addEventListener('mousedown', pointerDown)
+    playground?.addEventListener('touchstart', pointerDown, { passive: false })
+    window.addEventListener('mousemove', pointerMove, { passive: false })
+    window.addEventListener('touchmove', pointerMove, { passive: false })
+    window.addEventListener('mouseup', pointerUp)
+    window.addEventListener('touchend', pointerUp)
+    frame = requestAnimationFrame(cursorLoop)
+    playFrame = requestAnimationFrame(playLoop)
+    updateNav()
+
+    return () => {
+      window.removeEventListener('scroll', updateNav)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseover', cursorHover)
+      window.removeEventListener('mouseout', cursorOut)
+      playground?.removeEventListener('mousedown', pointerDown)
+      playground?.removeEventListener('touchstart', pointerDown)
+      window.removeEventListener('mousemove', pointerMove)
+      window.removeEventListener('touchmove', pointerMove)
+      window.removeEventListener('mouseup', pointerUp)
+      window.removeEventListener('touchend', pointerUp)
+      cards.forEach((card) => card.removeEventListener('mousemove', onSpotlight))
+      cancelAnimationFrame(frame)
+      cancelAnimationFrame(playFrame)
+      revealObserver.disconnect()
+    }
   }, [])
+}
+
+function HeroPlayground() {
+  const particles = useMemo(() => [
+    ['15deg', '38%', '8px', '#19E9FF'], ['80deg', '38%', '5px', '#8A5BFF'],
+    ['145deg', '38%', '7px', '#2EFFB0'], ['220deg', '38%', '4px', '#19E9FF'],
+    ['310deg', '38%', '9px', '#8A5BFF'], ['40deg', '46%', '3px', '#ffffff'],
+    ['120deg', '46%', '4px', '#ffffff'], ['200deg', '46%', '3px', '#19E9FF'],
+    ['280deg', '46%', '5px', '#ffffff'], ['60deg', '30%', '4px', '#2EFFB0'],
+    ['240deg', '30%', '4px', '#8A5BFF'],
+  ], [])
+
+  return (
+    <div className="playground" data-hover aria-label="Drag to spin the hero orbit">
+      <div className="stage">
+        <svg className="arc-label spin-1" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><path id="arc-a" d="M 50,50 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" /></defs>
+          <text><textPath href="#arc-a">software engineer x web developer - react - backend - product interfaces -</textPath></text>
+        </svg>
+        <svg className="arc-label spin-2" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><path id="arc-b" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" /></defs>
+          <text><textPath href="#arc-b">build useful systems - ship clean interfaces - solve real problems -</textPath></text>
+        </svg>
+        <div className="ring r4" />
+        <div className="ring r3" />
+        <div className="ring r2" />
+        <div className="ring r1" />
+        {particles.map(([a, r, s, c]) => (
+          <div key={`${a}-${r}`} className="particle" style={{ '--a': a, '--r': r, '--s': s, '--c': c }} />
+        ))}
+        <div className="core" />
+      </div>
+      <div className="hint"><span className="key">↵</span><span>Drag to spin</span></div>
+    </div>
+  )
+}
+
+function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, note }) {
+  const [openProject, setOpenProject] = useState(null)
+  const [imageIndex, setImageIndex] = useState(0)
+  const wrapRef = useRef(null)
+  const trackRef = useRef(null)
+  const fillRef = useRef(null)
+  const countRef = useRef(null)
+  const panels = projects.length + 1
 
   useEffect(() => {
-    const handleEscKey = (e) => {
-      if (e.key === 'Escape') {
-        const designGallery = document.querySelector('.design-gallery')
-        const devModal = document.querySelector('.dev-modal')
-        
-        if (designGallery && designGallery.classList.contains('active')) {
-          designGallery.classList.remove('active')
-        }
-        
-        if (devModal && devModal.classList.contains('active')) {
-          devModal.classList.remove('active')
-        }
+    const wrap = wrapRef.current
+    const track = trackRef.current
+    if (!wrap || !track) return
+
+    const update = () => {
+      const rect = wrap.getBoundingClientRect()
+      const maxScroll = wrap.offsetHeight - window.innerHeight
+      const progress = maxScroll > 0 ? Math.max(0, Math.min(1, -rect.top / maxScroll)) : 0
+      track.style.transform = `translate3d(${-((panels - 1) * window.innerWidth) * progress}px, 0, 0)`
+      if (fillRef.current) fillRef.current.style.width = `${progress * 100}%`
+      if (countRef.current) {
+        const current = Math.min(panels - 1, Math.max(0, Math.floor(progress * (panels - 1) + 0.05)))
+        countRef.current.textContent = String(current).padStart(2, '0')
       }
     }
-    
-    document.addEventListener('keydown', handleEscKey)
-    return () => document.removeEventListener('keydown', handleEscKey)
-  }, [])
 
-  // Alternating title effect
-  useEffect(() => {
-    const titles = ['Graphic Designer', 'Web Developer']
-    let currentIndex = 0 // Start at 0 (Graphic Designer)
-    let intervalId = null
-    
-    const titleElement = titleRef.current
-    if (!titleElement) return
-    
-    const changeTitle = () => {
-      // Fade out
-      titleElement.style.opacity = '0'
-      
-      // After fade out completes, change text and fade in
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % titles.length
-        titleElement.textContent = titles[currentIndex]
-        titleElement.style.opacity = '1'
-      }, 500) // Match CSS transition duration
-    }
-    
-    // Start alternating after 3 seconds, then every 3.5 seconds consistently
-    const initialTimeout = setTimeout(() => {
-      changeTitle()
-      // Set up interval for consistent 3.5s cycles after first change
-      intervalId = setInterval(changeTitle, 3500)
-    }, 3000)
-    
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
     return () => {
-      clearTimeout(initialTimeout)
-      if (intervalId) clearInterval(intervalId)
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
     }
-  }, [])
+  }, [panels])
+
+  const open = (project) => {
+    setOpenProject(project)
+    setImageIndex(0)
+  }
+
+  const activeImages = openProject?.images || [openProject?.image].filter(Boolean)
+
+  return (
+    <section
+      id={id}
+      className={`work-wrap ${type}-work`}
+      data-screen-label={eyebrow}
+      ref={wrapRef}
+      style={{ height: `${panels * 100}vh` }}
+    >
+      <div className="work-sticky">
+        <div className="work-track" ref={trackRef}>
+          <div className="work-intro">
+            <p className="eyebrow"><span className="num">{number}</span><span className="line" /><span>{eyebrow}</span></p>
+            <div className="titleblock">
+              <h2>{title}<span className="grad"> work</span><em>{subtitle}</em></h2>
+              {note && <p className="work-note">{note}</p>}
+            </div>
+            <div className="meta-row">
+              <div className="count">{projects.length} projects - {type === 'design' ? 'visual systems & art' : 'websites & applications'}</div>
+              <div className="swipe"><span>Scroll right</span><span className="arrow" /></div>
+            </div>
+          </div>
+
+          {projects.map((project, index) => (
+            <article className={`project ${index % 2 ? 'alt' : ''}`} key={project.title}>
+              <button className="project-media" onClick={() => open(project)} data-hover>
+                <span className="number">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
+                <img src={project.images?.[0] || project.image} alt={project.title} loading="lazy" />
+              </button>
+              <div className="project-info">
+                <span className="kind">{project.tag} - {project.year}</span>
+                <h3>{project.title.split(' ').slice(0, -1).join(' ') || project.title} <em>{project.title.split(' ').slice(-1)}</em></h3>
+                <p>{project.description}</p>
+                <div className="specs">
+                  <div className="spec"><div className="label">Role</div><div className="value">{project.role}</div></div>
+                  <div className="spec"><div className="label">Year</div><div className="value">{project.year}</div></div>
+                  <div className="spec"><div className="label">Output</div><div className="value">{project.output}</div></div>
+                </div>
+                {project.tech && (
+                  <div className="tools compact">
+                    {project.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}
+                  </div>
+                )}
+                <div className="project-actions">
+                  <button className="link" onClick={() => open(project)}>Open case <span className="arrow" /></button>
+                  {project.url && <a className="link" href={project.url} target={project.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{project.cta || (type === 'design' ? 'View on Behance' : 'View project')} <span className="arrow" /></a>}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="work-progress" aria-hidden="true">
+          <span className="label">P - <span data-work-count ref={countRef}>00</span> / {String(panels - 1).padStart(2, '0')}</span>
+          <span className="bar"><span className="fill" ref={fillRef} /></span>
+          <span className="label">Scroll to advance</span>
+        </div>
+      </div>
+
+      {openProject && (
+        <div className="modal-backdrop" onClick={() => setOpenProject(null)}>
+          <div className="modal-panel" onClick={(event) => event.stopPropagation()}>
+            <button className="modal-close" onClick={() => setOpenProject(null)} aria-label="Close project">×</button>
+            <div className="modal-media">
+              <img src={activeImages[imageIndex]} alt={openProject.title} />
+              {activeImages.length > 1 && (
+                <div className="modal-arrows">
+                  <button onClick={() => setImageIndex((imageIndex - 1 + activeImages.length) % activeImages.length)}>‹</button>
+                  <button onClick={() => setImageIndex((imageIndex + 1) % activeImages.length)}>›</button>
+                </div>
+              )}
+            </div>
+            <div className="modal-body">
+              <span className="kind">{openProject.tag} - {openProject.year}</span>
+              <h3>{openProject.title}</h3>
+              <p>{openProject.description}</p>
+              {openProject.tech && <div className="tools compact">{openProject.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}</div>}
+              {openProject.url && <a className="link" href={openProject.url} target={openProject.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{openProject.cta || 'Open project'} <span className="arrow" /></a>}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
+function App() {
+  usePortfolioInteractions()
+  const year = new Date().getFullYear()
 
   return (
     <>
-      <div id="scroll-progress" aria-hidden="true" ref={progressRef} />
-
-      {/* Mobile Navigation */}
-      <MobileNav />
-
-      <div className="bg-accents" aria-hidden="true">
-        <div className="blob blob-a" />
-        <div className="blob blob-b" />
-      </div>
-
-      <nav id="dot-nav" aria-label="Section navigation" />
-
-      <header className="site-header">
-        <a href="#home" className="brand" aria-label="Home">
-          <img src={skepticLogo} alt="Skeptic Logo" style={{height: '28px', width: 'auto'}} />
-          <span>Mohamed Amine Zini</span>
-        </a>
-        <div className="spacer" />
-        <ul className="top-nav">
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#work">Work</a></li>
-        </ul>
-      </header>
-
-      <main id="page" className="snap-container">
-        <section id="home" className="section hero" data-title="Home">
-          <div className="hero-inner">
-            <div className="intro">
-              <p className="eyebrow">Available for freelance</p>
-              <h1>
-                Mohamed Amine Zini
-                <span className="gradient" ref={titleRef}>Graphic Designer</span>
-              </h1>
-              <p className="lede">I blend graphic design artistry with robust, scalable web development to craft distinctive brand identities and interactive digital experiences.</p>
-              <div className="cta-row">
-                <a href="#work" className="btn btn-primary magnetic">View Work</a>
-              </div>
-              <div className="socials">
-                <a href="https://github.com/ZiniMedAmine" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="icon-link">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div className="hero-visual">
-              <div className="orbit">
-                <div className="planet" />
-                <div className="ring" />
-                <div className="ring r2" />
-              </div>
-            </div>
-          </div>
-          <div className="scroll-hint" aria-hidden="true">Scroll</div>
-        </section>
-
-        <section id="about" className="section" data-title="About">
-          <div className="container">
-            <div className="split">
-              <div>
-                <h2>About me</h2>
-                <p>
-                  I'm Mohamed Amine, a passionate <strong>Graphic Designer</strong> and <strong>Web Developer</strong> who believes that great design isn't just about making things look beautiful—it's about solving problems and telling stories that resonate.
-                </p>
-                <p>
-                  My journey began with a fascination for visual communication and evolved into a multidisciplinary approach where design meets technology. I specialize in crafting distinctive brand identities that capture the essence of businesses, from startups finding their voice to established companies ready to evolve.
-                </p>
-                <p>
-                  What sets me apart is my ability to bridge the gap between creative vision and technical execution. Whether I'm designing a logo in Photoshop, building an interactive website with React, or developing a complete brand system, I bring the same attention to detail and commitment to excellence.
-                </p>
-                
-                <div className="skills-breakdown">
-                  <h3>What I Do Best</h3>
-                  <div className="skill-bars-mini">
-                    <div className="skill-bar-mini">
-                      <div className="skill-info">
-                        <span>Brand Design</span>
-                        <span>85%</span>
-                      </div>
-                      <div className="skill-progress">
-                        <div className="skill-fill" style={{width: '85%', background: 'linear-gradient(90deg, #7C4DFF, #00E5FF)'}}></div>
-                      </div>
-                    </div>
-                    <div className="skill-bar-mini">
-                      <div className="skill-info">
-                        <span>Graphic design & creativity</span>
-                        <span>85%</span>
-                      </div>
-                      <div className="skill-progress">
-                        <div className="skill-fill" style={{width: '85%', background: 'linear-gradient(90deg, #00E5FF, #00FFA3)'}}></div>
-                      </div>
-                    </div>
-                    <div className="skill-bar-mini">
-                      <div className="skill-info">
-                        <span>Web development</span>
-                        <span>95%</span>
-                      </div>
-                      <div className="skill-progress">
-                        <div className="skill-fill" style={{width: '95%', background: 'linear-gradient(90deg, #7C4DFF, #00FFA3)'}}></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <aside className="stats-enhanced">
-                <div className="stats-grid">
-                  <div className="stat-card">
-                    <div className="stat-visual">
-                      <div className="circular-progress" style={{'--progress': '75%', '--color': '#7C4DFF'}}>
-                        <span className="stat-number">3</span>
-                        <span className="stat-unit">yrs</span>
-                      </div>
-                    </div>
-                    <span className="stat-label">Experience</span>
-                  </div>
-                  
-                  <div className="stat-card">
-                    <div className="stat-visual">
-                      <div className="circular-progress" style={{'--progress': '85%', '--color': '#00E5FF'}}>
-                        <span className="stat-number">50</span>
-                        <span className="stat-unit">+</span>
-                      </div>
-                    </div>
-                    <span className="stat-label">Designs Created</span>
-                  </div>
-                  
-                  <div className="stat-card">
-                    <div className="stat-visual">
-                      <div className="circular-progress" style={{'--progress': '90%', '--color': '#00FFA3'}}>
-                        <span className="stat-number">15</span>
-                        <span className="stat-unit">+</span>
-                      </div>
-                    </div>
-                    <span className="stat-label">Happy Clients</span>
-                  </div>
-                  
-                  <div className="stat-card">
-                    <div className="stat-visual">
-                      <div className="circular-progress" style={{'--progress': '70%', '--color': '#7C4DFF'}}>
-                        <span className="stat-number">1K</span>
-                        <span className="stat-unit">+</span>
-                      </div>
-                    </div>
-                    <span className="stat-label">Followers</span>
-                  </div>
-                </div>
-                
-                <div className="tools-grid">
-                  <h3>Design Tools I Master</h3>
-                  <div className="tool-icons">
-                    <div className="tool-icon" title="Adobe Photoshop">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #31A8FF, #0078D4)'}}>Ps</div>
-                      <span>Photoshop</span>
-                    </div>
-                    <div className="tool-icon" title="Adobe Illustrator">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #FF9A00, #FF6B00)'}}>Ai</div>
-                      <span>Illustrator</span>
-                    </div>
-                    <div className="tool-icon" title="Figma">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #F24E1E, #A259FF)'}}>Fi</div>
-                      <span>Figma</span>
-                    </div>
-                    <div className="tool-icon" title="Canva">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #00C4CC, #7B68EE)'}}>Ca</div>
-                      <span>Canva</span>
-                    </div>
-                    <div className="tool-icon" title="Adobe Premiere Pro">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #9999FF, #EA77FF)'}}>Pr</div>
-                      <span>Premiere</span>
-                    </div>
-                    <div className="tool-icon" title="Filmora">
-                      <div className="tool-bg" style={{background: 'linear-gradient(135deg, #00D4AA, #00A3FF)'}}>Fi</div>
-                      <span>Filmora</span>
-                    </div>
-                  </div>
-                </div>
-              </aside>
-            </div>
-          </div>
-          <div className="marquee" aria-hidden="true">
-            <div className="track">
-              <span>Brand Identity</span>
-              <span>Logo Design</span>
-              <span>UI/UX Design</span>
-              <span>Web Development</span>
-              <span>MERN Stack</span>
-              <span>Social Media Design</span>
-              <span>Print Design</span>
-              <span>Video Editing</span>
-              <span>WordPress</span>
-              <span>Creative Direction</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="skills" className="section" data-title="Skills">
-          <div className="container">
-            <h2>Skills & Expertise</h2>
-            <p className="muted">My technical proficiency across design and development tools.</p>
-            <div className="skills-timeline">
-              <div className="skills-category">
-                <div className="skills-category-label">Design & Creativity </div>
-                <div className="skills-category-card">
-                  <h3>Graphic Design</h3>
-                  <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '95%'}}>
-                      <div className="skill-name">Adobe Photoshop</div>
-                      <div className="skill-level">Expert</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Adobe Illustrator</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '88%'}}>
-                      <div className="skill-name">Figma</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '85%'}}>
-                      <div className="skill-name">Canva</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '85%'}}>
-                      <div className="skill-name">Brand design</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="skills-category">
-                <div className="skills-category-label">Web Development</div>
-                <div className="skills-category-card">
-                  <h3>Web Development & Frameworks</h3>
-                  <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">HTML/CSS</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '85%'}}>
-                      <div className="skill-name">JavaScript</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '82%'}}>
-                      <div className="skill-name">ReactJS</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '88%'}}>
-                      <div className="skill-name">AngularJS</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '50%'}}>
-                      <div className="skill-name">Django</div>
-                      <div className="skill-level">Intermediate</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '75%'}}>
-                      <div className="skill-name">Bootstrap</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '75%'}}>
-                      <div className="skill-name">TailwindCSS</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '80%'}}>
-                      <div className="skill-name">NodeJS</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '75%'}}>
-                      <div className="skill-name">Express JS</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '75%'}}>
-                      <div className="skill-name">MongoDB</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '70%'}}>
-                      <div className="skill-name">Python</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '70%'}}>
-                      <div className="skill-name">SQL</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="skills-category">
-                <div className="skills-category-label">General Programming</div>
-                <div className="skills-category-card">
-                  <h3>Programming languages</h3>
-                  <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '70%'}}>
-                      <div className="skill-name">C</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '60%'}}>
-                      <div className="skill-name">Java</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '80%'}}>
-                      <div className="skill-name">JavaScript</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '80%'}}>
-                      <div className="skill-name">Python</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '70%'}}>
-                      <div className="skill-name">SQL</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="skills-category">
-                <div className="skills-category-label">Video Editing</div>
-                <div className="skills-category-card">
-                  <h3>Video Editing</h3>
-                  <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '60%'}}>
-                      <div className="skill-name">Adobe Premiere Pro</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '30%'}}>
-                      <div className="skill-name">Adobe After Effects</div>
-                      <div className="skill-level">Intermediate</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Wondershare Filmora</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Capcut</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="skills-category">
-                <div className="skills-category-label">General Skills</div>
-                <div className="skills-category-card">
-                  <h3>General Skills</h3>
-                  <div className="skills-list">
-                    <div className="skill-item" style={{'--skill-width': '95%'}}>
-                      <div className="skill-name">Analytical Thinking</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '90%'}}>
-                      <div className="skill-name">Emotional Intelligence</div>
-                      <div className="skill-level">Advanced</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '85%'}}>
-                      <div className="skill-name">Business Communication</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '70%'}}>
-                      <div className="skill-name">E-commerce</div>
-                      <div className="skill-level">Intermediate</div>
-                    </div>
-                    <div className="skill-item" style={{'--skill-width': '75%'}}>
-                      <div className="skill-name">Sales</div>
-                      <div className="skill-level">Proficient</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="experience" className="section" data-title="Experience">
-          <div className="container">
-            <div className="experience-header">
-              <h2>Professional Experience</h2>
-              <p className="muted">My journey through graphic design and web development roles, building expertise across creative and technical domains.</p>
-            </div>
-            <div className="timeline-enhanced">
-              <div className="timeline-item">
-                <div className="timeline-year">
-                  <span className="year-badge current">2024</span>
-                  <span className="year-label">Ongoing</span>
-                </div>
-                <div className="timeline-content">
-                  <div className="experience-card freelance">
-                    <div className="card-header">
-                      <div className="role-info">
-                        <h3>Freelance Web Developer</h3>
-                        <div className="company">
-                          <span className="company-icon">💼</span>
-                          <span>Self-Employed</span>
-                        </div>
-                      </div>
-                      <div className="role-type">Remote</div>
-                    </div>
-                    <p className="role-description">
-                      Developed MERN stack exam platform, built WordPress sites, and delivered full-stack solutions with client-focused approach. Specialized in creating scalable web applications and custom solutions.
-                    </p>
-                    <div className="tech-stack">
-                      <span className="tech-tag">React</span>
-                      <span className="tech-tag">Node.js</span>
-                      <span className="tech-tag">MongoDB</span>
-                      <span className="tech-tag">WordPress</span>
-                      <span className="tech-tag">Express</span>
-                    </div>
-                    <div className="achievements">
-                      <div className="achievement">
-                        <span className="achievement-icon">🚀</span>
-                        <span>6+ projects delivered</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">⭐</span>
-                        <span>100% client satisfaction</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-year">
-                  <span className="year-badge">2023</span>
-                  <span className="year-label">Ongoing</span>
-                </div>
-                <div className="timeline-content">
-                  <div className="experience-card design">
-                    <div className="card-header">
-                      <div className="role-info">
-                        <h3>Freelance Graphic Designer</h3>
-                        <div className="company">
-                          <span className="company-icon">🎨</span>
-                          <span>Self-Employed</span>
-                        </div>
-                      </div>
-                      <div className="role-type">Global</div>
-                    </div>
-                    <p className="role-description">
-                      Created brand identities, managed social media content, and launched TeePublic store with 50+ designs for international clients. Focused on building cohesive brand experiences across digital platforms.
-                    </p>
-                    <div className="tech-stack">
-                      <span className="tech-tag design">Photoshop</span>
-                      <span className="tech-tag design">Illustrator</span>
-                      <span className="tech-tag design">Figma</span>
-                      <span className="tech-tag design">Canva</span>
-                      <span className="tech-tag design">Brand Design</span>
-                    </div>
-                    <div className="achievements">
-                      <div className="achievement">
-                        <span className="achievement-icon">🎯</span>
-                        <span>50+ designs</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">🌍</span>
-                        <span>International reach</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-year">
-                  <span className="year-badge">2024</span>
-                  <span className="year-label">Graduation</span>
-                </div>
-                <div className="timeline-content">
-                  <div className="experience-card internship">
-                    <div className="card-header">
-                      <div className="role-info">
-                        <h3>Bachelor Graduation Intern</h3>
-                        <div className="company">
-                          <span className="company-icon">🏢</span>
-                          <span>Elite Council Consulting</span>
-                        </div>
-                      </div>
-                      <div className="role-type">Intern</div>
-                    </div>
-                    <p className="role-description">
-                      Developed OCR web application using Django, enhanced accuracy by 60% with OpenCV preprocessing techniques. Focused on computer vision and machine learning applications.
-                    </p>
-                    <div className="tech-stack">
-                      <span className="tech-tag">Django</span>
-                      <span className="tech-tag">Python</span>
-                      <span className="tech-tag">OpenCV</span>
-                      <span className="tech-tag">OCR</span>
-                      <span className="tech-tag">ML</span>
-                    </div>
-                    <div className="achievements">
-                      <div className="achievement">
-                        <span className="achievement-icon">👨‍💻</span>
-                        <span>Python</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">🤖</span>
-                        <span>Prompt Engineering</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">📄</span>
-                        <span>OCR Technology</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">🎓</span>
-                        <span>Graduation</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-year">
-                  <span className="year-badge">2023</span>
-                  <span className="year-label">Summer</span>
-                </div>
-                <div className="timeline-content">
-                  <div className="experience-card internship">
-                    <div className="card-header">
-                      <div className="role-info">
-                        <h3>Web Development Intern</h3>
-                        <div className="company">
-                          <span className="company-icon">📡</span>
-                          <span>Tunisie Telecom</span>
-                        </div>
-                      </div>
-                      <div className="role-type">Intern</div>
-                    </div>
-                    <p className="role-description">
-                      Built social activity management website using MERN Stack in collaborative team environment. Gained experience in enterprise-level development and teamwork.
-                    </p>
-                    <div className="tech-stack">
-                      <span className="tech-tag">React</span>
-                      <span className="tech-tag">Node.js</span>
-                      <span className="tech-tag">MongoDB</span>
-                      <span className="tech-tag">Express</span>
-                      <span className="tech-tag">Team Work</span>
-                    </div>
-                    <div className="achievements">
-                      <div className="achievement">
-                        <span className="achievement-icon">👨‍💻</span>
-                        <span>MERN Stack</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">👥</span>
-                        <span>Team collaboration</span>
-                      </div>
-                      <div className="achievement">
-                        <span className="achievement-icon">🔧</span>
-                        <span>Enterprise experience</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="work" className="section work-section" data-title="Work">
-          <div className="container">
-            <h2>Selected Work</h2>
-            <p className="muted">Explore my latest projects across design and development.</p>
-            
-            <div className="work-categories">
-              <div className="work-category">
-                <h3>Design Projects</h3>
-                <p className="muted">Brand identities, visual designs, and creative solutions</p>
-                <p className="project-note">Note: Sorry if the Behance URLs do not work. I have problems with my Behance account that will be fixed.</p>
-                <div className="work-grid design-grid">
-                  {[
-                    {
-                      id: 2,
-                      title: "Space Planet Art",
-                      description: "Digital artwork featuring some planets along with doodle simple details and space elements with vibrant colors and artistic flair.",
-                      tag: "Illustration",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/233604109/Space-digital-illustration",
-                      images: [
-                        spacePlanetArt,
-                      ]
-                    },
-                    {
-                      id: 3,
-                      title: "Space Doodle Artwork",
-                      description: "Creative space-themed doodle illustration.",
-                      tag: "Illustration",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/181236815/Space-doodle-art",
-                      images: [
-                        spaceDoodleArt,
-                      ]
-                    },
-                    {
-                      id: 4,
-                      title: "Bipolar Disorder Digital Art",
-                      description: "Expressive digital artwork Illustrating the inner-experience of people with bipolar disorder.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/205355239/Bipolar-disorder-digital-art",
-                      images: [
-                        bipolarArt,
-                      ]
-                    },
-                    {
-                      id: 5,
-                      title: "Memento Mori - تذكر أنك ميت",
-                      description: "Digital art piece inspired by the Meditations of Marcus Aurelius, beautifully mixing arabic & latin letters, about  the philosophical concept of mortality and the reminder to live meaningfully.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/209749997/Memento-mori-design",
-                      images: [
-                        mementoMori,
-                      ]
-                    },
-                    {
-                      id: 6,
-                      title: "Fight Club Poster",
-                      description: "Movie poster design exploring the film's philosophy of anti-consumerism, freedom from material chains, and breaking societal norms through bold visual metaphors.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/206744351/Fight-Club-Poster-Artwork",
-                      images: [
-                        fightClub,
-                      ]
-                    },
-                    {
-                      id: 7,
-                      title: "Curiosity Kills the Skeptic",
-                      description: "Deep philosophical poster exploring the paradox between intellectual curiosity and skeptical doubt, questioning whether the pursuit of knowledge ultimately challenges our protective skepticism.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/205354867/Curiosity-kills-the-skeptic-digital-artwork",
-                      images: [
-                        curiositySkeptic,
-                      ]
-                    },
-                    {
-                      id: 8,
-                      title: "The Quantum Society",
-                      description: "Conceptual design project exploring quantum theory as a metaphor for modern society, featuring front and back compositions that represent different perspectives of social complexity.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/207066209/Tunisia-The-quantum-society-Digital-Art",
-                      images: [
-                        tunisiaFront,
-                        tunisiaBack
-                      ]
-                    },
-                    {
-                      id: 9,
-                      title: "Hegel's Hotel California",
-                      description: "Philosophical cover art reimagining the Eagles' classic album with Hegel's dialectical thinking, featuring the text 'such a lovely place for a contradiction' - merging rock culture with German idealism.",
-                      tag: "Digital Art",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/206487429/Eagles-Hotel-California-Album-Cover-Rework",
-                      images: [
-                        hegelsHotel,
-                      ]
-                    },
-                    {
-                      id: 10,
-                      title: "Skeptic Brand Identity",
-                      description: "Logo design variations for my philosophical brand 'Skeptic', exploring different visual approaches to represent critical thinking, questioning, and intellectual curiosity through typography and symbolic elements.",
-                      tag: "Brand Identity",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/178779857/Skeptic-Logo-design",
-                      images: [
-                        skepticLogo3,
-                        skepticLogo1,
-                        skepticLogo2
-                      ]
-                    },
-                    {
-                      id: 11,
-                      title: "The Dead Welder",
-                      description: "Brand identity and logo design for a welder content creator, combining industrial aesthetics with edgy typography to create a memorable brand that reflects the raw, skilled nature of welding craftsmanship.",
-                      tag: "Brand Identity",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/179077249/The-Dead-Welder-Logo-Design",
-                      images: [
-                        deadWelder,
-                      ]
-                    },
-                    {
-                      id: 12,
-                      title: "BioAura Cosmetics",
-                      description: "Brand identity and logo design for BioAura Cosmetics, creating an elegant and organic visual identity that emphasizes natural beauty, wellness, and the harmonious connection between biology and personal care.",
-                      tag: "Brand Identity",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/180198681/BioAura-Cosmetics",
-                      images: [
-                        bioaura,
-                      ]
-                    },
-                    {
-                      id: 13,
-                      title: "Todo Notebook Covers",
-                      description: "Two cover designs for todo notebooks created for a small business, featuring clean layouts and motivational aesthetics to inspire productivity and organization for everyday task management.",
-                      tag: "Print Design",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/208940377/TO-DO-Notebook-Cover-Designs",
-                      images: [
-                        todo1,
-                        todo2
-                      ]
-                    },
-                    {
-                      id: 14,
-                      title: "Derma-In Laboratory Flyers",
-                      description: "Marketing flyer designs for Derma-In laboratory, showcasing their sun protection products and natural oils collection. Clean, professional layouts emphasizing the scientific quality and natural benefits of their skincare solutions.",
-                      tag: "Print design",
-                      type: "design",
-                      behanceUrl: "https://www.behance.net/gallery/233602985/Derma-In-Laboratory-Flyer-Design",
-                      images: [
-                        flyer1,
-                        flyer2,
-                        flyer3,
-                        flyer4
-                      ]
-                    },
-                    {
-                      id: 15,
-                      title: "Skeptic T-Shirt Designs",
-                      description: "Philosophical t-shirt designs available on TeePublic, featuring thought-provoking concepts from great philosophers like Kant, Descartes, and original Skeptic brand artwork that challenges conventional thinking.",
-                      tag: "T-Shirt Design",
-                      type: "design",
-                      linkUrl: "https://www.teepublic.com/user/skeptic-styles",
-                      linkType: "teepublic",
-                      images: [
-                        skepticTshirt,
-                        kant1,
-                        kant2,
-                        cogito,
-                        problemImage
-                      ]
-                    }
-                  ].map((project) => (
-                    <div 
-                      key={project.id}
-                      className="work-card design-card magnetic"
-                      onClick={() => {
-                        const gallery = document.querySelector('.design-gallery')
-                        const galleryTitle = gallery.querySelector('.gallery-title')
-                        const galleryDesc = gallery.querySelector('.gallery-description')
-                        const galleryTag = gallery.querySelector('.gallery-tag')
-                        const galleryImages = gallery.querySelector('.gallery-images')
-                        const projectLink = gallery.querySelector('.project-link')
-                        
-                        galleryTitle.textContent = project.title
-                        galleryDesc.textContent = project.description
-                        galleryTag.textContent = project.tag
-                        
-                        // Handle different link types
-                        if (project.linkType === 'teepublic') {
-                          projectLink.href = project.linkUrl
-                          projectLink.textContent = 'Shop on TeePublic'
-                          projectLink.classList.add('teepublic-link')
-                          projectLink.classList.remove('behance-link')
-                        } else {
-                          projectLink.href = project.behanceUrl
-                          projectLink.textContent = 'View on Behance'
-                          projectLink.classList.add('behance-link')
-                          projectLink.classList.remove('teepublic-link')
-                        }
-                        
-                        galleryImages.innerHTML = project.images.map((img, index) => 
-                          `<div class="gallery-slide ${index === 0 ? 'active' : ''}" style="background-image: url(${img})"></div>`
-                        ).join('')
-                        
-                        gallery.classList.add('active')
-                        gallery.currentImageIndex = 0
-                        gallery.totalImages = project.images.length
-                      }}
-                    >
-                      <div className="work-card-bg" style={{ backgroundImage: `url(${project.images[0]})` }} />
-                      <div className="work-card-overlay">
-                        <div className="work-card-tag design-tag">{project.tag}</div>
-                        <h4>{project.title}</h4>
-                        <p>{project.description}</p>
-                        <div className="design-indicator">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                          </svg>
-                          Gallery View
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="work-category">
-                <h3>Development Projects</h3>
-                <p className="muted">Web applications, websites, and interactive experiences</p>
-                <p className="project-note">Note: if an URL is invalid, the client probably did not pay his hosting fees.</p>
-                <div className="work-grid dev-grid">
-                  {[
-                    {
-                      id: 5,
-                      title: "Derma-In E-commerce Website",
-                      description: "A functional & responsive E-commerce website for derma-in laboratory, created using wordpress. Designed to help the company manage its orders and products through a user-friendly UI",
-                      tag: "Wordpress",
-                      type: "dev",
-                      image: dermaIn,
-                      liveUrl: "https://www.derma-in.com",
-                      codeUrl: "https://www.derma-in.com",
-                      tech: ["Wordpress", "Elementor", "Woocommerce", "PHP", "SEO", "YoastSEO"]
-                    },
-                    {
-                      id: 6,
-                      title: "Jrad Beauty Center Blog Website",
-                      description: "A responsive wordpress blog website for Jrad Beauty Center that helps the clients get to know the project and better reach it through a user-friendly and minimalist UI.",
-                      tag: "Wordpress",
-                      type: "dev",
-                      image: jradBeauty,
-                      liveUrl: "https://jradbeautycenter.tn/",
-                      codeUrl: "https://jradbeautycenter.tn/",
-                      tech: ["Wordpress", "Elementor", "PHP", "SEO", "RankMath"]
-                    },
-                    {
-                      id: 7,
-                      title: "Tunisie Telecom Social Activity Management Website",
-                      description: "A website for Tunisie Telecom, which is a website that manages social activities, accounts and offers of Tunisie Telecom Employees developed using MERN Stack.",
-                      tag: "MERN STACK",
-                      type: "dev",
-                      image: ttWebsite,
-                      liveUrl: "https://github.com/ZiniMedAmine/TTApp",
-                      codeUrl: "https://github.com/ZiniMedAmine/TTApp",
-                      tech: ["HTML/CSS","React", "Express JS", "MongoDB", "NodeJS"]
-                    },
-                    {
-                      id: 8,
-                      title: "InvoiceScan+",
-                      description: "A website through which the user can scan any document image and get the relevant data and the document type in a useable JSON, Word or PDF file within seconds.",
-                      tag: "Django/AI Web",
-                      type: "dev",
-                      image: invoiceScan,
-                      liveUrl: "https://github.com/ZiniMedAmine/InvoiceScan",
-                      codeUrl: "https://github.com/ZiniMedAmine/InvoiceScan",
-                      tech: ["Python", "Django", "REST API", "OCR", "OpenCV", "Tesserract", "Prompt Engineering", "Gemini"]
-                    },
-                    {
-                      id: 9,
-                      title: "React Calculator",
-                      description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time",
-                      tag: "React",
-                      type: "dev",
-                      image: reactCalculator,
-                      liveUrl: "https://github.com/ZiniMedAmine/React-Calculator",
-                      codeUrl: "https://github.com/ZiniMedAmine/React-Calculator",
-                      tech: ["React", "NodeJS", "TailwindCSS"]
-                    },
-                    {
-                      id: 10,
-                      title: "My Portfolio Website",
-                      description: "Explore my personal React portfolio, where I bring creativity and code together—showcasing my graphic design projects, web development work, professional experience, and ways to connect.",
-                      tag: "React",
-                      type: "dev",
-                      image: portfolioWebsite,
-                      liveUrl: "#",
-                      codeUrl: "#",
-                      tech: ["React", "NodeJS"]
-                    },
-                   {
-                      id: 11,
-                      title: "Medical Exam Simulation Platform",
-                      description: "A responsive MERN Stack platform for French-speaking UMF Iași medical students that simulates exams with randomized questions and exact grading algorithms, helping them practice and prepare effectively.",
-                      tag: "MERN Stack",
-                      type: "dev",
-                      image: umfiasi,
-                      liveUrl: "https://80umfiasi.me",
-                      codeUrl: "https://80umfiasi.me",
-                      tech: ["React", "NodeJS","ExpressJS","MongoDB"]
-                    },
-                    {
-                      id: 12,
-                      title: "ZanzibarExplore",
-                      description: "A WordPress business website for a Zanzibar client where visitors can book activities and excursions. Built to highlight experiences and make inquiries fast on mobile and desktop.",
-                      tag: "Wordpress",
-                      type: "dev",
-                      image: zanzibarExplore,
-                      liveUrl: "zanzibarexplore.com",
-                      codeUrl: "zanzibarexplore.com",
-                      tech: ["Wordpress", "Elementor", "Bookings", "SEO"]
-                    },
-                    {
-                      id: 13,
-                      title: "Sales Data Analysis Mini Project",
-                      description: "A compact data analysis project that explores sales performance and patterns using Python, with clear visual summaries and insights.",
-                      tag: "Data Analysis",
-                      type: "dev",
-                      image: dataAnalysisProj,
-                      liveUrl: "https://github.com/ZiniMedAmine/Sales-Data-Analysis-Mini-Project",
-                      codeUrl: "https://github.com/ZiniMedAmine/Sales-Data-Analysis-Mini-Project",
-                      tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"]
-                    },
-                    {
-                      id: 14,
-                      title: "K-Means Color Quantization Mini Project",
-                      description: "An image processing mini project that reduces color palettes using K-Means clustering for cleaner, stylized visuals.",
-                      tag: "Computer Vision",
-                      type: "dev",
-                      image: colorQuantization,
-                      liveUrl: "https://github.com/ZiniMedAmine/KMEANS_Color_Quantization",
-                      codeUrl: "https://github.com/ZiniMedAmine/KMEANS_Color_Quantization",
-                      tech: ["Python", "K-Means", "OpenCV", "Image Processing"]
-                    }
-                  ].map((project) => (
-                    <div 
-                      key={project.id}
-                      className="work-card dev-card magnetic"
-                      onClick={() => {
-                        const modal = document.querySelector('.dev-modal')
-                        modal.classList.add('active')
-                        modal.querySelector('.modal-title').textContent = project.title
-                        modal.querySelector('.modal-description').textContent = project.description
-                        modal.querySelector('.modal-tag').textContent = project.tag
-                        modal.querySelector('.modal-image').src = project.image
-                        modal.querySelector('.live-link').href = project.liveUrl
-                        
-                        const techContainer = modal.querySelector('.modal-tech')
-                        techContainer.innerHTML = project.tech.map(tech => 
-                          `<span class="tech-tag">${tech}</span>`
-                        ).join('')
-                      }}
-                    >
-                      <div className="work-card-bg" style={{ backgroundImage: `url(${project.image})` }} />
-                      <div className="work-card-overlay">
-                        <div className="work-card-tag dev-tag">{project.tag}</div>
-                        <h4>{project.title}</h4>
-                        <p>{project.description}</p>
-                        <div className="tech-preview">
-                          {project.tech.slice(0, 3).map(tech => (
-                            <span key={tech} className="tech-badge">{tech}</span>
-                          ))}
-                          {project.tech.length > 3 && <span className="tech-more">+{project.tech.length - 3}</span>}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="design-gallery" onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              e.currentTarget.classList.remove('active')
-            }
-          }}>
-            <div className="gallery-content">
-              <button className="gallery-close" onClick={() => {
-                document.querySelector('.design-gallery').classList.remove('active')
-              }}>×</button>
-              
-              <div className="gallery-header">
-                <h2 className="gallery-title">Project Title</h2>
-                <span className="gallery-tag">Category</span>
-              </div>
-              
-              <div className="gallery-main">
-                <div className="gallery-images"></div>
-                <button className="gallery-nav gallery-prev" onClick={(e) => {
-                  e.stopPropagation()
-                  const gallery = document.querySelector('.design-gallery')
-                  const slides = gallery.querySelectorAll('.gallery-slide')
-                  const current = gallery.currentImageIndex || 0
-                  const prev = current === 0 ? slides.length - 1 : current - 1
-                  
-                  slides[current].classList.remove('active')
-                  slides[prev].classList.add('active')
-                  gallery.currentImageIndex = prev
-                }}>‹</button>
-                <button className="gallery-nav gallery-next" onClick={(e) => {
-                  e.stopPropagation()
-                  const gallery = document.querySelector('.design-gallery')
-                  const slides = gallery.querySelectorAll('.gallery-slide')
-                  const current = gallery.currentImageIndex || 0
-                  const next = current === slides.length - 1 ? 0 : current + 1
-                  
-                  slides[current].classList.remove('active')
-                  slides[next].classList.add('active')
-                  gallery.currentImageIndex = next
-                }}>›</button>
-              </div>
-              
-              <div className="gallery-footer">
-                <p className="gallery-description">Project description will be shown here.</p>
-                <div className="gallery-actions">
-                  <a href="#" className="btn btn-primary magnetic project-link" target="_blank" rel="noopener noreferrer">View on Behance</a>
-                </div>
-                <div className="gallery-indicators">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="dev-modal" onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              e.currentTarget.classList.remove('active')
-            }
-          }}>
-            <div className="modal-content">
-              <button className="modal-close" onClick={() => {
-                document.querySelector('.dev-modal').classList.remove('active')
-              }}>×</button>
-              
-              <img className="modal-image" src="" alt="Project" />
-              
-              <div className="modal-body">
-                <div className="modal-header">
-                  <h2 className="modal-title">Project Title</h2>
-                  <span className="modal-tag">Category</span>
-                </div>
-                
-                <p className="modal-description">Project description will be populated here.</p>
-                
-                <div className="modal-tech"></div>
-                
-                <div className="modal-actions">
-                  <a href="#" className="btn btn-primary magnetic live-link">View Project</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section - Using EmailJS Component */}
-        <Contact />
-      </main>
-
-      <footer className="site-footer">
-        <div className="container">
-          <div>Mohamed Amine Zini © <span id="year" ref={yearRef} /> </div>
-        </div>
-      </footer>
-
+      <div className="atmosphere" aria-hidden="true" />
+      <div className="vignette" aria-hidden="true" />
       <div className="cursor-dot" aria-hidden="true" />
       <div className="cursor-ring" aria-hidden="true" />
+      <div className="scroll-progress" aria-hidden="true" />
+
+      <nav className="nav" data-screen-label="00 Nav">
+        <a href="#home" className="brand">
+          <span className="mark"><img src={skepticLogo} alt="Zini logomark" /></span>
+          <span className="name">Zini</span>
+          <span className="meta">software & web</span>
+        </a>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#dev-work">Dev</a></li>
+          <li><a href="#design-work">Design</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div className="availability"><span className="dot" /><span>Available - Q3 '26</span></div>
+      </nav>
+
+      <main>
+        <section id="home" className="section hero" data-screen-label="01 Hero">
+          <div className="container hero-grid">
+            <div className="hero-copy reveal-stagger is-in">
+              <p className="eyebrow"><span className="num">01</span><span className="line" /><span>Portfolio - 2026 edition</span></p>
+              <h1>
+                <span className="split-line"><span>Mohamed</span></span>
+                <span className="split-line"><span>Amine Zini<span className="it">,</span></span></span>
+                <span className="split-line"><span className="grad">software engineer</span></span>
+                <span className="split-line"><span className="it">& Graphic Designer.</span></span>
+              </h1>
+              <div className="role">
+                <span className="line" />
+                <span>Currently</span>
+                <span className="now"><span className="now-track"><span>building web applications</span><span>engineering product interfaces</span><span>designing useful systems</span><span>building web applications</span></span></span>
+              </div>
+              <p className="lede hero-lede">I build responsive web applications and production websites with a designer's eye for detail, turning product ideas into clean, usable, and scalable digital experiences.</p>
+              <div className="hero-meta">
+                <div className="item"><div className="label">Based</div><div className="value">Tunis, TN - UTC+1</div></div>
+                <div className="item"><div className="label">Discipline</div><div className="value">Software - Web - UI</div></div>
+                <div className="item"><div className="label">Status</div><div className="value">Open - Freelance</div></div>
+              </div>
+            </div>
+            <HeroPlayground />
+          </div>
+          <div className="container hero-foot">
+            <span>© Zini studio - {year}</span>
+            <a href="#about" className="scrolldown"><span>Scroll to explore</span><span className="arrow" /></a>
+            <span>v 2.0</span>
+          </div>
+        </section>
+
+        <div className="marquee" aria-hidden="true">
+          <div className="track">
+            {['Software engineering', 'Web development', 'React', 'MERN stack', 'Django', 'WordPress', 'Frontend', 'APIs', 'UI engineering', 'Data analysis', 'Brand design', 'Visual systems'].map((item, index) => (
+              <span key={`${item}-${index}`}>{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <section id="about" className="section about" data-screen-label="02 About">
+          <div className="container about-grid">
+            <div className="reveal">
+              <p className="eyebrow"><span className="num">02</span><span className="line" /><span>About</span></p>
+              <h2>A software-first <em>practice</em> from Tunisia.</h2>
+            </div>
+            <div className="about-body reveal">
+              <p className="lede">I engineer the product, then make sure the interface feels sharp.</p>
+              <p>I'm Mohamed Amine, a <strong>Software Engineering</strong> student and <strong>Web Developer</strong> focused on building practical, responsive, and maintainable digital products.</p>
+              <p>My strongest work lives where frontend detail meets backend logic: React interfaces, WordPress business sites, MERN applications, Django tools, OCR workflows, and data-driven mini projects. Design is still part of my edge, but the hierarchy is code, product, and usable systems first.</p>
+              <p>Because I also come from graphic design, I can ship websites that do more than function. I care about structure, performance, clarity, and the visual decisions that make software easier to trust and use.</p>
+            </div>
+          </div>
+          <div className="container about-stats reveal-stagger">
+            <div className="stat"><div className="num">3<span className="unit"> yrs</span></div><div className="label">Experience</div></div>
+            <div className="stat"><div className="num">10+</div><div className="label">Dev projects</div></div>
+            <div className="stat"><div className="num">15+</div><div className="label">Clients served</div></div>
+            <div className="stat"><div className="num">50+</div><div className="label">Design assets</div></div>
+          </div>
+        </section>
+
+        <section id="expertise" className="section expertise" data-screen-label="03 Expertise">
+          <div className="container expertise-grid">
+            <div className="reveal">
+              <p className="eyebrow"><span className="num">03</span><span className="line" /><span>Expertise</span></p>
+              <h2>What I do <em>best.</em></h2>
+            </div>
+            <div>
+              {skills.map((skill) => (
+                <div className="discipline reveal" key={skill.title}>
+                  <span className="idx">{skill.idx}</span>
+                  <div>
+                    <h3>{skill.title}</h3>
+                    <p className="desc">{skill.desc}</p>
+                    <div className="tools">{skill.tools.map((tool) => <span className="tool" key={tool}>{tool}</span>)}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" className="section experience" data-screen-label="04 Experience">
+          <div className="container experience-grid">
+            <div className="reveal">
+              <p className="eyebrow"><span className="num">04</span><span className="line" /><span>Experience</span></p>
+              <h2>Professional <em>timeline.</em></h2>
+            </div>
+            <div className="timeline">
+              {experiences.map((item) => (
+                <article className="experience-card reveal" key={`${item.year}-${item.role}`}>
+                  <span className="idx">{item.year}</span>
+                  <div className="experience-main">
+                    <div className="experience-top">
+                      <div>
+                        <span className="kind">{item.company} - {item.type}</span>
+                        <h3>{item.role}</h3>
+                      </div>
+                      <span className="role-type">{item.type}</span>
+                    </div>
+                    <p>{item.desc}</p>
+                    <div className="tools compact">{item.stack.map((tech) => <span className="tool" key={tech}>{tech}</span>)}</div>
+                    <div className="wins">{item.wins.map((win) => <span key={win}>{win}</span>)}</div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <WorkShowcase
+          id="dev-work"
+          eyebrow="Development work"
+          title="Development"
+          subtitle="all software projects."
+          projects={devProjects}
+          type="dev"
+          number="05"
+          note="Note: if a link does not work, the client probably did not pay for his hosting fees."
+        />
+        <WorkShowcase
+          id="design-work"
+          eyebrow="Design work"
+          title="Design"
+          subtitle="all visual projects."
+          projects={designProjects}
+          type="design"
+          number="06"
+          note="Note: sorry if a Behance link does not work. I am currently having trouble with my Behance account."
+        />
+
+        <Contact socials={socials} />
+      </main>
+
+      <footer className="footer" data-screen-label="Footer">
+        <div className="footer-grid">
+          <div className="signoff">Designed & built<br /><em>in Tunis</em>, {year}.</div>
+          <div className="colophon">
+            <div className="row"><span>System</span><strong>Zini DS - v2.0</strong></div>
+            <div className="row"><span>Typography</span><strong>Inter - JetBrains Mono</strong></div>
+            <div className="row"><span>Built with</span><strong>React - Vite - CSS</strong></div>
+            <div className="row"><span>Last update</span><strong>May 2026</strong></div>
+          </div>
+        </div>
+        <div className="bottom">
+          <span>© Mohamed Amine Zini - all rights reserved</span>
+          <span className="skeptic"><img src={skepticLogo} alt="Skeptic alias" /><span>A Skeptic production</span></span>
+        </div>
+      </footer>
     </>
   )
 }

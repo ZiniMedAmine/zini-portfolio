@@ -11,7 +11,7 @@ export function Interests() {
       <div className="container">
         <h2>Interests</h2>
         <div className="grid" style={{ marginTop: 12 }}>
-          {interests.map((t, i) => (
+          {interests.map((t) => (
             <Reveal key={t} className="card" style={{ gridColumn: 'span 4', padding: 16 }}>
               <strong>{t}</strong>
               <p className="muted" style={{ marginTop: 6 }}>Short note about how I approach {t.toLowerCase()} and what inspires me.</p>
