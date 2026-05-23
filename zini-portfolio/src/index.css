@@ -266,7 +266,7 @@ main { position: relative; z-index: 2; }
   z-index: 3;
 }
 .hero h1 {
-  font-size: clamp(48px, 8.2vw, 124px);
+  font-size: clamp(48px, 7.5vw, 112px);
   line-height: .98;
   letter-spacing: -.04em;
   font-weight: 600;
