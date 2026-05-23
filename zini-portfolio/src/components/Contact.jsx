@@ -14,7 +14,7 @@ export function Contact() {
                 <a className="btn secondary" href="https://github.com/" target="_blank" rel="noreferrer"><FiGithub /> GitHub</a>
                 <a className="btn secondary" href="https://dribbble.com/" target="_blank" rel="noreferrer"><FiDribbble /> Dribbble</a>
               </div>
-            </div>
+            </div> 
           </div>
           <div className="right-5">
             <div className="grid">
