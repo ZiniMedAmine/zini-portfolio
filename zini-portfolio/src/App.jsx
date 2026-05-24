@@ -42,6 +42,7 @@ import colorQuantization from './assets/colorquantization.webp'
 const socials = [
   ['GitHub', '@ZiniMedAmine', 'https://github.com/ZiniMedAmine'],
   ['Email', 'zini.m.amine@gmail.com', 'mailto:zini.m.amine@gmail.com'],
+  ['Behance', '@zinimedamine', 'https://www.behance.net/zinimedamine'],
 ]
 
 const skills = [

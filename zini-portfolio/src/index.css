@@ -980,7 +980,7 @@ main { position: relative; z-index: 2; }
 .contact h2 em { color: var(--fg-3); font-style: italic; font-weight: 300; }
 .contact-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-bottom: 80px;
 }
@@ -1149,7 +1149,7 @@ main { position: relative; z-index: 2; }
 .form-status.is-error::before { background: #ff6b7a; }
 .socials {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 100px;
   border-top: 1px solid var(--hair);
   border-bottom: 1px solid var(--hair);

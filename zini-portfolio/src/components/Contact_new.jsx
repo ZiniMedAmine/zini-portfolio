@@ -48,6 +48,12 @@ export function Contact({ socials = [] }) {
             <span className="sub">Projects, experiments, and source code live here.</span>
             <span className="icon" aria-hidden="true"><span className="arrow" /></span>
           </a>
+          <a href="https://www.behance.net/zinimedamine" target="_blank" rel="noopener noreferrer" className="contact-card" data-hover>
+            <span className="kind">Behance - design</span>
+            <span className="value">@zinimedamine</span>
+            <span className="sub">Visual design, branding, and creative project presentations live here.</span>
+            <span className="icon" aria-hidden="true"><span className="arrow" /></span>
+          </a>
         </div>
 
         <div className="contact-form-wrap reveal">
