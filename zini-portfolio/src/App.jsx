@@ -118,7 +118,7 @@ const designProjects = [
     year: '2026',
     role: 'Illustration',
     output: 'Digital artwork',
-    url: 'https://www.behance.net/gallery/233604109/Space-digital-illustration',
+    url: 'https://www.behance.net/gallery/249934987/Space-Planet-illustration',
     images: [spacePlanetArt],
   },
   {
@@ -128,7 +128,7 @@ const designProjects = [
     year: '2024',
     role: 'Illustration',
     output: 'Digital artwork',
-    url: 'https://www.behance.net/gallery/181236815/Space-doodle-art',
+    url: 'https://www.behance.net/gallery/249935263/Doodle-Space-Illustration',
     images: [spaceDoodleArt],
   },
   {
@@ -138,7 +138,7 @@ const designProjects = [
     year: '2025',
     role: 'Concept, design',
     output: 'Poster artwork',
-    url: 'https://www.behance.net/gallery/205355239/Bipolar-disorder-digital-art',
+    url: 'https://www.behance.net/gallery/249935705/Bipolar-Disorder-Surreal-Digital-Art',
     images: [bipolarArt],
   },
   {
@@ -148,7 +148,7 @@ const designProjects = [
     year: '2025',
     role: 'Typography, art',
     output: 'Poster artwork',
-    url: 'https://www.behance.net/gallery/209749997/Memento-mori-design',
+    url: 'https://www.behance.net/gallery/249936043/Memento-Mori',
     images: [mementoMori],
   },
   {
@@ -158,7 +158,7 @@ const designProjects = [
     year: '2025',
     role: 'Poster design',
     output: 'Movie poster',
-    url: 'https://www.behance.net/gallery/206744351/Fight-Club-Poster-Artwork',
+    url: 'https://www.behance.net/gallery/249936477/Fight-Club-Digital-Art',
     images: [fightClub],
   },
   {
@@ -168,7 +168,7 @@ const designProjects = [
     year: '2025',
     role: 'Concept, design',
     output: 'Poster artwork',
-    url: 'https://www.behance.net/gallery/205354867/Curiosity-kills-the-skeptic-digital-artwork',
+    url: 'https://www.behance.net/gallery/249936735/Curiosity-Kills-The-Skeptic-Digital-Art',
     images: [curiositySkeptic],
   },
   {
@@ -178,7 +178,7 @@ const designProjects = [
     year: '2025',
     role: 'Concept, design',
     output: 'Two-sided poster',
-    url: 'https://www.behance.net/gallery/207066209/Tunisia-The-quantum-society-Digital-Art',
+    url: 'https://www.behance.net/gallery/249936213/Tunisia-The-Quantum-Society-Digital-Art',
     images: [tunisiaFront, tunisiaBack],
   },
   {
@@ -188,7 +188,7 @@ const designProjects = [
     year: '2025',
     role: 'Cover, type',
     output: 'Album rework',
-    url: 'https://www.behance.net/gallery/206487429/Eagles-Hotel-California-Album-Cover-Rework',
+    url: 'https://www.behance.net/gallery/249936937/Hegels-Hotel-California-Cover-Art',
     images: [hegelsHotel],
   },
   {
@@ -198,7 +198,7 @@ const designProjects = [
     year: '2024',
     role: 'Identity design',
     output: 'Logo system',
-    url: 'https://www.behance.net/gallery/178779857/Skeptic-Logo-design',
+    url: 'https://www.behance.net/gallery/249937033/Skeptic-Logo-Design-Brand-Identity',
     images: [skepticLogo3, skepticLogo2, skepticLogo1, skepticLogo],
   },
   {
@@ -208,7 +208,7 @@ const designProjects = [
     year: '2024',
     role: 'Identity design',
     output: 'Logo design',
-    url: 'https://www.behance.net/gallery/179077249/The-Dead-Welder-Logo-Design',
+    url: 'https://www.behance.net/gallery/249937149/The-Dead-Welder-Logo-Design-Branding',
     images: [deadWelder],
   },
   {
@@ -218,7 +218,7 @@ const designProjects = [
     year: '2024',
     role: 'Identity design',
     output: 'Cosmetics brand',
-    url: 'https://www.behance.net/gallery/180198681/BioAura-Cosmetics',
+    url: 'https://www.behance.net/gallery/249938017/BioAura-Cosmetics-Logo-Brand-Design',
     images: [bioaura],
   },
   {
@@ -228,7 +228,7 @@ const designProjects = [
     year: '2025',
     role: 'Print design',
     output: 'Notebook covers',
-    url: 'https://www.behance.net/gallery/208940377/TO-DO-Notebook-Cover-Designs',
+    url: 'https://www.behance.net/gallery/249938287/Notebook-Cover-Design',
     images: [todo1, todo2],
   },
   {
@@ -238,7 +238,7 @@ const designProjects = [
     year: '2026',
     role: 'Marketing design',
     output: 'Flyer series',
-    url: 'https://www.behance.net/gallery/233602985/Derma-In-Laboratory-Flyer-Design',
+    url: 'https://www.behance.net/gallery/249938553/Derma-In-Laboratory-Flyer-Design',
     images: [flyer1, flyer2, flyer3, flyer4],
   },
   {
