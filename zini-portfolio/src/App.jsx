@@ -38,6 +38,7 @@ import umfiasi from './assets/umfiasi.webp'
 import zanzibarExplore from './assets/ZanzibarExplore.webp'
 import dataAnalysisProj from './assets/dataanalysisproj.webp'
 import colorQuantization from './assets/colorquantization.webp'
+import ResumeCandy from './assets/cv_content_screenshot'
 
 const socials = [
   ['GitHub', '@ZiniMedAmine', 'https://github.com/ZiniMedAmine'],
@@ -265,6 +266,17 @@ const designProjects = [
 ]
 
 const devProjects = [
+  {
+    title: 'ResumeCandy – Resume Versioning Engine',
+    description: 'A modern web application designed to help users create, manage, and version multiple resumes. Built with multilingual and RTL support, customizable templates, and ATS-friendly PDF export.',
+    tag: 'Next.js',
+    year: '2026',
+    role: 'Design, build',
+    output: 'Resume management platform',
+    image: RsumeCandy,
+    url: 'https://github.com/ZiniMedAmine/ResumeCandy',
+    tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
+  },
   {
     title: 'Derma-In E-commerce Website',
     description: 'A functional & responsive E-commerce website for derma-in laboratory, created using wordpress. Designed to help the company manage its orders and products through a user-friendly UI.',
