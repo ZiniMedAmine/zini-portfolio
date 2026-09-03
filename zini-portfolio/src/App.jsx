@@ -38,7 +38,7 @@ import umfiasi from './assets/umfiasi.webp'
 import zanzibarExplore from './assets/ZanzibarExplore.webp'
 import dataAnalysisProj from './assets/dataanalysisproj.webp'
 import colorQuantization from './assets/colorquantization.webp'
-import ResumeCandy from './assets/cv_content_screenshot'
+import ResumeCandy from './assets/cv_content_screenshot.webp'
 
 const socials = [
   ['GitHub', '@ZiniMedAmine', 'https://github.com/ZiniMedAmine'],
@@ -273,7 +273,7 @@ const devProjects = [
     year: '2026',
     role: 'Design, build',
     output: 'Resume management platform',
-    image: RsumeCandy,
+    image: ResumeCandy,
     url: 'https://github.com/ZiniMedAmine/ResumeCandy',
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
   },
