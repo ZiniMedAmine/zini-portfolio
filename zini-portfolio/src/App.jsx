@@ -74,7 +74,16 @@ const skills = [
 
 const experiences = [
   {
-    year: '2024 - Present',
+    year: '2026',
+    role: 'Software Engineering Intern',
+    company: 'Proxym-IT',
+    type: 'Intern',
+    desc: 'Developed AI-powered modules for a car insurance application, including document OCR, license plate recognition, and vehicle damage detection and severity assessment.',
+    stack: ['Python', 'OCR', 'Computer Vision', 'AI', 'Docker', ''],
+    wins: ['CV & document extraction', 'License plate recognition', 'Damage detection'],
+  },
+  {
+    year: '2024 - 2026',
     role: 'Freelance Web Developer',
     company: 'Self-Employed',
     type: 'Freelance',
@@ -83,7 +92,7 @@ const experiences = [
     wins: ['Custom websites', 'Client delivery', 'Performance-minded builds'],
   },
   {
-    year: '2023 - Present',
+    year: '2023 - 2024',
     role: 'Freelance Graphic Designer',
     company: 'Self-Employed',
     type: 'Freelance',
