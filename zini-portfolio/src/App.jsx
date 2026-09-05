@@ -790,7 +790,7 @@ function App() {
           <div className="container about-stats reveal-stagger">
             <div className="stat"><div className="num">3<span className="unit"> yrs</span></div><div className="label">Experience</div></div>
             <div className="stat"><div className="num">10+</div><div className="label">Dev projects</div></div>
-            <div className="stat"><div className="num">15+</div><div className="label">Clients served</div></div>
+            <div className="stat"><div className="num">10+</div><div className="label">Clients served</div></div>
             <div className="stat"><div className="num">50+</div><div className="label">Design assets</div></div>
           </div>
         </section>
