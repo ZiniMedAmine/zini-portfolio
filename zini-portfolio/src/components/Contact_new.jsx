@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
+import { FiGithub, FiMail } from 'react-icons/fi'
+import { FaBehance } from 'react-icons/fa'
 
 export function Contact({ socials = [] }) {
   const form = useRef()
@@ -32,23 +34,26 @@ export function Contact({ socials = [] }) {
   return (
     <section id="contact" className="section contact" data-screen-label="Contact">
       <div className="container">
-        <p className="eyebrow reveal"><span className="num">07</span><span className="line" /><span>Get in touch</span></p>
+        <p className="eyebrow reveal"><span className="num">08</span><span className="line" /><span>Get in touch</span></p>
         <h2 className="reveal">Let's <em>build</em><br /><span className="grad">something good.</span></h2>
 
         <div className="contact-actions reveal-stagger">
           <a href="mailto:zini.m.amine@gmail.com" className="contact-card" data-hover>
+            <span className="glyph" aria-hidden="true"><FiMail /></span>
             <span className="kind">Email - primary</span>
             <span className="value">zini.m.amine@gmail.com</span>
-            <span className="sub">Have a web app, website, or software idea? I'm open for freelance and collaborations.</span>
+            <span className="sub">Have an AI, computer vision, or web app idea? I'm open to a final-year internship, freelance, and collaborations.</span>
             <span className="icon" aria-hidden="true"><span className="arrow" /></span>
           </a>
           <a href="https://github.com/ZiniMedAmine" target="_blank" rel="noopener noreferrer" className="contact-card" data-hover>
+            <span className="glyph" aria-hidden="true"><FiGithub /></span>
             <span className="kind">GitHub - code</span>
             <span className="value">@ZiniMedAmine</span>
             <span className="sub">Projects, experiments, and source code live here.</span>
             <span className="icon" aria-hidden="true"><span className="arrow" /></span>
           </a>
           <a href="https://www.behance.net/zinimedamine" target="_blank" rel="noopener noreferrer" className="contact-card" data-hover>
+            <span className="glyph" aria-hidden="true"><FaBehance /></span>
             <span className="kind">Behance - design</span>
             <span className="value">@zinimedamine</span>
             <span className="sub">Visual design, branding, and creative project presentations live here.</span>
@@ -59,10 +64,10 @@ export function Contact({ socials = [] }) {
         <div className="contact-form-wrap reveal">
           <div className="contact-form-intro">
             <h3>Tell me about <em>the project.</em></h3>
-            <p>Fill out the form and I'll get back to you soon. Web applications, websites, automations, and polished interfaces are the work I want this site to lead with.</p>
+            <p>Fill out the form and I'll get back to you soon. Computer vision and OCR pipelines, AI-powered applications, and the full-stack architecture around them are the work I want this site to lead with.</p>
             <div className="form-meta">
-              <div className="row">Freelance - software - web</div>
-              <div className="row">Based in Sousse, available remote</div>
+              <div className="row">Open to a final-year internship - Feb 2027</div>
+              <div className="row">Based in Laval, France - mobile across France</div>
             </div>
           </div>
 

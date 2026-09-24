@@ -1,5 +1,7 @@
 import './index.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { FiArrowRight, FiCheck, FiCode, FiCpu, FiDatabase, FiEye, FiGlobe, FiLayers, FiMapPin, FiMaximize, FiPenTool, FiTerminal } from 'react-icons/fi'
 import Contact from './components/Contact_new'
 
 import skepticLogo from './assets/Skeptic.webp'
@@ -48,29 +50,86 @@ const socials = [
 
 const skills = [
   {
-    idx: '01 / 04',
-    title: 'Web development',
-    desc: 'Responsive interfaces, production websites, and full-stack web apps across React, Angular, Django, WordPress, and the MERN stack.',
-    tools: ['HTML/CSS', 'JavaScript', 'ReactJS', 'AngularJS', 'Django', 'Bootstrap', 'TailwindCSS', 'NodeJS', 'Express JS', 'MongoDB'],
+    idx: '01 / 05',
+    title: 'Computer vision, AI & OCR',
+    icon: FiEye,
+    desc: 'Detection and document-reading pipelines built for real use: YOLO + OCR license plate reading at 98% accuracy across 3,000 images, vehicle damage detection and severity scoring, and OpenCV preprocessing that lifted OCR accuracy from 60% to 87%.',
+    tools: ['Python', 'OpenCV', 'YOLO', 'OCR', 'Tesseract', 'Image Processing', 'K-Means', 'Gemini', 'Prompt Engineering'],
   },
   {
-    idx: '02 / 04',
+    idx: '02 / 05',
+    title: 'Software architecture',
+    icon: FiCpu,
+    desc: 'Designing the system around the model: Python microservices behind REST APIs, database modeling, containerized with Docker and shipped through CI/CD, built in Scrum teams from requirements to production.',
+    tools: ['System design', 'Microservices', 'REST API', 'PostgreSQL', 'MongoDB', 'Docker', 'CI/CD', 'Git', 'Scrum / Agile'],
+  },
+  {
+    idx: '03 / 05',
+    title: 'Full-stack development',
+    icon: FiCode,
+    desc: 'The apps that put the engine in front of real users: React, Next.js and Angular front-ends, Django, Node.js and NestJS back-ends, plus WordPress and MERN sites for clients.',
+    tools: ['React', 'Next.js', 'Angular', 'TypeScript', 'Django', 'NodeJS', 'Express JS', 'NestJS', 'MongoDB', 'TailwindCSS', 'WordPress'],
+  },
+  {
+    idx: '04 / 05',
     title: 'Programming languages',
+    icon: FiTerminal,
     desc: 'A practical engineering base for solving product, automation, data, and backend problems with clean logic.',
-    tools: ['C', 'Java', 'JavaScript', 'Python', 'SQL'],
+    tools: ['Python', 'Java', 'JavaScript', 'TypeScript', 'C', 'SQL'],
   },
   {
-    idx: '03 / 04',
-    title: 'Software engineering',
-    desc: 'API thinking, database modeling, maintainable components, debugging, and shipping useful systems end to end.',
-    tools: ['REST API', 'MongoDB', 'SQL', 'OCR', 'OpenCV', 'Prompt Engineering', 'Git'],
-  },
-  {
-    idx: '04 / 04',
+    idx: '05 / 05',
     title: 'Graphic design',
+    icon: FiPenTool,
     desc: 'A strong visual layer for developer work: brand identities, posters, UI direction, social content, and typography systems.',
     tools: ['Adobe Photoshop', 'Adobe Illustrator', 'Figma', 'Canva', 'Brand design'],
   },
+]
+
+const navLinks = [
+  ['#about', 'About'],
+  ['#expertise', 'Expertise'],
+  ['#experience', 'Experience'],
+  ['#education', 'Education'],
+  ['#dev-work', 'Dev'],
+  ['#design-work', 'Design'],
+  ['#contact', 'Contact'],
+]
+
+const education = [
+  {
+    state: 'done',
+    when: 'Sep 2021 - Jun 2024',
+    country: 'TN',
+    city: 'Mahdia, Tunisia',
+    degree: "Bachelor's in Computer Science & Multimedia",
+    school: 'ISIMa',
+    status: 'Licence - completed',
+  },
+  {
+    state: 'done',
+    when: 'Sep 2024 - Present',
+    country: 'TN',
+    city: 'Sousse, Tunisia',
+    degree: 'Software Engineering Degree',
+    school: 'EPI Digital School',
+    status: "Diplôme d'ingénieur - in progress",
+  },
+  {
+    state: 'current',
+    when: 'Sep 2026 - Present',
+    country: 'FR',
+    city: 'Laval, France',
+    degree: 'International Exchange in Software Engineering',
+    school: 'ESIEA',
+    status: 'Bac+5 - current',
+  },
+]
+
+const spokenLanguages = [
+  ['Arabic', 'Native', 5],
+  ['French', 'Fluent', 4],
+  ['English', 'Fluent', 4],
 ]
 
 const experiences = [
@@ -79,9 +138,9 @@ const experiences = [
     role: 'Software Engineering Intern',
     company: 'Proxym-IT',
     type: 'Intern',
-    desc: 'Developed AI-powered modules for a car insurance application, including document OCR, license plate recognition, and vehicle damage detection and severity assessment.',
-    stack: ['Python', 'OCR', 'Computer Vision', 'AI', 'Docker', ''],
-    wins: ['CV & document extraction', 'License plate recognition', 'Damage detection'],
+    desc: 'Built, in a Scrum team, the AI core of a car insurance claims app: a YOLO + OCR pipeline for license plate reading, a vehicle damage detection and severity scoring model, and the full React front-end from claim declaration to analysis results. The models are served by Python microservices (REST API, PostgreSQL), containerized with Docker and deployed via CI/CD.',
+    stack: ['Python', 'YOLO', 'OCR', 'Computer Vision', 'React', 'PostgreSQL', 'Docker', 'CI/CD'],
+    wins: ['98% plate reading on 3,000 images', 'Damage detection & scoring', 'Microservice architecture'],
   },
   {
     year: '2024 - 2026',
@@ -106,16 +165,16 @@ const experiences = [
     role: 'Bachelor Graduation Intern',
     company: 'GOMYCODE',
     type: 'Intern',
-    desc: 'Built InvoiceScan+, a document scanning and extraction platform using Django, OCR, OpenCV, Tesseract, and Gemini prompt engineering.',
-    stack: ['Django', 'Python', 'OCR', 'OpenCV', 'Gemini'],
-    wins: ['AI document extraction', 'REST API', 'Graduation project'],
+    desc: 'Built InvoiceScan+, an automatic data extraction pipeline for scanned documents using Django, OCR, OpenCV, Tesseract, and Gemini prompt engineering. OpenCV image preprocessing raised OCR accuracy from 60% to 87%, validated on real documents of varied formats.',
+    stack: ['Django', 'Python', 'OCR', 'OpenCV', 'Tesseract', 'Gemini'],
+    wins: ['OCR accuracy 60% → 87%', 'AI document extraction', 'REST API'],
   },
   {
     year: '2023',
     role: 'Web Development Intern',
     company: 'Tunisie Telecom',
     type: 'Intern',
-    desc: 'Built a social activity management website using the MERN Stack in a collaborative team environment. Gained experience in enterprise-level development and teamwork.',
+    desc: 'Built a social activity management platform using the MERN Stack in a collaborative team, with a REST API covering activity creation, registrations, and hierarchical approval. Deployed to internal departments.',
     stack: ['React', 'Node.js', 'MongoDB', 'Express', 'Teamwork'],
     wins: ['MERN application', 'Enterprise experience', 'Collaborative delivery'],
   },
@@ -267,6 +326,17 @@ const designProjects = [
 
 const devProjects = [
   {
+    title: 'InvoiceScan+',
+    description: 'An AI document pipeline: upload any document image, OpenCV preprocessing cleans it up, Tesseract OCR reads it, and Gemini identifies the document type and extracts the relevant data into a usable JSON, Word or PDF file within seconds.',
+    tag: 'Django/AI Web',
+    year: '2024',
+    role: 'Full-stack dev',
+    output: 'OCR / AI pipeline',
+    image: invoiceScan,
+    url: 'https://github.com/ZiniMedAmine/InvoiceScan',
+    tech: ['Python', 'Django', 'REST API', 'OCR', 'OpenCV', 'Tesserract', 'Prompt Engineering', 'Gemini'],
+  },
+  {
     title: 'ResumeCandy – Resume Versioning Engine',
     description: 'A modern web application designed to help users create, manage, and version multiple resumes. Built with multilingual and RTL support, customizable templates, and ATS-friendly PDF export.',
     tag: 'Next.js',
@@ -311,17 +381,6 @@ const devProjects = [
     tech: ['HTML/CSS', 'React', 'Express JS', 'MongoDB', 'NodeJS'],
   },
   {
-    title: 'InvoiceScan+',
-    description: 'A website through which the user can scan any document image and get the relevant data and the document type in a useable JSON, Word or PDF file within seconds.',
-    tag: 'Django/AI Web',
-    year: '2024',
-    role: 'Full-stack dev',
-    output: 'AI document app',
-    image: invoiceScan,
-    url: 'https://github.com/ZiniMedAmine/InvoiceScan',
-    tech: ['Python', 'Django', 'REST API', 'OCR', 'OpenCV', 'Tesserract', 'Prompt Engineering', 'Gemini'],
-  },
-  {
     title: 'React Calculator',
     description: "A simple react calculator developed purely for the purpose of learning and mastering TailwindCSS, found it a good idea in ters of learning to use tailwind's grid system, dark & light theme control and other features of it at that time.",
     tag: 'React',
@@ -345,7 +404,7 @@ const devProjects = [
   },
   {
     title: 'Medical Exam Simulation Platform',
-    description: 'A responsive MERN Stack platform for French-speaking UMF Iasi medical students that simulates exams with randomized questions and exact grading algorithms, helping them practice and prepare effectively.',
+    description: 'A responsive MERN Stack platform for French-speaking UMF Iasi medical students that simulates exams with randomized questions and exact grading algorithms. An extraction pipeline turned 30 complex PDFs into thousands of structured questions, replacing about 2 months of manual data entry.',
     tag: 'MERN Stack',
     year: '2026',
     role: 'Full-stack dev',
@@ -397,23 +456,75 @@ function usePortfolioInteractions() {
       progress?.style.setProperty('transform', `scaleX(${max > 0 ? window.scrollY / max : 0})`)
     }
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+    // Count stats up from zero the first time they scroll into view
+    const countUp = (root) => {
+      root.querySelectorAll('[data-count]').forEach((el) => {
+        const target = Number(el.dataset.count)
+        if (reduceMotion) return
+        const start = performance.now()
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / 1400)
+          el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)))
+          if (t < 1) requestAnimationFrame(tick)
+        }
+        requestAnimationFrame(tick)
+      })
+    }
+
     const reveals = document.querySelectorAll('.reveal, .reveal-stagger')
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-in')
+          countUp(entry.target)
           revealObserver.unobserve(entry.target)
         }
       })
     }, { threshold: 0.12 })
     reveals.forEach((el) => revealObserver.observe(el))
 
-    const links = [...document.querySelectorAll('.nav a[href^="#"]')]
+    const nav = document.querySelector('.nav')
+    const indicator = document.querySelector('.nav-indicator')
+    const links = [...document.querySelectorAll('.nav a[href^="#"], .mobile-menu a[href^="#"]')]
     const sections = links.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean)
+    const timeline = document.querySelector('.timeline')
+    const timelineCards = [...document.querySelectorAll('.experience-card')]
+    let lastY = window.scrollY
     const updateNav = () => {
-      const probe = window.scrollY + window.innerHeight * 0.35
+      const y = window.scrollY
+      const probe = y + window.innerHeight * 0.35
       const active = sections.reduce((current, section) => section.offsetTop <= probe ? section : current, sections[0])
       links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === `#${active?.id}`))
+
+      // Slide the yellow pill under the active desktop link
+      const current = document.querySelector('.nav ul a.is-active')
+      if (indicator) {
+        indicator.style.opacity = current ? '1' : '0'
+        if (current) {
+          indicator.style.width = `${current.offsetWidth}px`
+          indicator.style.transform = `translateX(${current.parentElement.offsetLeft}px)`
+        }
+      }
+
+      // Tuck the nav away while reading downwards, bring it back on the way up
+      const delta = y - lastY
+      if (Math.abs(delta) > 12) {
+        if (nav && !document.body.classList.contains('menu-open')) nav.classList.toggle('is-hidden', delta > 0 && y > 240)
+        lastY = y
+      }
+      if (y < 240) nav?.classList.remove('is-hidden')
+
+      // Fill the experience timeline as it is read
+      if (timeline) {
+        const rect = timeline.getBoundingClientRect()
+        const line = window.innerHeight * 0.55
+        const fill = Math.max(0, Math.min(1, (line - rect.top) / rect.height))
+        timeline.style.setProperty('--fill', fill.toFixed(4))
+        timelineCards.forEach((card) => card.classList.toggle('is-lit', card.getBoundingClientRect().top + 40 < line))
+      }
       updateProgress()
     }
 
@@ -436,10 +547,10 @@ function usePortfolioInteractions() {
       frame = requestAnimationFrame(cursorLoop)
     }
     const cursorHover = (event) => {
-      if (event.target.closest('a, button, input, textarea, .playground, [data-hover]')) ring?.classList.add('is-hover')
+      if (event.target.closest('a, button, input, textarea, [data-hover]')) ring?.classList.add('is-hover')
     }
     const cursorOut = (event) => {
-      if (!event.relatedTarget?.closest?.('a, button, input, textarea, .playground, [data-hover]')) ring?.classList.remove('is-hover')
+      if (!event.relatedTarget?.closest?.('a, button, input, textarea, [data-hover]')) ring?.classList.remove('is-hover')
     }
 
     const cards = document.querySelectorAll('[data-hover]')
@@ -450,82 +561,49 @@ function usePortfolioInteractions() {
     }
     cards.forEach((card) => card.addEventListener('mousemove', onSpotlight))
 
-    const stage = document.querySelector('.playground .stage')
-    const playground = document.querySelector('.playground')
-    let rotX = -15
-    let rotY = 0
-    let targetX = -15
-    let targetY = 0
-    let velocityX = 0
-    let velocityY = 0.04
-    let dragging = false
-    let lastX = 0
-    let lastY = 0
+    const layers = [...document.querySelectorAll('.hero-visual [data-depth]')]
+    let px = 0
+    let py = 0
+    let tx = 0
+    let ty = 0
     let playFrame = 0
+    const onParallax = (event) => {
+      tx = event.clientX / window.innerWidth - 0.5
+      ty = event.clientY / window.innerHeight - 0.5
+    }
     const playLoop = () => {
-      if (!dragging) {
-        targetX += velocityX
-        targetY += velocityY
-        velocityX *= 0.98
-        velocityY *= 0.98
-      }
-      rotX += (targetX - rotX) * 0.12
-      rotY += (targetY - rotY) * 0.12
-      stage?.style.setProperty('transform', `rotateX(${rotX}deg) rotateY(${rotY}deg)`)
       playFrame = requestAnimationFrame(playLoop)
-    }
-    const pointerDown = (event) => {
-      dragging = true
-      const point = event.touches?.[0] || event
-      lastX = point.clientX
-      lastY = point.clientY
-      velocityX = 0
-      velocityY = 0
-      ring?.classList.add('is-drag')
-    }
-    const pointerMove = (event) => {
-      if (!dragging) return
-      const point = event.touches?.[0] || event
-      const dx = point.clientX - lastX
-      const dy = point.clientY - lastY
-      targetY += dx * 0.45
-      targetX = Math.max(-85, Math.min(85, targetX - dy * 0.45))
-      velocityY = dx * 0.18
-      velocityX = -dy * 0.18
-      lastX = point.clientX
-      lastY = point.clientY
-      event.preventDefault()
-    }
-    const pointerUp = () => {
-      dragging = false
-      ring?.classList.remove('is-drag')
+      if (window.scrollY > window.innerHeight) return
+      px += (tx - px) * 0.06
+      py += (ty - py) * 0.06
+      layers.forEach((layer) => {
+        const depth = Number(layer.dataset.depth) * 36
+        layer.style.transform = `translate3d(${px * depth}px, ${py * depth}px, 0)`
+      })
     }
 
     window.addEventListener('scroll', updateNav, { passive: true })
-    window.addEventListener('mousemove', onMouseMove, { passive: true })
-    window.addEventListener('mouseover', cursorHover)
-    window.addEventListener('mouseout', cursorOut)
-    playground?.addEventListener('mousedown', pointerDown)
-    playground?.addEventListener('touchstart', pointerDown, { passive: false })
-    window.addEventListener('mousemove', pointerMove, { passive: false })
-    window.addEventListener('touchmove', pointerMove, { passive: false })
-    window.addEventListener('mouseup', pointerUp)
-    window.addEventListener('touchend', pointerUp)
-    frame = requestAnimationFrame(cursorLoop)
-    playFrame = requestAnimationFrame(playLoop)
+    window.addEventListener('resize', updateNav)
+    if (finePointer) {
+      window.addEventListener('mousemove', onMouseMove, { passive: true })
+      window.addEventListener('mouseover', cursorHover)
+      window.addEventListener('mouseout', cursorOut)
+      frame = requestAnimationFrame(cursorLoop)
+      if (!reduceMotion && layers.length) {
+        window.addEventListener('mousemove', onParallax, { passive: true })
+        playFrame = requestAnimationFrame(playLoop)
+      }
+    }
+    document.fonts?.ready.then(updateNav)
     updateNav()
 
     return () => {
       window.removeEventListener('scroll', updateNav)
+      window.removeEventListener('resize', updateNav)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseover', cursorHover)
       window.removeEventListener('mouseout', cursorOut)
-      playground?.removeEventListener('mousedown', pointerDown)
-      playground?.removeEventListener('touchstart', pointerDown)
-      window.removeEventListener('mousemove', pointerMove)
-      window.removeEventListener('touchmove', pointerMove)
-      window.removeEventListener('mouseup', pointerUp)
-      window.removeEventListener('touchend', pointerUp)
+      window.removeEventListener('mousemove', onParallax)
       cards.forEach((card) => card.removeEventListener('mousemove', onSpotlight))
       cancelAnimationFrame(frame)
       cancelAnimationFrame(playFrame)
@@ -534,39 +612,98 @@ function usePortfolioInteractions() {
   }, [])
 }
 
-function HeroPlayground() {
+const codeLines = [
+  [['34%', '#fac515'], ['22%', '#7aa2f7']],
+  [['18%', '#bb9af7'], ['40%', '#9ece6a']],
+  [['26%', '#7aa2f7'], ['30%', '#e0e3e8']],
+  [['38%', '#9ece6a']],
+  [['20%', '#ff7a93'], ['28%', '#e0e3e8']],
+  [['24%', '#fac515']],
+]
+
+function HeroVisual() {
   const particles = useMemo(() => [
-    ['15deg', '38%', '8px', '#19E9FF'], ['80deg', '38%', '5px', '#8A5BFF'],
-    ['145deg', '38%', '7px', '#2EFFB0'], ['220deg', '38%', '4px', '#19E9FF'],
-    ['310deg', '38%', '9px', '#8A5BFF'], ['40deg', '46%', '3px', '#ffffff'],
-    ['120deg', '46%', '4px', '#ffffff'], ['200deg', '46%', '3px', '#19E9FF'],
-    ['280deg', '46%', '5px', '#ffffff'], ['60deg', '30%', '4px', '#2EFFB0'],
-    ['240deg', '30%', '4px', '#8A5BFF'],
+    ['12deg', '41cqw', '9px', 'var(--ink)'], ['96deg', '49cqw', '7px', 'var(--yellow-deep)'],
+    ['168deg', '41cqw', '7px', 'var(--ink)'], ['250deg', '49cqw', '6px', 'var(--muted-2)'],
+    ['318deg', '41cqw', '8px', 'var(--yellow-deep)'],
   ], [])
 
   return (
-    <div className="playground" data-hover aria-label="Drag to spin the hero orbit">
-      <div className="stage">
-        <svg className="arc-label spin-1" viewBox="0 0 100 100" aria-hidden="true">
-          <defs><path id="arc-a" d="M 50,50 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" /></defs>
-          <text><textPath href="#arc-a">software engineer x web developer - frontend - backend </textPath></text>
-        </svg>
-        <svg className="arc-label spin-2" viewBox="0 0 100 100" aria-hidden="true">
-          <defs><path id="arc-b" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" /></defs>
-          <text><textPath href="#arc-b">build useful systems - ship clean interfaces - solve real problems -</textPath></text>
-        </svg>
-        <div className="ring r4" />
-        <div className="ring r3" />
-        <div className="ring r2" />
-        <div className="ring r1" />
-        {particles.map(([a, r, s, c]) => (
-          <div key={`${a}-${r}`} className="particle" style={{ '--a': a, '--r': r, '--s': s, '--c': c }} />
-        ))}
-        <div className="core" />
+    <div className="hero-visual" data-hover aria-hidden="true">
+      <div className="hv-layer full" data-depth="0.25">
+        <div className="hv-circle" />
       </div>
-      <div className="hint"><span className="key">↵</span><span>Drag to spin</span></div>
+      <div className="hv-layer full" data-depth="0.12">
+        <svg className="arc-label spin-1" viewBox="0 0 100 100">
+          <defs><path id="arc-a" d="M 50,50 m -45.5,0 a 45.5,45.5 0 1,1 91,0 a 45.5,45.5 0 1,1 -91,0" /></defs>
+          <text><textPath href="#arc-a">software engineer x computer vision - ocr - full-stack - software engineer x computer vision - ocr - full-stack - </textPath></text>
+        </svg>
+        <svg className="arc-label spin-2" viewBox="0 0 100 100">
+          <defs><path id="arc-b" d="M 50,50 m -39,0 a 39,39 0 1,1 78,0 a 39,39 0 1,1 -78,0" /></defs>
+          <text><textPath href="#arc-b">design pipelines - architect systems - ship real-world apps - design pipelines - </textPath></text>
+        </svg>
+        <div className="hv-orbit">
+          {particles.map(([a, r, sz, c]) => (
+            <div key={a} className="particle" style={{ '--a': a, '--r': r, '--s': sz, '--c': c }} />
+          ))}
+        </div>
+      </div>
+
+      <div className="hv-layer hv-code-wrap" data-depth="0.9">
+        <div className="hv-card hv-code">
+          <div className="dots"><i /><i /><i /></div>
+          {codeLines.map((line, index) => (
+            <div className="code-line" key={index} style={{ '--x': `${[0, 6, 6, 12, 6, 0][index]}%` }}>
+              {line.map(([w, c]) => <i key={w + c} style={{ '--w': w, '--c': c }} />)}
+            </div>
+          ))}
+          <span className="caret" style={{ '--x': '0%' }} />
+        </div>
+      </div>
+
+      <div className="hv-layer hv-vision-wrap" data-depth="1.4">
+        <div className="hv-card hv-vision">
+          <div className="hv-scene">
+            <span className="bldg b1" /><span className="bldg b2" /><span className="bldg b3" />
+            <span className="lane" />
+            <span className="obj person" /><span className="obj car" />
+            <span className="scan" />
+            <span className="bbox person"><span>person 0.94</span></span>
+            <span className="bbox car"><span>car 0.91</span></span>
+          </div>
+          <div className="hv-ocr">Text: <b>"Invoice #4587"</b></div>
+        </div>
+      </div>
+
+      <div className="hv-layer hv-api-wrap" data-depth="1.15">
+        <div className="hv-card hv-api">
+          <div className="api-pill">API</div>
+          <svg viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path d="M50 0 V4 M50 4 H17 V10 M50 4 V10 M50 4 H83 V10" />
+          </svg>
+          <div className="nodes">
+            <div className="node web"><FiGlobe /><span>Web App</span></div>
+            <div className="node svc"><FiLayers /><span>Services</span></div>
+            <div className="node db"><FiDatabase /><span>Database</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="hv-layer hv-icons-wrap" data-depth="0.7">
+        <div className="hv-card hv-icons">
+          <div className="ic"><FiEye /><span>Computer Vision</span></div>
+          <div className="ic"><FiMaximize /><span>Document Processing</span></div>
+          <div className="ic"><FiCode /><span>Real World Apps</span></div>
+        </div>
+      </div>
     </div>
   )
+}
+
+function splitTitle(title) {
+  const words = title.split(' ')
+  if (words.length < 2) return [null, title]
+  return [words.slice(0, -1).join(' '), words.at(-1)]
 }
 
 function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, note }) {
@@ -604,6 +741,19 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
     }
   }, [panels])
 
+  useEffect(() => {
+    if (!openProject) return
+    document.body.classList.add('modal-open')
+    const onKey = (event) => {
+      if (event.key === 'Escape') setOpenProject(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.classList.remove('modal-open')
+    }
+  }, [openProject])
+
   const open = (project) => {
     setOpenProject(project)
     setImageIndex(0)
@@ -617,14 +767,14 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
       className={`work-wrap ${type}-work`}
       data-screen-label={eyebrow}
       ref={wrapRef}
-      style={{ height: `${panels * 100}vh` }}
+      style={{ height: `${panels * 100}svh` }}
     >
       <div className="work-sticky">
         <div className="work-track" ref={trackRef}>
           <div className="work-intro">
             <p className="eyebrow"><span className="num">{number}</span><span className="line" /><span>{eyebrow}</span></p>
             <div className="titleblock">
-              <h2>{title}<span className="grad"> work</span><em>{subtitle}</em></h2>
+              <h2>{title} <span className="grad">work</span><em>{subtitle}</em></h2>
               {note && <p className="work-note">{note}</p>}
             </div>
             <div className="meta-row">
@@ -633,43 +783,46 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
             </div>
           </div>
 
-          {projects.map((project, index) => (
-            <article
-              className={`project ${index % 2 ? 'alt' : ''}`}
-              key={project.title}
-              onClick={() => open(project)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') open(project)
-              }}
-              role="button"
-              tabIndex={0}
-              data-hover
-            >
-              <div className="project-media">
-                <span className="number">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
-                <img src={project.images?.[0] || project.image} alt={project.title} loading="lazy" />
-              </div>
-              <div className="project-info">
-                <span className="kind">{project.tag} - {project.year}</span>
-                <h3>{project.title.split(' ').slice(0, -1).join(' ') || project.title} <em>{project.title.split(' ').slice(-1)}</em></h3>
-                <p>{project.description}</p>
-                <div className="specs">
-                  <div className="spec"><div className="label">Role</div><div className="value">{project.role}</div></div>
-                  <div className="spec"><div className="label">Year</div><div className="value">{project.year}</div></div>
-                  <div className="spec"><div className="label">Output</div><div className="value">{project.output}</div></div>
+          {projects.map((project, index) => {
+            const [titleHead, titleTail] = splitTitle(project.title)
+            return (
+              <article
+                className={`project ${index % 2 ? 'alt' : ''}`}
+                key={project.title}
+                onClick={() => open(project)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') open(project)
+                }}
+                role="button"
+                tabIndex={0}
+                data-hover
+              >
+                <div className="project-media">
+                  <span className="number">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
+                  <div className="frame"><img src={project.images?.[0] || project.image} alt={project.title} loading="lazy" /></div>
                 </div>
-                {project.tech && (
-                  <div className="tools compact">
-                    {project.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}
+                <div className="project-info">
+                  <span className="kind">{project.tag} - {project.year}</span>
+                  <h3>{titleHead && <>{titleHead} </>}<em>{titleTail}</em></h3>
+                  <p>{project.description}</p>
+                  <div className="specs">
+                    <div className="spec"><div className="label">Role</div><div className="value">{project.role}</div></div>
+                    <div className="spec"><div className="label">Year</div><div className="value">{project.year}</div></div>
+                    <div className="spec"><div className="label">Output</div><div className="value">{project.output}</div></div>
                   </div>
-                )}
-                <div className="project-actions" onClick={(event) => event.stopPropagation()}>
-                  <button className="link" onClick={() => open(project)}>Open case <span className="arrow" /></button>
-                  {project.url && <a className="link" href={project.url} target={project.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{project.cta || (type === 'design' ? 'View on Behance' : 'View project')} <span className="arrow" /></a>}
+                  {project.tech && (
+                    <div className="tools compact">
+                      {project.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}
+                    </div>
+                  )}
+                  <div className="project-actions" onClick={(event) => event.stopPropagation()}>
+                    <button className="link solid" onClick={() => open(project)}>Open case <span className="arrow" /></button>
+                    {project.url && <a className="link" href={project.url} target={project.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{project.cta || (type === 'design' ? 'View on Behance' : 'View project')} <span className="arrow" /></a>}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            )
+          })}
         </div>
         <div className="work-progress" aria-hidden="true">
           <span className="label">P - <span data-work-count ref={countRef}>00</span> / {String(panels - 1).padStart(2, '0')}</span>
@@ -678,17 +831,22 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
         </div>
       </div>
 
-      {openProject && (
+      {openProject && createPortal(
         <div className="modal-backdrop" onClick={() => setOpenProject(null)}>
           <div className="modal-panel" onClick={(event) => event.stopPropagation()}>
             <button className="modal-close" onClick={() => setOpenProject(null)} aria-label="Close project">×</button>
             <div className="modal-media">
               <img src={activeImages[imageIndex]} alt={openProject.title} />
               {activeImages.length > 1 && (
-                <div className="modal-arrows">
-                  <button onClick={() => setImageIndex((imageIndex - 1 + activeImages.length) % activeImages.length)}>‹</button>
-                  <button onClick={() => setImageIndex((imageIndex + 1) % activeImages.length)}>›</button>
-                </div>
+                <>
+                  <div className="modal-arrows">
+                    <button onClick={() => setImageIndex((imageIndex - 1 + activeImages.length) % activeImages.length)} aria-label="Previous image">‹</button>
+                    <button onClick={() => setImageIndex((imageIndex + 1) % activeImages.length)} aria-label="Next image">›</button>
+                  </div>
+                  <div className="modal-dots" aria-hidden="true">
+                    {activeImages.map((image, index) => <i key={image} className={index === imageIndex ? 'on' : ''} />)}
+                  </div>
+                </>
               )}
             </div>
             <div className="modal-body">
@@ -696,10 +854,11 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
               <h3>{openProject.title}</h3>
               <p>{openProject.description}</p>
               {openProject.tech && <div className="tools compact">{openProject.tech.map((tech) => <span className="tool" key={tech}>{tech}</span>)}</div>}
-              {openProject.url && <a className="link" href={openProject.url} target={openProject.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{openProject.cta || 'Open project'} <span className="arrow" /></a>}
+              {openProject.url && <a className="link solid" href={openProject.url} target={openProject.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{openProject.cta || 'Open project'} <span className="arrow" /></a>}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </section>
   )
@@ -708,6 +867,17 @@ function WorkShowcase({ id, eyebrow, title, subtitle, projects, type, number, no
 function App() {
   usePortfolioInteractions()
   const year = new Date().getFullYear()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', menuOpen)
+    if (!menuOpen) return
+    const onKey = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   return (
     <>
@@ -718,46 +888,66 @@ function App() {
       <div className="scroll-progress" aria-hidden="true" />
 
       <nav className="nav" data-screen-label="00 Nav">
-        <a href="#home" className="brand">
+        <a href="#home" className="brand" onClick={() => setMenuOpen(false)}>
           <span className="mark"><img src={skepticLogo} alt="Zini logomark" /></span>
           <span className="name">Zini</span>
-          <span className="meta">software & web</span>
+          <span className="meta">software & AI</span>
         </a>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#expertise">Expertise</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#dev-work">Dev</a></li>
-          <li><a href="#design-work">Design</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li className="nav-indicator" aria-hidden="true" />
+          {navLinks.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}
         </ul>
-        <div className="availability"><span className="dot" /><span>Available - Q3 '26</span></div>
+        <div className="nav-end">
+          <div className="availability"><span className="dot" /><span>Open to internship - Feb '27</span></div>
+          <button
+            className="menu-btn"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((isOpen) => !isOpen)}
+          >
+            <span />
+          </button>
+        </div>
       </nav>
+
+      <div id="mobile-menu" className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
+        <ul>
+          {navLinks.map(([href, label], index) => (
+            <li key={href}>
+              <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>
+                <span className="n">{String(index + 1).padStart(2, '0')}</span>{label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="availability"><span className="dot" /><span>Open to internship - Feb '27</span></div>
+      </div>
 
       <main>
         <section id="home" className="section hero" data-screen-label="01 Hero">
           <div className="container hero-grid">
-            <div className="hero-copy reveal-stagger is-in">
+            <div className="hero-copy reveal-stagger">
               <p className="eyebrow"><span className="num">01</span><span className="line" /><span>Portfolio - 2026 edition</span></p>
               <h1>
                 <span className="split-line"><span>Mohamed</span></span>
                 <span className="split-line"><span>Amine Zini<span className="it">,</span></span></span>
                 <span className="split-line"><span className="grad">software engineer</span></span>
-                <span className="split-line"><span className="it">& Graphic Designer.</span></span>
+                <span className="split-line designer"><span>& Graphic Designer.</span></span>
               </h1>
               <div className="role">
                 <span className="line" />
                 <span>Currently</span>
-                <span className="now"><span className="now-track"><span>building web applications</span><span>engineering product interfaces</span><span>designing useful systems</span><span>building web applications</span></span></span>
+                <span className="now"><span className="now-track"><span>building computer vision pipelines</span><span>engineering OCR & document AI</span><span>architecting full-stack apps</span><span>building computer vision pipelines</span></span></span>
               </div>
-              <p className="lede hero-lede">I build responsive web applications and production websites with a designer's eye for detail, turning product ideas into clean, usable, and scalable digital experiences.</p>
+              <p className="lede hero-lede">I build software end to end: computer vision and OCR pipelines, the APIs and services that run them, and the web apps people actually use. Clean architecture, effective solutions, and a designer's eye for the last mile.</p>
               <div className="hero-meta">
-                <div className="item"><div className="label">Based</div><div className="value">Tunis, TN - UTC+1</div></div>
-                <div className="item"><div className="label">Discipline</div><div className="value">Software - Web - UI</div></div>
-                <div className="item"><div className="label">Status</div><div className="value">Open - Freelance</div></div>
+                <div className="item"><div className="label">Based</div><div className="value">Laval, France - UTC+1</div></div>
+                <div className="item"><div className="label">Discipline</div><div className="value">Software - AI - Web</div></div>
+                <div className="item"><div className="label">Status</div><div className="value">Open - Final&#8209;year internship</div></div>
               </div>
             </div>
-            <HeroPlayground />
+            <HeroVisual />
           </div>
           <div className="container hero-foot">
             <span>© Zini studio - {year}</span>
@@ -768,7 +958,7 @@ function App() {
 
         <div className="marquee" aria-hidden="true">
           <div className="track">
-            {['Software engineering', 'Web development', 'React', 'MERN stack', 'Django', 'WordPress', 'Frontend', 'APIs', 'UI engineering', 'Data analysis', 'Brand design', 'Visual systems'].map((item, index) => (
+            {['Software engineering', 'Computer vision', 'OCR pipelines', 'System architecture', 'YOLO', 'OpenCV', 'Microservices', 'REST APIs', 'React', 'Django', 'Docker', 'Brand design', 'Visual systems'].map((item, index) => (
               <span key={`${item}-${index}`}>{item}</span>
             ))}
           </div>
@@ -781,17 +971,17 @@ function App() {
               <h2>A software-first <em>practice</em> from Tunisia.</h2>
             </div>
             <div className="about-body reveal">
-              <p className="lede">I engineer the product, then make sure the interface feels sharp.</p>
-              <p>I'm Mohamed Amine, a <strong>Software Engineering</strong> student and <strong>Web Developer</strong> focused on building practical, responsive, and maintainable digital products.</p>
-              <p>My strongest work lives where frontend detail meets backend logic: React interfaces, WordPress business sites, MERN applications, Django tools, OCR workflows, and data-driven mini projects. Design is still part of my edge, but the hierarchy is code, product, and usable systems first.</p>
+              <p className="lede">I engineer the pipeline, the architecture, and the product around it.</p>
+              <p>I'm Mohamed Amine, a <strong>Software Engineering</strong> student focused on <strong>computer vision, OCR, and AI-powered applications</strong>, and on the architecture that turns a model into a product people can rely on.</p>
+              <p>My strongest work lives where models meet real systems: YOLO + OCR pipelines, OpenCV preprocessing, Python microservices behind REST APIs, Docker and CI/CD, and the React, Angular, Django, and MERN apps on top. Design is still part of my edge, but the hierarchy is code, architecture, and working solutions first.</p>
               <p>Because I also come from graphic design, I can ship websites that do more than function. I care about structure, performance, clarity, and the visual decisions that make software easier to trust and use.</p>
             </div>
           </div>
           <div className="container about-stats reveal-stagger">
-            <div className="stat"><div className="num">3<span className="unit"> yrs</span></div><div className="label">Experience</div></div>
-            <div className="stat"><div className="num">10+</div><div className="label">Dev projects</div></div>
-            <div className="stat"><div className="num">6+</div><div className="label">Clients served</div></div>
-            <div className="stat"><div className="num">50+</div><div className="label">Design assets</div></div>
+            <div className="stat"><div className="num"><span data-count="3">3</span><span className="unit"> yrs</span></div><div className="label">Experience</div></div>
+            <div className="stat"><div className="num"><span data-count="10">10</span>+</div><div className="label">Dev projects</div></div>
+            <div className="stat"><div className="num"><span data-count="6">6</span>+</div><div className="label">Clients served</div></div>
+            <div className="stat"><div className="num"><span data-count="50">50</span>+</div><div className="label">Design assets</div></div>
           </div>
         </section>
 
@@ -801,10 +991,11 @@ function App() {
               <p className="eyebrow"><span className="num">03</span><span className="line" /><span>Expertise</span></p>
               <h2>What I do <em>best.</em></h2>
             </div>
-            <div>
+            <div className="disciplines">
               {skills.map((skill) => (
-                <div className="discipline reveal" key={skill.title}>
+                <div className="discipline reveal" key={skill.title} data-hover>
                   <span className="idx">{skill.idx}</span>
+                  <span className="icon" aria-hidden="true"><skill.icon /></span>
                   <div>
                     <h3>{skill.title}</h3>
                     <p className="desc">{skill.desc}</p>
@@ -844,6 +1035,61 @@ function App() {
           </div>
         </section>
 
+        <section id="education" className="section education" data-screen-label="05 Education">
+          <div className="container">
+            <div className="education-head reveal">
+              <div>
+                <p className="eyebrow"><span className="num">05</span><span className="line" /><span>Education</span></p>
+                <h2>Learning <em>path.</em></h2>
+              </div>
+              <p className="education-sub">From Mahdia to Laval: three schools, two countries, one direction. Software engineering.</p>
+            </div>
+
+            <ol className="route reveal-stagger" aria-label="Education path">
+              {education.map((stop) => (
+                <li className={`stop is-${stop.state}`} key={stop.school}>
+                  <div className="stop-rail" aria-hidden="true">
+                    <span className="stop-dot">{stop.state === 'done' && <FiCheck />}</span>
+                  </div>
+                  <span className="stop-when">{stop.when}</span>
+                  <article className="stop-card" data-hover>
+                    {stop.state === 'current' && <span className="stop-now">Now</span>}
+                    <span className="stop-place"><FiMapPin aria-hidden="true" /><span className="cc">{stop.country}</span>{stop.city}</span>
+                    <h3>{stop.degree}</h3>
+                    <p className="stop-school">{stop.school}</p>
+                    <span className="stop-status">{stop.status}</span>
+                  </article>
+                </li>
+              ))}
+              <li className="stop is-next">
+                <div className="stop-rail" aria-hidden="true"><span className="stop-dot" /></div>
+                <span className="stop-when">From Feb 2027</span>
+                <article className="stop-card">
+                  <span className="stop-place"><FiMapPin aria-hidden="true" /><span className="cc">FR</span>Anywhere in France</span>
+                  <h3>End-of-studies internship</h3>
+                  <p className="stop-school">4 to 6 months - software engineering, computer vision & AI</p>
+                  <a href="#contact" className="stop-cta">Next stop? Let's talk <FiArrowRight aria-hidden="true" /></a>
+                </article>
+              </li>
+            </ol>
+
+            <div className="languages reveal">
+              <span className="languages-label">Languages</span>
+              <ul>
+                {spokenLanguages.map(([language, level, score]) => (
+                  <li key={language}>
+                    <strong>{language}</strong>
+                    <span className="lvl" aria-label={`${level}, ${score} out of 5`}>
+                      {[1, 2, 3, 4, 5].map((n) => <i key={n} className={n <= score ? 'on' : ''} />)}
+                    </span>
+                    <span className="lvl-name">{level}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <WorkShowcase
           id="dev-work"
           eyebrow="Development work"
@@ -851,7 +1097,7 @@ function App() {
           subtitle="all software projects."
           projects={devProjects}
           type="dev"
-          number="05"
+          number="06"
           note="Note: if a link does not work, the client probably did not pay for his hosting fees."
         />
         <WorkShowcase
@@ -861,7 +1107,7 @@ function App() {
           subtitle="all visual projects."
           projects={designProjects}
           type="design"
-          number="06"
+          number="07"
           note="Note: sorry if a Behance link does not work. I am currently having trouble with my Behance account."
         />
 
@@ -870,10 +1116,13 @@ function App() {
 
       <footer className="footer" data-screen-label="Footer">
         <div className="footer-grid">
-          <div className="signoff">Designed & built<br /><em>in Tunis</em>, {year}.</div>
+          <div className="footer-lead">
+            <div className="signoff">Designed & built<br /><em>in Tunis</em>, {year}.</div>
+            <a href="#home" className="to-top">Back to top <span className="arrow" aria-hidden="true" /></a>
+          </div>
           <div className="colophon">
             <div className="row"><span>System</span><strong>Zini DS - v2.0</strong></div>
-            <div className="row"><span>Typography</span><strong>Inter - JetBrains Mono</strong></div>
+            <div className="row"><span>Typography</span><strong>Plus Jakarta Sans - JetBrains Mono</strong></div>
             <div className="row"><span>Built with</span><strong>React - Vite - CSS</strong></div>
             <div className="row"><span>Last update</span><strong>May 2026</strong></div>
           </div>
