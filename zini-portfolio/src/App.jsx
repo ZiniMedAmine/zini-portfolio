@@ -250,7 +250,7 @@ const education = [
     country: 'TN',
     city: L('Sousse, Tunisia', 'Sousse, Tunisie'),
     degree: L('Software Engineering Degree', "Diplôme d'ingénieur en génie logiciel"),
-    school: 'EPI Digital School',
+    school: 'EPI – École pluridisciplinaire internationale (Digital School)',
     status: L("Diplôme d'ingénieur - in progress", 'Cycle ingénieur - en cours'),
   },
   {
@@ -265,9 +265,9 @@ const education = [
 ]
 
 const spokenLanguages = [
-  [L('Arabic', 'Arabe'), L('Native / bilingual', 'Natif/bilingue'), 5],
-  [L('French', 'Français'), L('Fluent', 'Courant'), 4],
-  [L('English', 'Anglais'), L('Fluent', 'Courant'), 4],
+  [L('Arabic', 'Arabe'), L('Native / bilingual', 'Natif'), 5],
+  [L('French', 'Français'), L('Fluent', 'Bilingue'), 4],
+  [L('English', 'Anglais'), L('Fluent', 'Bilingue'), 4],
 ]
 
 const intern = L('Intern', 'Stage')
@@ -277,7 +277,7 @@ const experiences = [
   {
     year: '2026',
     role: L('Full-Stack & AI Engineering Intern', 'Stagiaire ingénieur full stack & IA'),
-    company: 'Proxym-IT',
+    company: 'Proxym Group',
     type: intern,
     desc: L(
       'Built, in a Scrum team, the AI core of a car insurance claims app: a YOLO + OCR pipeline for license plate reading, a vehicle damage detection and severity scoring model, and the full React front-end from claim declaration to analysis results. The models are served by Python microservices (REST API, PostgreSQL), containerized with Docker and deployed via CI/CD.',
