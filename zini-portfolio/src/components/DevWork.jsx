@@ -115,10 +115,19 @@ function Deck({ projects, onOpen }) {
                 <div className="tools compact">
                   {project.tech?.slice(0, 6).map((tech) => <span className="tool" key={en(tech)}>{t(tech)}</span>)}
                 </div>
-                <div className="project-actions" onClick={(event) => event.stopPropagation()}>
+                <div className="project-actions">
                   <span className="link solid" aria-hidden="true">{t(caseCopy.openCase)} <span className="arrow" /></span>
                   {project.url && !project.url.startsWith('#') && (
-                    <a className="link" href={project.url} target="_blank" rel="noopener noreferrer">{t(caseCopy.viewProject)} <span className="arrow" /></a>
+                    <a
+                      className="link"
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      onKeyDown={(event) => event.stopPropagation()}
+                    >
+                      {t(caseCopy.viewProject)} <span className="arrow" />
+                    </a>
                   )}
                 </div>
               </div>
