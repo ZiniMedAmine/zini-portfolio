@@ -1,10 +1,11 @@
 import './index.css'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useMemo, useState } from 'react'
 import { FiArrowRight, FiCheck, FiCode, FiCpu, FiDatabase, FiEye, FiGlobe, FiLayers, FiMapPin, FiMaximize, FiPenTool, FiTerminal } from 'react-icons/fi'
 import Contact from './components/Contact_new'
 import { L, en, useLang } from './i18n'
 import { LangProvider, LangSwitch } from './components/Lang'
+import { DevWork } from './components/DevWork'
+import { DesignGalaxy } from './components/DesignGalaxy'
 
 import skepticLogo from './assets/Skeptic.webp'
 import spacePlanetArt from './assets/Space_Planet_Art.webp'
@@ -138,7 +139,6 @@ const ui = {
     title: L('Development', 'Projets'),
     mark: L('work', 'dev'),
     subtitle: L('all software projects.', 'tous mes projets logiciels.'),
-    count: L('websites & applications', 'sites & applications'),
     note: L(
       'Note: if a link does not work, the client probably did not pay for his hosting fees.',
       "Note : si un lien ne fonctionne pas, le client n'a probablement pas renouvelé son hébergement.",
@@ -146,29 +146,11 @@ const ui = {
   },
   designWork: {
     eyebrow: L('Design work', 'Projets de design'),
-    title: L('Design', 'Projets'),
-    mark: L('work', 'design'),
-    subtitle: L('all visual projects.', 'tous mes projets visuels.'),
-    count: L('visual systems & art', 'systèmes visuels & art'),
     note: L(
       'Note: sorry if a Behance link does not work. I am currently having trouble with my Behance account.',
       'Note : désolé si un lien Behance ne fonctionne pas, je rencontre actuellement des problèmes avec mon compte Behance.',
     ),
   },
-  projects: L('projects', 'projets'),
-  scrollRight: L('Scroll right', 'Défiler vers la droite'),
-  swipeHint: L('Swipe or scroll', 'Glissez ou défilez'),
-  scrollAdvance: L('Scroll to advance', 'Défiler pour avancer'),
-  role: L('Role', 'Rôle'),
-  year: L('Year', 'Année'),
-  output: L('Output', 'Livrable'),
-  openCase: L('Open case', 'Détails'),
-  viewBehance: L('View on Behance', 'Voir sur Behance'),
-  viewProject: L('View project', 'Voir le projet'),
-  openProject: L('Open project', 'Ouvrir le projet'),
-  closeProject: L('Close project', 'Fermer le projet'),
-  prevImage: L('Previous image', 'Image précédente'),
-  nextImage: L('Next image', 'Image suivante'),
   signoff: [L('Designed & built', 'Conçu & développé'), L('in Tunisia', 'en Tunisie')],
   toTop: L('Back to top', 'Retour en haut'),
   colophon: [L('System', 'Système'), L('Typography', 'Typographie'), L('Built with', 'Réalisé avec'), L('Last update', 'Mise à jour')],
@@ -354,6 +336,10 @@ const identityDesign = L('Identity design', "Design d'identité")
 const posterArtwork = L('Poster artwork', 'Affiche')
 const digitalArtwork = L('Digital artwork', 'Œuvre numérique')
 
+// Light copies of the design covers, used where many render at once (the galaxy)
+const thumbs = import.meta.glob('./assets/thumbs/*.webp', { eager: true, import: 'default' })
+const thumb = (name) => thumbs[`./assets/thumbs/${name}.webp`]
+
 const designProjects = [
   {
     title: 'Space Planet Art',
@@ -367,6 +353,7 @@ const designProjects = [
     output: digitalArtwork,
     url: 'https://www.behance.net/gallery/249934987/Space-Planet-illustration',
     images: [spacePlanetArt],
+    thumb: thumb('Space_Planet_Art'),
   },
   {
     title: 'Space Doodle Artwork',
@@ -377,6 +364,7 @@ const designProjects = [
     output: digitalArtwork,
     url: 'https://www.behance.net/gallery/249935263/Doodle-Space-Illustration',
     images: [spaceDoodleArt],
+    thumb: thumb('Space_doodle_artwork'),
   },
   {
     title: L('Bipolar Disorder Digital Art', 'Trouble bipolaire, art numérique'),
@@ -390,6 +378,7 @@ const designProjects = [
     output: posterArtwork,
     url: 'https://www.behance.net/gallery/249935705/Bipolar-Disorder-Surreal-Digital-Art',
     images: [bipolarArt],
+    thumb: thumb('bipolar_disorder_digital_art'),
   },
   {
     title: 'Memento Mori - تذكر أنك ميت',
@@ -403,6 +392,7 @@ const designProjects = [
     output: posterArtwork,
     url: 'https://www.behance.net/gallery/249936043/Memento-Mori',
     images: [mementoMori],
+    thumb: thumb('Memento_mori'),
   },
   {
     title: L('Fight Club Poster', 'Affiche Fight Club'),
@@ -416,6 +406,7 @@ const designProjects = [
     output: L('Movie poster', 'Affiche de film'),
     url: 'https://www.behance.net/gallery/249936477/Fight-Club-Digital-Art',
     images: [fightClub],
+    thumb: thumb('FightClub'),
   },
   {
     title: 'Curiosity Kills the Skeptic',
@@ -429,6 +420,7 @@ const designProjects = [
     output: posterArtwork,
     url: 'https://www.behance.net/gallery/249936735/Curiosity-Kills-The-Skeptic-Digital-Art',
     images: [curiositySkeptic],
+    thumb: thumb('curiositykillstheskeptic'),
   },
   {
     title: 'The Quantum Society',
@@ -442,6 +434,7 @@ const designProjects = [
     output: L('Two-sided poster', 'Affiche recto-verso'),
     url: 'https://www.behance.net/gallery/249936213/Tunisia-The-Quantum-Society-Digital-Art',
     images: [tunisiaFront, tunisiaBack],
+    thumb: thumb('Tunisia_Front'),
   },
   {
     title: "Hegel's Hotel California",
@@ -455,6 +448,7 @@ const designProjects = [
     output: L('Album rework', "Refonte d'album"),
     url: 'https://www.behance.net/gallery/249936937/Hegels-Hotel-California-Cover-Art',
     images: [hegelsHotel],
+    thumb: thumb('Hegels_hotel_california'),
   },
   {
     title: L('Skeptic Brand Identity', 'Identité de marque Skeptic'),
@@ -468,6 +462,7 @@ const designProjects = [
     output: L('Logo system', 'Système de logo'),
     url: 'https://www.behance.net/gallery/249937033/Skeptic-Logo-Design-Brand-Identity',
     images: [skepticLogo3, skepticLogo2, skepticLogo1, skepticLogo],
+    thumb: thumb('skeptic_logo_3'),
   },
   {
     title: 'The Dead Welder',
@@ -481,6 +476,7 @@ const designProjects = [
     output: L('Logo design', 'Logo'),
     url: 'https://www.behance.net/gallery/249937149/The-Dead-Welder-Logo-Design-Branding',
     images: [deadWelder],
+    thumb: thumb('The_dead_welder'),
   },
   {
     title: 'BioAura Cosmetics',
@@ -494,6 +490,7 @@ const designProjects = [
     output: L('Cosmetics brand', 'Marque cosmétique'),
     url: 'https://www.behance.net/gallery/249938017/BioAura-Cosmetics-Logo-Brand-Design',
     images: [bioaura],
+    thumb: thumb('bioaura'),
   },
   {
     title: L('Todo Notebook Covers', 'Couvertures de carnets Todo'),
@@ -507,6 +504,7 @@ const designProjects = [
     output: L('Notebook covers', 'Couvertures de carnets'),
     url: 'https://www.behance.net/gallery/249938287/Notebook-Cover-Design',
     images: [todo1, todo2],
+    thumb: thumb('todo1'),
   },
   {
     title: L('Derma-In Laboratory Flyers', 'Flyers Derma-In Laboratory'),
@@ -520,6 +518,7 @@ const designProjects = [
     output: L('Flyer series', 'Série de flyers'),
     url: 'https://www.behance.net/gallery/249938553/Derma-In-Laboratory-Flyer-Design',
     images: [flyer1, flyer2, flyer3, flyer4],
+    thumb: thumb('F1'),
   },
   {
     title: L('Skeptic T-Shirt Designs', 'T-shirts Skeptic'),
@@ -534,6 +533,7 @@ const designProjects = [
     url: 'https://www.teepublic.com/user/skeptic-styles',
     cta: L('Shop on TeePublic', 'Voir la boutique TeePublic'),
     images: [skepticTshirt, kant1, kant2, cogito, problemImage],
+    thumb: thumb('skepticTshirt'),
   },
 ]
 
@@ -543,6 +543,8 @@ const designBuild = L('Design, build', 'Design, dev')
 const devProjects = [
   {
     title: L('Digital Seal – Press Article Authenticity', 'Sceau numérique – Authenticité des articles de presse'),
+    category: 'backend',
+    featured: true,
     description: L(
       'Final-year project certifying that a news article was reviewed by a human before publication: the publisher seals the content cryptographically, and anyone can later check that what they read matches the seal. I own the software and security side; canonicalisation (content extraction, Unicode normalisation, JCS serialisation, SHA-256) is shipped as canon-v1, with Ed25519/JWS signing and a shared transparency log next.',
       "Projet de fin d'études qui certifie qu'un article de presse a été relu par un humain avant publication : l'éditeur scelle le contenu par cryptographie, et chacun peut ensuite vérifier que ce qu'il lit correspond au sceau. Je porte la partie logicielle et sécurité ; la canonicalisation (extraction du contenu, normalisation Unicode, sérialisation JCS, SHA-256) est livrée en canon-v1, la signature Ed25519/JWS et le journal de transparence partagé arrivent ensuite.",
@@ -556,6 +558,8 @@ const devProjects = [
   },
   {
     title: L('DataGuard Agent – Data Quality AI Agent', 'DataGuard Agent – Agent IA de contrôle qualité des données'),
+    category: 'ai',
+    featured: true,
     description: L(
       'A command-line AI agent that finds data-quality issues in CSV files: duplicates, missing values, out-of-range values and dates. Gemini picks its checks through function calling while pandas runs them locally, in a hand-written agent loop with self-correction, grounding, an iteration cap, retry with backoff and JSONL logging. It caught 12/12 planted errors.',
       "Un agent IA en ligne de commande qui détecte les problèmes de qualité dans des fichiers CSV : doublons, valeurs manquantes, valeurs et dates hors plage. Gemini choisit ses contrôles par function calling et pandas les exécute en local, dans une boucle d'agent écrite à la main avec autocorrection, ancrage, plafond d'itérations, relances avec backoff et journalisation JSONL. Il a détecté 12 erreurs plantées sur 12.",
@@ -570,6 +574,8 @@ const devProjects = [
   },
   {
     title: L('Medical Exam Simulation Platform', "Plateforme de simulation d'examen médical"),
+    category: 'web',
+    featured: true,
     description: L(
       'A responsive MERN Stack platform for French-speaking UMF Iasi medical students that simulates exams with randomized questions and exact grading algorithms. An extraction pipeline turned 30 complex PDFs into thousands of structured questions, replacing about 2 months of manual data entry.',
       "Une plateforme d'examens blancs MERN pour les étudiants francophones de l'UMF Iași, avec questions aléatoires et algorithmes de notation exacts. Une chaîne d'extraction de 30 PDF complexes importe des milliers de questions et remplace environ 2 mois de saisie manuelle.",
@@ -584,6 +590,8 @@ const devProjects = [
   },
   {
     title: L('ResumeCandy – Resume Versioning Engine', 'ResumeCandy – Générateur de CV avec gestion des versions'),
+    category: 'web',
+    featured: true,
     description: L(
       'A modern web application designed to help users create, manage, and version multiple resumes. Built with multilingual and RTL support, customizable templates, and ATS-friendly PDF export.',
       "Un générateur de CV multi-versions à partir d'une base unique, avec export PDF compatible ATS et prise en charge multilingue et RTL (fr, en, ar) avec inversion complète de la mise en page.",
@@ -598,6 +606,7 @@ const devProjects = [
   },
   {
     title: L('Inventory Management REST API', "API REST de gestion d'inventaire"),
+    category: 'backend',
     description: L(
       'A university assignment pushed well beyond the brief: a layered Spring Boot API with DTOs, mappers, paginated search with dynamic filters and OpenAPI docs. Built for robustness with Flyway migrations, Bean Validation, RFC 9457 error handling, optimistic locking and an N+1 fix, tested at every layer and shipped as a multi-stage Docker build with Compose.',
       "Un projet universitaire poussé bien au-delà de la consigne : une API Spring Boot en couches avec DTO, mappers, recherche paginée à filtres dynamiques et documentation OpenAPI. Pensée pour la robustesse avec migrations Flyway, Bean Validation, gestion d'erreurs RFC 9457, verrouillage optimiste et correction du problème N+1, testée à chaque couche et livrée en build Docker multi-étapes avec Compose.",
@@ -612,6 +621,7 @@ const devProjects = [
   },
   {
     title: L('Printymand – Print-on-Demand Marketplace', 'Printymand – Marketplace d’impression à la demande'),
+    category: 'web',
     description: L(
       'An end-of-year team project: a print-on-demand marketplace with 4 user roles, JWT authentication, role-based access control and a 7-state order lifecycle. I built the Angular front end; my teammates handled the NestJS back end.',
       'Un projet de fin d’année en équipe : une marketplace d’impression à la demande avec 4 rôles, authentification JWT, contrôle d’accès par rôle et un cycle de vie de commande en 7 états. J’ai réalisé le front-end Angular ; mes coéquipiers ont développé le back-end NestJS.',
@@ -626,6 +636,8 @@ const devProjects = [
   },
   {
     title: 'InvoiceScan+',
+    category: 'ai',
+    featured: true,
     description: L(
       'An AI document pipeline: upload any document image, OpenCV preprocessing cleans it up, Tesseract OCR reads it, and Gemini identifies the document type and extracts the relevant data into a usable JSON, Word or PDF file within seconds.',
       'Un pipeline documentaire IA : on importe une image de document, OpenCV la nettoie, Tesseract OCR la lit, puis Gemini identifie le type de document et extrait les données utiles dans un fichier JSON, Word ou PDF exploitable, en quelques secondes.',
@@ -640,6 +652,7 @@ const devProjects = [
   },
   {
     title: L('Tunisie Telecom Social Activity Management Website', 'Plateforme de gestion des activités sociales Tunisie Telecom'),
+    category: 'web',
     description: L(
       'A website for Tunisie Telecom, which is a website that manages social activities, accounts and offers of Tunisie Telecom Employees developed using MERN Stack.',
       'Une plateforme pour Tunisie Telecom qui gère les activités sociales, les comptes et les offres destinées aux employés, développée avec la stack MERN.',
@@ -654,6 +667,7 @@ const devProjects = [
   },
   {
     title: 'ZanzibarExplore',
+    category: 'client',
     description: L(
       'A WordPress business website for a Zanzibar client where visitors can book activities and excursions. Built to highlight experiences and make inquiries fast on mobile and desktop.',
       'Un site vitrine WordPress pour un client à Zanzibar, où les visiteurs peuvent réserver des activités et des excursions. Conçu pour mettre en valeur les expériences et accélérer les demandes, sur mobile comme sur desktop.',
@@ -668,6 +682,7 @@ const devProjects = [
   },
   {
     title: L('Task & Project Manager – ASP.NET Core', 'Gestionnaire de tâches et projets – ASP.NET Core'),
+    category: 'backend',
     description: L(
       'A solo back-end course project: a server-rendered MVC interface and a separate REST JSON API sharing one database. Code-first EF Core with migrations, cascade delete and validation, full CRUD with a priority filter and status toggle, correct HTTP status codes, CSRF protection, over-posting prevention and concurrency handling.',
       "Un projet solo du cours de développement back-end : une interface MVC rendue côté serveur et une API REST JSON distincte sur la même base de données. EF Core en code-first avec migrations, suppression en cascade et validation, CRUD complet avec filtre de priorité et bascule de statut, codes HTTP corrects, protection CSRF, prévention de l'over-posting et gestion de la concurrence.",
@@ -682,6 +697,7 @@ const devProjects = [
   },
   {
     title: L('TaskManager – Android Task App', 'TaskManager – Application Android de tâches'),
+    category: 'mobile',
     description: L(
       'An Android task app built for my 2nd-year mobile course: local CRUD in SQLite with data isolated per user, deadlines with countdown timers, photo capture and import with compression and private storage, and profile sync through Firebase.',
       'Une application Android de gestion de tâches réalisée en cours de mobile (2e année) : CRUD local en SQLite avec données isolées par utilisateur, échéances avec comptes à rebours, prise et import de photos avec compression et stockage privé, et synchronisation du profil via Firebase.',
@@ -696,6 +712,7 @@ const devProjects = [
   },
   {
     title: L('My Portfolio Website', 'Mon site portfolio'),
+    category: 'web',
     description: L(
       'Explore my personal React portfolio, where I bring creativity and code together-showcasing my graphic design projects, web development work, professional experience, and ways to connect.',
       'Mon portfolio React personnel, où créativité et code se rejoignent : projets de design graphique, développement web, expérience professionnelle et moyens de me contacter.',
@@ -710,6 +727,7 @@ const devProjects = [
   },
   {
     title: L('Derma-In E-commerce Website', 'Site e-commerce Derma-In'),
+    category: 'client',
     description: L(
       'A functional & responsive E-commerce website for derma-in laboratory, created using wordpress. Designed to help the company manage its orders and products through a user-friendly UI.',
       "Un site e-commerce fonctionnel et responsive pour le laboratoire Derma-In, réalisé avec WordPress, pour aider l'entreprise à gérer ses commandes et ses produits via une interface simple.",
@@ -724,6 +742,7 @@ const devProjects = [
   },
   {
     title: L('Jrad Beauty Center Blog Website', 'Blog Jrad Beauty Center'),
+    category: 'client',
     description: L(
       'A responsive wordpress blog website for Jrad Beauty Center that helps the clients get to know the project and better reach it through a user-friendly and minimalist UI.',
       'Un blog WordPress responsive pour Jrad Beauty Center, qui aide les clients à découvrir le centre et à le contacter plus facilement grâce à une interface simple et minimaliste.',
@@ -738,6 +757,7 @@ const devProjects = [
   },
   {
     title: L('Sales Data Analysis Mini Project', "Mini-projet d'analyse des ventes"),
+    category: 'ai',
     description: L(
       'A compact data analysis project that explores sales performance and patterns using Python, with clear visual summaries and insights.',
       'Un projet compact d’analyse de données qui explore les performances et les tendances de ventes avec Python, avec des synthèses visuelles claires.',
@@ -752,6 +772,7 @@ const devProjects = [
   },
   {
     title: L('K-Means Color Quantization Mini Project', 'Mini-projet de quantification des couleurs K-Means'),
+    category: 'ai',
     description: L(
       'An image processing mini project that reduces color palettes using K-Means clustering for cleaner, stylized visuals.',
       "Un mini-projet de traitement d'images qui réduit les palettes de couleurs par clustering K-Means pour des visuels plus nets et stylisés.",
@@ -766,6 +787,7 @@ const devProjects = [
   },
   {
     title: L('React Calculator', 'Calculatrice React'),
+    category: 'web',
     description: L(
       "A simple React calculator developed purely for the purpose of learning and mastering Tailwind CSS, found it a good idea in terms of learning to use Tailwind's grid system, dark & light theme control and other features of it at that time.",
       'Une calculatrice React simple, développée pour apprendre et maîtriser Tailwind CSS : son système de grille, la gestion des thèmes clair et sombre et ses autres fonctionnalités.',
@@ -1038,239 +1060,6 @@ function HeroVisual() {
   )
 }
 
-function splitTitle(title) {
-  const words = title.split(' ')
-  if (words.length < 2) return [null, title]
-  return [words.slice(0, -1).join(' '), words.at(-1)]
-}
-
-function WorkShowcase({ id, copy, projects, type, number }) {
-  const { t } = useLang()
-  const [openProject, setOpenProject] = useState(null)
-  const [imageIndex, setImageIndex] = useState(0)
-  const wrapRef = useRef(null)
-  const trackRef = useRef(null)
-  const fillRef = useRef(null)
-  const countRef = useRef(null)
-  const panels = projects.length + 1
-
-  useEffect(() => {
-    const wrap = wrapRef.current
-    const track = trackRef.current
-    if (!wrap || !track) return
-
-    const update = () => {
-      const rect = wrap.getBoundingClientRect()
-      const maxScroll = wrap.offsetHeight - window.innerHeight
-      const progress = maxScroll > 0 ? Math.max(0, Math.min(1, -rect.top / maxScroll)) : 0
-      track.style.transform = `translate3d(${-((panels - 1) * window.innerWidth) * progress}px, 0, 0)`
-      if (fillRef.current) fillRef.current.style.width = `${progress * 100}%`
-      if (countRef.current) {
-        const current = Math.min(panels - 1, Math.max(0, Math.floor(progress * (panels - 1) + 0.05)))
-        countRef.current.textContent = String(current).padStart(2, '0')
-      }
-    }
-
-    // Horizontal gestures drive the same vertical scroll, so both directions move the track
-    const sticky = wrap.querySelector('.work-sticky')
-    const geometry = () => {
-      const top = wrap.getBoundingClientRect().top + window.scrollY
-      const maxScroll = wrap.offsetHeight - window.innerHeight
-      return { top, maxScroll, step: maxScroll / (panels - 1), ratio: maxScroll / ((panels - 1) * window.innerWidth) }
-    }
-    const isPinned = () => {
-      const rect = wrap.getBoundingClientRect()
-      return rect.top <= 2 && rect.bottom >= window.innerHeight - 2
-    }
-    const jump = (y, smooth) => {
-      const { top, maxScroll } = geometry()
-      window.scrollTo({ top: Math.max(top, Math.min(top + maxScroll, y)), behavior: smooth ? 'smooth' : 'instant' })
-    }
-
-    let gesture = null
-    const onTouchStart = (event) => {
-      if (event.touches.length !== 1 || !isPinned()) return
-      const touch = event.touches[0]
-      gesture = { x: touch.clientX, y: touch.clientY, scroll: window.scrollY, time: performance.now(), axis: null, dx: 0 }
-    }
-    const onTouchMove = (event) => {
-      if (!gesture) return
-      const touch = event.touches[0]
-      const dx = touch.clientX - gesture.x
-      const dy = touch.clientY - gesture.y
-      if (!gesture.axis && Math.hypot(dx, dy) > 8) gesture.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
-      if (gesture.axis !== 'x') return
-      event.preventDefault()
-      gesture.dx = dx
-      jump(gesture.scroll - dx * geometry().ratio, false)
-    }
-    const onTouchEnd = () => {
-      if (!gesture || gesture.axis !== 'x') {
-        gesture = null
-        return
-      }
-      const { top, step } = geometry()
-      const from = Math.round((gesture.scroll - top) / step)
-      const fast = Math.abs(gesture.dx) / (performance.now() - gesture.time) > 0.35
-      const moved = Math.abs(gesture.dx) > window.innerWidth * 0.18 || (fast && Math.abs(gesture.dx) > 24)
-      const target = Math.max(0, Math.min(panels - 1, from + (moved ? (gesture.dx < 0 ? 1 : -1) : 0)))
-      jump(top + target * step, true)
-      gesture = null
-    }
-    const onWheel = (event) => {
-      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || !isPinned()) return
-      event.preventDefault()
-      jump(window.scrollY + event.deltaX * geometry().ratio, false)
-    }
-
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-    sticky.addEventListener('touchstart', onTouchStart, { passive: true })
-    sticky.addEventListener('touchmove', onTouchMove, { passive: false })
-    sticky.addEventListener('touchend', onTouchEnd)
-    sticky.addEventListener('touchcancel', onTouchEnd)
-    sticky.addEventListener('wheel', onWheel, { passive: false })
-    return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
-      sticky.removeEventListener('touchstart', onTouchStart)
-      sticky.removeEventListener('touchmove', onTouchMove)
-      sticky.removeEventListener('touchend', onTouchEnd)
-      sticky.removeEventListener('touchcancel', onTouchEnd)
-      sticky.removeEventListener('wheel', onWheel)
-    }
-  }, [panels])
-
-  useEffect(() => {
-    if (!openProject) return
-    document.body.classList.add('modal-open')
-    const onKey = (event) => {
-      if (event.key === 'Escape') setOpenProject(null)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.classList.remove('modal-open')
-    }
-  }, [openProject])
-
-  const open = (project) => {
-    setOpenProject(project)
-    setImageIndex(0)
-  }
-
-  const activeImages = openProject?.images || [openProject?.image].filter(Boolean)
-
-  return (
-    <section
-      id={id}
-      className={`work-wrap ${type}-work`}
-      data-screen-label={en(copy.eyebrow)}
-      ref={wrapRef}
-      style={{ height: `${panels * 100}svh` }}
-    >
-      <div className="work-sticky">
-        <div className="work-track" ref={trackRef}>
-          <div className="work-intro">
-            <p className="eyebrow"><span className="num">{number}</span><span className="line" /><span>{t(copy.eyebrow)}</span></p>
-            <div className="titleblock">
-              <h2>{t(copy.title)} <span className="grad">{t(copy.mark)}</span><em>{t(copy.subtitle)}</em></h2>
-              <p className="work-note">{t(copy.note)}</p>
-            </div>
-            <div className="meta-row">
-              <div className="count">{projects.length} {t(ui.projects)} - {t(copy.count)}</div>
-              <div className="swipe">
-                <span className="on-pointer">{t(ui.scrollRight)}</span>
-                <span className="on-touch">{t(ui.swipeHint)}</span>
-                <span className="arrow" />
-              </div>
-            </div>
-          </div>
-
-          {projects.map((project, index) => {
-            const title = t(project.title)
-            const [titleHead, titleTail] = splitTitle(title)
-            return (
-              <article
-                className={`project ${index % 2 ? 'alt' : ''}`}
-                key={en(project.title)}
-                onClick={() => open(project)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') open(project)
-                }}
-                role="button"
-                tabIndex={0}
-                data-hover
-              >
-                <div className="project-media">
-                  <span className="number">{String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
-                  <span className="halo" aria-hidden="true" />
-                  <div className="frame"><img src={project.images?.[0] || project.image} alt={title} loading="lazy" /></div>
-                </div>
-                <div className="project-info">
-                  <span className="kind">{t(project.tag)} - {project.year}</span>
-                  <h3>{titleHead && <>{titleHead} </>}<em>{titleTail}</em></h3>
-                  <p>{t(project.description)}</p>
-                  <div className="specs">
-                    <div className="spec"><div className="label">{t(ui.role)}</div><div className="value">{t(project.role)}</div></div>
-                    <div className="spec"><div className="label">{t(ui.year)}</div><div className="value">{project.year}</div></div>
-                    <div className="spec"><div className="label">{t(ui.output)}</div><div className="value">{t(project.output)}</div></div>
-                  </div>
-                  {project.tech && (
-                    <div className="tools compact">
-                      {project.tech.map((tech) => <span className="tool" key={en(tech)}>{t(tech)}</span>)}
-                    </div>
-                  )}
-                  <div className="project-actions" onClick={(event) => event.stopPropagation()}>
-                    <button className="link solid" onClick={() => open(project)}>{t(ui.openCase)} <span className="arrow" /></button>
-                    {project.url && <a className="link" href={project.url} target={project.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{t(project.cta || (type === 'design' ? ui.viewBehance : ui.viewProject))} <span className="arrow" /></a>}
-                  </div>
-                </div>
-              </article>
-            )
-          })}
-        </div>
-        <div className="work-progress" aria-hidden="true">
-          <span className="label">P - <span data-work-count ref={countRef}>00</span> / {String(panels - 1).padStart(2, '0')}</span>
-          <span className="bar"><span className="fill" ref={fillRef} /></span>
-          <span className="label">{t(ui.scrollAdvance)}</span>
-        </div>
-      </div>
-
-      {openProject && createPortal(
-        <div className="modal-backdrop" onClick={() => setOpenProject(null)}>
-          <div className="modal-panel" onClick={(event) => event.stopPropagation()}>
-            <button className="modal-close" onClick={() => setOpenProject(null)} aria-label={t(ui.closeProject)}>×</button>
-            <div className="modal-media">
-              <img src={activeImages[imageIndex]} alt={t(openProject.title)} />
-              {activeImages.length > 1 && (
-                <>
-                  <div className="modal-arrows">
-                    <button onClick={() => setImageIndex((imageIndex - 1 + activeImages.length) % activeImages.length)} aria-label={t(ui.prevImage)}>‹</button>
-                    <button onClick={() => setImageIndex((imageIndex + 1) % activeImages.length)} aria-label={t(ui.nextImage)}>›</button>
-                  </div>
-                  <div className="modal-dots" aria-hidden="true">
-                    {activeImages.map((image, index) => <i key={image} className={index === imageIndex ? 'on' : ''} />)}
-                  </div>
-                </>
-              )}
-            </div>
-            <div className="modal-body">
-              <span className="kind">{t(openProject.tag)} - {openProject.year}</span>
-              <h3>{t(openProject.title)}</h3>
-              <p>{t(openProject.description)}</p>
-              {openProject.tech && <div className="tools compact">{openProject.tech.map((tech) => <span className="tool" key={en(tech)}>{t(tech)}</span>)}</div>}
-              {openProject.url && <a className="link solid" href={openProject.url} target={openProject.url.startsWith('#') ? undefined : '_blank'} rel="noopener noreferrer">{t(openProject.cta || ui.openProject)} <span className="arrow" /></a>}
-            </div>
-          </div>
-        </div>,
-        document.body,
-      )}
-    </section>
-  )
-}
-
 function Portfolio() {
   usePortfolioInteractions()
   const { t } = useLang()
@@ -1501,8 +1290,8 @@ function Portfolio() {
           </div>
         </section>
 
-        <WorkShowcase id="dev-work" copy={ui.devWork} projects={devProjects} type="dev" number="06" />
-        <WorkShowcase id="design-work" copy={ui.designWork} projects={designProjects} type="design" number="07" />
+        <DevWork id="dev-work" copy={ui.devWork} projects={devProjects} number="06" />
+        <DesignGalaxy id="design-work" copy={ui.designWork} projects={designProjects} number="07" />
 
         <Contact socials={socials} />
       </main>
