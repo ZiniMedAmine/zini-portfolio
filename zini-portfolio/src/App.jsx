@@ -43,6 +43,12 @@ import zanzibarExplore from './assets/ZanzibarExplore.webp'
 import dataAnalysisProj from './assets/dataanalysisproj.webp'
 import colorQuantization from './assets/colorquantization.webp'
 import ResumeCandy from './assets/cv_content_screenshot.webp'
+import inventoryApi from './assets/InventoryAPI.webp'
+import taskManagerDotNet from './assets/TaskManagerDotNet.webp'
+import dataGuardAgent from './assets/DataGuardAgent.webp'
+import digitalSeal from './assets/DigitalSeal.webp'
+import printymand from './assets/Printymand.webp'
+import androidTaskManager from './assets/AndroidTaskManager.webp'
 
 const socials = [
   ['GitHub', '@ZiniMedAmine', 'https://github.com/ZiniMedAmine'],
@@ -258,7 +264,7 @@ const education = [
     when: L('Sep 2026 - Present', "Sept. 2026 - aujourd'hui"),
     country: 'FR',
     city: 'Laval, France',
-    degree: L('International Exchange in Software Engineering (Bac+5)', 'Échange international en Software Engineering (bac+5)'),
+    degree: L("International Exchange in Software Engineering (Master's level)", 'Échange international en Software Engineering (bac+5)'),
     school: 'ESIEA',
     status: L('Exchange - current', 'Échange - en cours'),
   },
@@ -536,6 +542,33 @@ const designBuild = L('Design, build', 'Design, dev')
 
 const devProjects = [
   {
+    title: L('Digital Seal – Press Article Authenticity', 'Sceau numérique – Authenticité des articles de presse'),
+    description: L(
+      'Final-year project certifying that a news article was reviewed by a human before publication: the publisher seals the content cryptographically, and anyone can later check that what they read matches the seal. I own the software and security side; canonicalisation (content extraction, Unicode normalisation, JCS serialisation, SHA-256) is shipped as canon-v1, with Ed25519/JWS signing and a shared transparency log next.',
+      "Projet de fin d'études qui certifie qu'un article de presse a été relu par un humain avant publication : l'éditeur scelle le contenu par cryptographie, et chacun peut ensuite vérifier que ce qu'il lit correspond au sceau. Je porte la partie logicielle et sécurité ; la canonicalisation (extraction du contenu, normalisation Unicode, sérialisation JCS, SHA-256) est livrée en canon-v1, la signature Ed25519/JWS et le journal de transparence partagé arrivent ensuite.",
+    ),
+    tag: L('Cybersecurity | Software Engineering', 'Cybersécurité | Ingénierie logicielle'),
+    year: '2026',
+    role: L('Software & security', 'Logiciel & sécurité'),
+    output: L('Content sealing system', 'Système de scellement de contenu'),
+    image: digitalSeal,
+    tech: ['Python', 'pytest', 'BeautifulSoup', 'JCS (RFC 8785)', 'SHA-256', L('Merkle tree', 'Arbre de Merkle'), 'Ed25519 / JWS', 'FastAPI'],
+  },
+  {
+    title: L('DataGuard Agent – Data Quality AI Agent', 'DataGuard Agent – Agent IA de contrôle qualité des données'),
+    description: L(
+      'A command-line AI agent that finds data-quality issues in CSV files: duplicates, missing values, out-of-range values and dates. Gemini picks its checks through function calling while pandas runs them locally, in a hand-written agent loop with self-correction, grounding, an iteration cap, retry with backoff and JSONL logging. It caught 12/12 planted errors.',
+      "Un agent IA en ligne de commande qui détecte les problèmes de qualité dans des fichiers CSV : doublons, valeurs manquantes, valeurs et dates hors plage. Gemini choisit ses contrôles par function calling et pandas les exécute en local, dans une boucle d'agent écrite à la main avec autocorrection, ancrage, plafond d'itérations, relances avec backoff et journalisation JSONL. Il a détecté 12 erreurs plantées sur 12.",
+    ),
+    tag: L('AI Agent', 'Agent IA'),
+    year: '2026',
+    role: L('Solo dev', 'Dev solo'),
+    output: L('CLI agent', 'Agent CLI'),
+    image: dataGuardAgent,
+    url: 'https://github.com/ZiniMedAmine/dataguard-agent',
+    tech: ['Python', 'Gemini API', 'Function Calling', 'pandas', 'pytest'],
+  },
+  {
     title: L('Medical Exam Simulation Platform', "Plateforme de simulation d'examen médical"),
     description: L(
       'A responsive MERN Stack platform for French-speaking UMF Iasi medical students that simulates exams with randomized questions and exact grading algorithms. An extraction pipeline turned 30 complex PDFs into thousands of structured questions, replacing about 2 months of manual data entry.',
@@ -562,6 +595,34 @@ const devProjects = [
     image: ResumeCandy,
     url: 'https://github.com/ZiniMedAmine/ResumeCandy',
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
+  },
+  {
+    title: L('Inventory Management REST API', "API REST de gestion d'inventaire"),
+    description: L(
+      'A university assignment pushed well beyond the brief: a layered Spring Boot API with DTOs, mappers, paginated search with dynamic filters and OpenAPI docs. Built for robustness with Flyway migrations, Bean Validation, RFC 9457 error handling, optimistic locking and an N+1 fix, tested at every layer and shipped as a multi-stage Docker build with Compose.',
+      "Un projet universitaire poussé bien au-delà de la consigne : une API Spring Boot en couches avec DTO, mappers, recherche paginée à filtres dynamiques et documentation OpenAPI. Pensée pour la robustesse avec migrations Flyway, Bean Validation, gestion d'erreurs RFC 9457, verrouillage optimiste et correction du problème N+1, testée à chaque couche et livrée en build Docker multi-étapes avec Compose.",
+    ),
+    tag: 'Spring Boot',
+    year: '2026',
+    role: L('Backend dev', 'Dev back-end'),
+    output: 'REST API',
+    image: inventoryApi,
+    url: 'https://github.com/ZiniMedAmine/inventory-management-api',
+    tech: ['Java 17', 'Spring Boot', 'PostgreSQL', 'Flyway', 'JUnit 5', 'Mockito', 'Docker', 'OpenAPI'],
+  },
+  {
+    title: L('Printymand – Print-on-Demand Marketplace', 'Printymand – Marketplace d’impression à la demande'),
+    description: L(
+      'An end-of-year team project: a print-on-demand marketplace with 4 user roles, JWT authentication, role-based access control and a 7-state order lifecycle. I built the Angular front end; my teammates handled the NestJS back end.',
+      'Un projet de fin d’année en équipe : une marketplace d’impression à la demande avec 4 rôles, authentification JWT, contrôle d’accès par rôle et un cycle de vie de commande en 7 états. J’ai réalisé le front-end Angular ; mes coéquipiers ont développé le back-end NestJS.',
+    ),
+    tag: 'Angular',
+    year: '2026',
+    role: L('Frontend dev', 'Dev front-end'),
+    output: 'Marketplace',
+    image: printymand,
+    url: 'https://github.com/wassim-tahraoui88/printymand',
+    tech: ['Angular', 'TypeScript', 'NestJS', 'PostgreSQL', 'JWT', 'RBAC'],
   },
   {
     title: 'InvoiceScan+',
@@ -604,6 +665,34 @@ const devProjects = [
     image: zanzibarExplore,
     url: 'https://zanzibarexplore.com',
     tech: ['WordPress', 'Elementor', L('Bookings', 'Réservations'), 'SEO'],
+  },
+  {
+    title: L('Task & Project Manager – ASP.NET Core', 'Gestionnaire de tâches et projets – ASP.NET Core'),
+    description: L(
+      'A solo back-end course project: a server-rendered MVC interface and a separate REST JSON API sharing one database. Code-first EF Core with migrations, cascade delete and validation, full CRUD with a priority filter and status toggle, correct HTTP status codes, CSRF protection, over-posting prevention and concurrency handling.',
+      "Un projet solo du cours de développement back-end : une interface MVC rendue côté serveur et une API REST JSON distincte sur la même base de données. EF Core en code-first avec migrations, suppression en cascade et validation, CRUD complet avec filtre de priorité et bascule de statut, codes HTTP corrects, protection CSRF, prévention de l'over-posting et gestion de la concurrence.",
+    ),
+    tag: 'ASP.NET Core',
+    year: '2025',
+    role: L('Solo dev', 'Dev solo'),
+    output: L('Web app & REST API', 'App web & API REST'),
+    image: taskManagerDotNet,
+    url: 'https://github.com/ZiniMedAmine/TaskManager-.NET',
+    tech: ['C#', '.NET 8', 'ASP.NET Core MVC', 'Razor', 'Entity Framework Core', 'SQL Server', 'Swagger'],
+  },
+  {
+    title: L('TaskManager – Android Task App', 'TaskManager – Application Android de tâches'),
+    description: L(
+      'An Android task app built for my 2nd-year mobile course: local CRUD in SQLite with data isolated per user, deadlines with countdown timers, photo capture and import with compression and private storage, and profile sync through Firebase.',
+      'Une application Android de gestion de tâches réalisée en cours de mobile (2e année) : CRUD local en SQLite avec données isolées par utilisateur, échéances avec comptes à rebours, prise et import de photos avec compression et stockage privé, et synchronisation du profil via Firebase.',
+    ),
+    tag: 'Android',
+    year: '2025',
+    role: L('Mobile dev', 'Dev mobile'),
+    output: L('Android app', 'Application Android'),
+    image: androidTaskManager,
+    url: 'https://github.com/ZiniMedAmine/Android-Java-Task-Management-Project',
+    tech: ['Java', 'Android Studio', 'SQLite', 'Firebase'],
   },
   {
     title: L('My Portfolio Website', 'Mon site portfolio'),
